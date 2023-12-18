@@ -4,6 +4,10 @@ class IdeasController < ApplicationController
     @ideas = Idea.where(parent_id: 1).all
   end
 
+  def solution
+    @ideas = Idea.where(parent_id: 1).all
+  end
+
   def first_create
     @idea = Idea.new(idea_params)
     if @idea.save
@@ -17,7 +21,7 @@ class IdeasController < ApplicationController
     idea_params[:name].each do |name|
       Idea.create(name: name,parent_id: 1)
     end
-    redirect_to solution_tasks_path, notice: '登録が完了しました'
+    redirect_to solution_ideas_path, notice: '登録が完了しました'
   end
 
 
