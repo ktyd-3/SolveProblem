@@ -1,3 +1,12 @@
 
+= Idea.tree_view(:name)
+
 = @ideas.each do |idea|
-  p #{idea.name}
+  - @parent = idea.parent
+  p #{idea.name} << #{@parent}
+  = form_with model: Idea.new, local: true do |form|
+    - 5.times do |i|
+        = form.text_field "name[]", multiple: true, name: "idea[name][]"
+        = form.hidden_field "idea[parent_id][]", value: (idea.parent_id + 1)
+        br
+    = form.submit "作成する", class: 'btn btn-primary'

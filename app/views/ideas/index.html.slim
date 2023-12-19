@@ -8,8 +8,11 @@ h2 Step1 問題解決したいテーマを選びます。
     br
     = form.submit "作成する", class: 'btn btn-primary'
 - else
-  p #{@problem.name}
-  p 変更する
+  = form_with model: @problem, url: idea_path(@problem), method: :patch, local: true do |form|
+    = form.text_field "name", value: @problem.name
+    br
+    = form.submit "変更する", class: 'btn btn-primary'
+
 
 
 - if @problem.present?
@@ -29,6 +32,11 @@ h2 Step1 問題解決したいテーマを選びます。
       = form.hidden_field "idea[parent_id][]", value: 1
       br
     = form.submit "作成する", class: 'btn btn-primary'
+
+- if @ideas.present?
+  h2 問題の解決策
+  = @ideas.each do |idea|
+    p #{idea.name}
 
 
 

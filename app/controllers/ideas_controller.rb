@@ -15,6 +15,10 @@ class IdeasController < ApplicationController
     end
   end
 
+  def edit
+    @idea = Idea.find(params[:id])
+  end
+
 
   def create
     idea_params = params.require(:idea).permit(name: [])
@@ -27,18 +31,18 @@ class IdeasController < ApplicationController
 
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(task_params)
-      redirect_to tasks_path, notice: 'タスクが更新されました。'
+    @idea = Idea.find(params[:id])
+    if @idea.update(idea_params)
+      redirect_to ideas_path, notice: 'タスクが更新されました。'
     else
       render :edit
     end
   end
 
   def destroy
-    @task = Task.find(params[:id])
-    @task.destroy
-    redirect_to tasks_path, notice: 'タスクが削除されました。'
+    @idea = Idea.find(params[:id])
+    @idea.destroy
+    redirect_to ideas_path, notice: 'タスクが削除されました。'
   end
 
 

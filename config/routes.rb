@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   root to: "ideas#index"
   resources :ideas do
     member do
-      get 'first_create'
-      post 'first_create'
+      patch 'update'
     end
 
     collection do
