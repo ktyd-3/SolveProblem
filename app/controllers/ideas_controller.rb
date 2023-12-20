@@ -1,19 +1,24 @@
 class IdeasController < ApplicationController
+
   def index
     @problem = Idea.first
     @ideas = Idea.where(parent_id: 1).all
   end
 
-  def solution
-    @ideas = Idea.where(parent_id: 1).all
-  end
 
   def first_create
-    @idea = Idea.new(idea_params)
-    if @idea.save
-      render :index
-    end
+    name = params.dig(:idea, :name)
+    root = Idea.create(name: name)
+    redirect_to ideas_path
   end
+
+  def solution
+    root = Idea.first
+    @ideas = root.children
+    @tree_view = Idea.tree_view(:name)
+  end
+
+
 
   def edit
     @idea = Idea.find(params[:id])
@@ -21,11 +26,13 @@ class IdeasController < ApplicationController
 
 
   def create
-    idea_params = params.require(:idea).permit(name: [])
+    idea_params = params.require(:idea).permit(name: [], parent_id: [])
+    this_idea_parent_id = params.dig(:idea, :parent_id)
     idea_params[:name].each do |name|
-      Idea.create(name: name,parent_id: 1)
+      parent = Idea.find(this_idea_parent_id)
+      parent.children.create(name: name)
     end
-    redirect_to solution_ideas_path, notice: '登録が完了しました'
+    redirect_to solution_path(this_idea_parent_id), notice: '登録が完了しました'
   end
 
 
@@ -49,8 +56,14 @@ class IdeasController < ApplicationController
   private
 
   def idea_params
-    params.require(:idea).permit(:name, :parent_id)
+    params.require(:idea).permit(
+      :name,
+      :parent_id,
+      name: [],
+      parent_id: []
+      )
   end
+
 
 
 end

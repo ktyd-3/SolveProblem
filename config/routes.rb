@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   resources :ideas do
     member do
       patch 'update'
+      post 'solution/:id', action: :solution
     end
 
     collection do
       post 'first_create'
-      get 'solution'
     end
   end
 end

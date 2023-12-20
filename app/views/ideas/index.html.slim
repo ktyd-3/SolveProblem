@@ -8,10 +8,8 @@ h2 Step1 問題解決したいテーマを選びます。
     br
     = form.submit "作成する", class: 'btn btn-primary'
 - else
-  = form_with model: @problem, url: idea_path(@problem), method: :patch, local: true do |form|
-    = form.text_field "name", value: @problem.name
-    br
-    = form.submit "変更する", class: 'btn btn-primary'
+  = @problem.name
+
 
 
 
@@ -29,7 +27,7 @@ h2 Step1 問題解決したいテーマを選びます。
   = form_with model: Idea.new, local: true do |form|
     - 6.times do |i|
       = form.text_field "name[]", multiple: true, name: "idea[name][]"
-      = form.hidden_field "idea[parent_id][]", value: 1
+      = form.hidden_field "parent_id", value: @problem.id
       br
     = form.submit "作成する", class: 'btn btn-primary'
 
