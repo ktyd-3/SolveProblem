@@ -1,7 +1,6 @@
 class Idea < ApplicationRecord
-
-  extend ActsAsTree::TreeView
   acts_as_tree order: "name"
+  extend ActsAsTree::TreeView
 
 
   validates :name, presence: true

@@ -27,8 +27,8 @@ h2 Step1 問題解決したいテーマを選びます。
   = form_with model: Idea.new, local: true do |form|
     - 6.times do |i|
       = form.text_field "name[]", multiple: true, name: "idea[name][]"
-      br/
-    = form.hidden_field "parent_id", value: @problem.id
+      = form.hidden_field "parent_id", value: @problem.id
+      br
     = form.submit "作成する", class: 'btn btn-primary'
 
 - if @ideas.present?

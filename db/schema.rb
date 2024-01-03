@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_23_001337) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_17_090207) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +19,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_001337) do
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "easy_point"
-    t.integer "effect_point"
   end
 
 end

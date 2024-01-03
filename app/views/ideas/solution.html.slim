@@ -1,19 +1,10 @@
 
+= @tree_vieew
 
-
-- if @root != @problem
-  = link_to "一つ前の階層へ", :back 
-
-h2 「#{@problem.name}」の問題解決
 
 - if @ideas.present?
-  h2 #{@ideas.first.parent.name}のアイデア一覧
   - @ideas.each do |idea|
-    h3 #{idea.name} 
-    - if idea.children.present?
-      - idea.children.each do |child|
-        = " ・#{child.name}"
-        br/
+    p #{idea.name}  <<  【#{idea.parent.name}】
     = form_with model: Idea.new, local: true do |form|
       - 5.times do |i|
         = form.text_field "name[]", multiple: true, name: "idea[name][]"
