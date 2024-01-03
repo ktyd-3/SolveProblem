@@ -9,6 +9,8 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
+    = link_to '解決テーマ', root_path, class: "btn btn-light btn-spacing"
+    = link_to 'アイデア評価', evaluate_ideas_path, class: "btn btn-light"
     - if flash.notice.present?
       .alert.alert-success= flash.notice
     = yield

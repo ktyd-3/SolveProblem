@@ -1,0 +1,5 @@
+li
+  = node.name
+  - if node.children.any?
+    ul
+      = render_tree(node.children)
