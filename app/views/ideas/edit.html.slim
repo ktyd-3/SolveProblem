@@ -1,4 +1,13 @@
 h2 タスクの編集
 
 
+= form_for @idea, url: idea_path(@idea), method: :patch do |f|
+  div
+    = f.label :name
+    = f.text_field :name
+    br/
+    = f.submit "アイデアを変える"
+    
+p 
+= link_to "中止する", idea_path(@idea)
 

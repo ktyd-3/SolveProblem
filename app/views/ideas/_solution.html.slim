@@ -1,0 +1,28 @@
+- if @root != @problem
+  = link_to "一つ前の階層へ", :back 
+
+h2 「#{@problem.name}」の問題解決
+- @ideas.each do |idea|
+  = form_with model: Idea.new, local: true do |form|
+      - 5.times do |i|
+        = form.text_field "name[]", multiple: true, name: "idea[name][]"
+        = form.hidden_field "parent_id", value: idea.id
+        br
+      = form.submit "作成する", class: 'btn btn-primary'
+      br/
+
+h2 #{@root_idea.name}のアイデア一覧
+- if ideas.present?
+  - @ideas.each do |idea|
+    h3 #{idea.name} 
+    - if idea.children.present?
+      - idea.children.each do |child|
+        = link_to child.name, solution_idea_path(child.id)
+        br/
+  = form_with model: Idea.new, local: true do |form|
+    - 5.times do |i|
+      = form.text_field "name[]", multiple: true, name: "idea[name][]"
+      = form.hidden_field "parent_id", value: idea.id
+      br
+    = form.submit "作成する", class: 'btn btn-primary'
+    br/

@@ -11,18 +11,22 @@ h2 Step1 問題解決したいテーマを選びます。
   = @problem.name
 
 
-
-
 - if @problem.present?
   h2 Step2 テーマについての解決策を書き出します。
   p まずは、大きな枠組みで考えましょう。
   p 「#{@problem.name}」を解決するための、抽象的なアイデアを出します。
   p 何かを増減させたり、やり方を変えることはできませんか？
-  br/
   p 例：体重を減らしたい
   p 食べる量を減らす。
   p 運動量を増やす。
   p 食べ方を変える。
+  br/
+
+  h2 #{@problem.name}を解決する。
+  - if @problem.children.present?
+      - @problem.children.each do |child|
+        = link_to " ・#{child.name}", solution_idea_path(child.id)
+        br/
 
   = form_with model: Idea.new, local: true do |form|
     - 6.times do |i|
