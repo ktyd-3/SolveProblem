@@ -1,19 +1,18 @@
 
 
-= link_to  "全体評価に移る", "/ideas/evaluate"
+= link_to  "全体評価に移る", "/ideas/evaluate", class: 'btn btn-success'
 
 
 - if @root_idea == @problem
-  = link_to "一つ前の階層へ", :back 
   h2 解決したいテーマ「#{@problem.name}」
 - else
-  = link_to "#{@root_idea.parent.name}のアイデアへ", solution_idea_path(@root_idea.parent.id)
-  br/
-  h2 「#{@root_idea.name}」の解決アイデアを作成。
+  = link_to "#{@root_idea.parent.name}のアイデアへ", solution_idea_path(@root_idea.parent.id), class: 'btn btn-primary'
+  p 
+  h2 「#{@root_idea.name}」の解決アイデアを作成
   - if @root_idea.children.present?
     - @root_idea.children.each do |child|
       = child.name
-      = link_to 'Edit', edit_idea_path(child)
+      = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
       br/
   = form_with model: Idea.new, local: true do |form|
       - 5.times do |i|
@@ -21,15 +20,17 @@
         = form.hidden_field "parent_id", value: @root_idea.id
         br
       = form.submit "作成する", class: 'btn btn-primary'
-      br/
+  br/
 
 
+h3 解決アイデアのさらに具体的な案を決める
 //h2 #{@root_idea.name}の解決策一覧
 - @ideas.each do |idea|
-  h3 ・『#{idea.name}』のさらに具体的な行動を決める。
+  h4 『#{idea.name}』の解決アイデア
   - if idea.children.present?
     - idea.children.each do |child|
       = link_to child.name, solution_idea_path(child.id)
+      = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
       br/
   = form_with model: Idea.new, local: true do |form|
     - 5.times do |i|
@@ -37,4 +38,5 @@
       = form.hidden_field "parent_id", value: idea.id
       br
     = form.submit "作成する", class: 'btn btn-primary'
-    br/
+    
+  br/

@@ -2,7 +2,7 @@ class IdeasController < ApplicationController
 
   def index
     @problem = Idea.first
-    @ideas = Idea.where(parent_id: 1).all
+    @ideas = Idea.where(parent_id: @problem.id).all
   end
 
 
@@ -25,18 +25,16 @@ class IdeasController < ApplicationController
   end
 
 
-
   def solution
     @root_idea = Idea.find_by(id: params[:id])
     @problem = Idea.first
-    @ideas = @root_idea.children if @root_idea.present?
-    @tree_view = Idea.tree_view(:name)
+    @ideas = @root_idea.children.includes(:children) if @root_idea.present?
   end
 
 
   def evaluate
     @problem = Idea.first
-    @all_solutions = Idea.leaves
+    @all_solutions = Idea.leaves.includes(:children)
     @solution_evaluations = []
 
     @all_solutions.each do |solution|
@@ -47,7 +45,7 @@ class IdeasController < ApplicationController
   end
 
   def set_easy_points
-    @all_solutions = Idea.leaves
+    @all_solutions = Idea.leaves.includes(:children)
     easy_points_params = params.require(:idea).permit!
 
     @all_solutions.each do |solution|
@@ -60,7 +58,7 @@ class IdeasController < ApplicationController
   end
 
   def set_effect_points
-    @all_solutions = Idea.leaves
+    @all_solutions = Idea.leaves.includes(:children)
     effect_points_params = params.require(:idea).permit!
 
     @all_solutions.each do |solution|
@@ -74,29 +72,23 @@ class IdeasController < ApplicationController
 
 
   def edit
-    @idea = Idea.find(params[:id])
-
-    redicret_to "ideas/#{@idea.parent.id}/solution"
+    @idea = Idea.find_by(id: params[:id])
   end
 
-
-
-
-
-
   def update
-    @idea = Idea.find(params[:id])
+    @idea = Idea.find_by(id: params[:id])
     if @idea.update(idea_params)
-      redirect_to ideas_path, notice: 'タスクが更新されました。'
+      redirect_to solution_idea_path(@idea.parent_id), notice: 'アイデアが更新されました。'
     else
       render :edit
     end
   end
 
   def destroy
-    @idea = Idea.find(params[:id])
-    @idea.destroy
-    redirect_to ideas_path, notice: 'タスクが削除されました。'
+    @idea = Idea.find_by(id: params[:id])
+    @idea_family = @idea.self_and_descendants
+    @idea_family.destroy
+    redirect_to solution_idea_path(@idea.parent_id), notice: 'タスクが削除されました。'
   end
 
 

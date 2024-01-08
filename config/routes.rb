@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "ideas#index"
   resources :ideas do
     member do
-      patch 'update'
+      get 'edit'
       get '/solution/:id', to: 'ideas#solution'
       get "solution"
     end

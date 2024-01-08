@@ -1,13 +1,17 @@
 h2 タスクの編集
 
 
-= form_for @idea, url: idea_path(@idea), method: :patch do |f|
+= form_for @idea do |f|
   div
     = f.label :name
     = f.text_field :name
     br/
-    = f.submit "アイデアを変える"
+    = f.submit "変更"
     
+p 
+= link_to "削除", idea_path(@idea), method: :delete, data: { confirm: "このアイデアだけでなく、子アイデア以下も全て削除されます。よろしいですか？" }, class: "btn btn-danger"
+
+
 p 
 = link_to "中止する", idea_path(@idea)
 
