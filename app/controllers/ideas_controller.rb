@@ -1,7 +1,11 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
+  before_action :search_initialize
 
 
+  def search_initialize
+    @q = Idea.ransack(params[:q])
+  end
 
   def generate_graph
     # ルートのアイデアとその子供を取得
@@ -38,7 +42,6 @@ class IdeasController < ApplicationController
 
 
   def index
-    @q = Idea.ransack(params[:q])
     @problem = Idea.includes(:children).first
     @problem_children = @problem.children if @problem.present?
   end
@@ -52,7 +55,7 @@ class IdeasController < ApplicationController
       redirect_to solution_idea_path(@ideas.first.id)
     else
       flash[:notice] = "該当するアイデアが見つかりません。"
-      render :index
+      redirect_back(fallback_location: root_path)
     end
   end
 
