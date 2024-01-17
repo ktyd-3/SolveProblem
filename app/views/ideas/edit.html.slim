@@ -6,10 +6,10 @@ h2 タスクの編集
     = f.label :name
     = f.text_field :name
     br/
-    = f.submit "変更"
+    = f.submit "変更", class: "btn btn-primary"
     
 p 
-= link_to "削除", idea_path(@idea), method: :delete, data: { confirm: "このアイデアだけでなく、子アイデア以下も全て削除されます。よろしいですか？" }, class: "btn btn-danger"
+= button_to "削除", idea_path(@idea), method: :delete, data: {turbo_confirm: "このアイデアとともに、詳細アイデア全ても削除されます。よろしいですか？"}, class: "btn btn-danger"
 
 
 p 

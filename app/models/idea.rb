@@ -10,6 +10,10 @@ class Idea < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "easy_point", "effect_point", "id", "id_value", "name", "parent_id", "updated_at"]
+  end
+
 
   validates :name, presence: true
 end

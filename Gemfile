@@ -73,3 +73,7 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'acts_as_tree', '~> 2.9', '>= 2.9.1'
 gem 'bullet'
+gem 'chartkick'
+gem 'groupdate'
+gem "ruby-graphviz"
+gem 'ransack'

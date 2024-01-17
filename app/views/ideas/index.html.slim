@@ -1,14 +1,15 @@
 
 
+= render partial: 'search_form', q: @q
+
+
 h2 Step1 問題解決したいテーマを選びます。
 
-- if @problem.nil?
-  = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
-    = form.text_field "name"
-    br
-    = form.submit "作成する", class: 'btn btn-primary'
-- else
-  = @problem.name
+
+= form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+  = form.text_field "name", value: @problem&.name
+  br
+  = form.submit "作成", class: 'btn btn-primary'
 
 
 - if @problem.present?
@@ -29,7 +30,7 @@ h2 Step1 問題解決したいテーマを選びます。
         br/
 
   = form_with model: Idea.new, local: true do |form|
-    - 6.times do |i|
+    - 5.times do |i|
       = form.text_field "name[]", multiple: true, name: "idea[name][]"
       = form.hidden_field "parent_id", value: @problem.id
       br

@@ -1,0 +1,15 @@
+h2= @problem.name
+
+
+
+- @problem.children.each do |child|
+  = "・#{child.name}"
+  br/
+  - unless child.leaf?
+    - child.children.each do |node|
+      - space_count = node.tree_level
+      - space_count.times do
+        == '&nbsp;'
+      = node.name
+      br/
+
