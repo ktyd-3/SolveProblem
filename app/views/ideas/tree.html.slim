@@ -1,7 +1,9 @@
-= link_to generate_graph_ideas_path, target: '_blank' do
-  = image_tag generate_graph_ideas_path, alt: 'Graph Image', width: '100%', height: 'auto', style: 'display:block; margin: 0 auto;'
 
+h2 解決アイデアの全体像
 
 = render partial: 'generate_graph_partial'
+
+p (画像生成に時間がかかる場合があります。)
+
 
 = render partial: 'search_form', q: @q

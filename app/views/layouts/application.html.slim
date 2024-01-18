@@ -9,6 +9,13 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
+    #loading-overlay.loader-wrap
+      .loader
     - if flash.notice.present?
       .alert.alert-success= flash.notice
+    - unless current_page?(root_path)
+      .header_manu
+        = link_to  "全体評価", "/ideas/evaluate", class: 'btn btn-outline-success'
+        = link_to  "アイデア全体像", "/ideas/tree", class: 'btn btn-outline-primary'
+        = link_to "テーマ選択へ戻る", ideas_path, class: 'btn btn-outline-primary'
     = yield

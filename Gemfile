@@ -72,8 +72,15 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'bootstrap'
 gem 'acts_as_tree', '~> 2.9', '>= 2.9.1'
+
+# n+1問題解消
 gem 'bullet'
+
 gem 'chartkick'
 gem 'groupdate'
+
 gem "ruby-graphviz"
+# 検索機能
 gem 'ransack'
+# ajax
+gem "jquery-rails"

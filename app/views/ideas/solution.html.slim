@@ -1,10 +1,6 @@
 
-= link_to  "全体評価に移る", "/ideas/evaluate", class: 'btn btn-success'
-
-= link_to  "全体像を見る", "/ideas/tree", class: 'btn btn-primary'
 
 - if @root_idea == @problem
-  = link_to "テーマ選択へ戻る", ideas_path, class: 'btn btn-primary'
   h2 解決したいテーマ「#{@problem.name}」
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
@@ -46,6 +42,6 @@ h3 解決アイデアのさらに具体的な案を決める
       br
     = form.submit "作成", class: 'btn btn-primary'
     - if idea.children.present?
-      = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary'
+      = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-outline-secondary'
   br/
 
