@@ -84,3 +84,6 @@ gem "ruby-graphviz"
 gem 'ransack'
 # ajax
 gem "jquery-rails"
+
+# アイコン
+gem 'font-awesome-sass'

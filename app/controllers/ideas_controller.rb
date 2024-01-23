@@ -89,11 +89,11 @@ class IdeasController < ApplicationController
   end
 
 
+
   def solution
     @root_idea = Idea.select(:id, :name, :parent_id).find_by(id: params[:id])
     @problem = Idea.first
     @childlren_ideas = Idea.select(:id, :name).where(parent_id: @root_idea.id).includes(:children) if @root_idea.present?
-
   end
 
 
@@ -124,7 +124,7 @@ class IdeasController < ApplicationController
       idea.update(effect_point: effect_point)
     end
 
-    redirect_to evaluate_ideas_path, notice: '②が完了しました'
+    redirect_to score_graph_ideas_path, notice: '②が完了しました'
   end
 
 
@@ -156,6 +156,10 @@ class IdeasController < ApplicationController
     data.each do |da|
      @result.push({name: da[0], data: [[da[1], da[2]]]})
     end
+  end
+
+  def ex_form
+    @idea = Idea.find(params[:id])
   end
 
   private

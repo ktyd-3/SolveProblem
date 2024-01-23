@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'edit'
       get '/solution/:id', to: 'ideas#solution'
       get 'solution'
+      get "ex_form"
     end
 
     collection do

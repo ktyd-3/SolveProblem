@@ -13,9 +13,13 @@ html
       .loader
     - if flash.notice.present?
       .alert.alert-success= flash.notice
-    - unless current_page?(root_path)
+    - unless current_page?(ideas_path)
       .header_manu
-        = link_to  "全体評価", "/ideas/evaluate", class: 'btn btn-outline-success'
-        = link_to  "アイデア全体像", "/ideas/tree", class: 'btn btn-outline-primary'
-        = link_to "テーマ選択へ戻る", ideas_path, class: 'btn btn-outline-primary'
+        = link_to  "総合評価", "/ideas/evaluate", class: 'btn btn-outline-success'
+        = link_to  "アイデア全体図", "/ideas/tree", class: 'btn btn-outline-primary'
+        - if @root_idea == @problem
+          = link_to "テーマ選択へ戻る", ideas_path, class: 'btn btn-outline-primary'
+        - else
+          = link_to "最初の解決策", solution_idea_path(@problem), class: 'btn btn-outline-primary'
+        = render partial: 'search_form', q: @q
     = yield

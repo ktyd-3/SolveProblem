@@ -1,7 +1,10 @@
 
 
 - if @root_idea == @problem
-  h2 解決したいテーマ「#{@problem.name}」
+  h2 Step3 さらに解決策を細かく分解する。
+  p 解決したいテーマ「#{@problem.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
+  p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
+  p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
   p 
@@ -10,12 +13,15 @@
   = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
   br/
   - if @childlren_ideas.present?
-    - @childlren_ideas.each do |child|
-      = "#{child.name}"
-      = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
-      br/
-  = form_with model: Idea.new, local: true do |form|
-      - 5.times do |i|
+      - @childlren_ideas.each do |child|
+        .span-child-edit
+          = "#{child.name}"
+          = link_to '変更', edit_idea_path(child), class: 'btn btn-link'
+          = button_to "削除", idea_path(child), class: 'btn btn-link'
+          br/
+
+  = form_with model: Idea.new, data: { turbo_method: :post } do |form|
+      - 5.times do |i| 
         = form.text_field "name[]", multiple: true, name: "idea[name][]"
         = form.hidden_field "parent_id", value: @root_idea.id
         br
@@ -30,18 +36,22 @@ h3 解決アイデアのさらに具体的な案を決める
     = link_to idea.name, solution_idea_path(idea.id), method: :patch
     | 』の解決アイデア
   
-  - if idea.children.present?
-    - idea.children.each do |child|
-      = link_to child.name, solution_idea_path(child.id)
-      = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
-      br/
-  = form_with model: Idea.new, local: true do |form|
-    - 5.times do |i|
-      = form.text_field "name[]", multiple: true, name: "idea[name][]"
-      = form.hidden_field "parent_id", value: idea.id
-      br
-    = form.submit "作成", class: 'btn btn-primary'
+  = turbo_frame_tag "idea_#{idea.id}" do
     - if idea.children.present?
-      = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-outline-secondary'
-  br/
-
+      - idea.children.each do |child|
+        .span-child-edit
+          = link_to child.name, solution_idea_path(child.id)
+          = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
+          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
+          = link_to "フォーム追加", ex_form_idea_path, data: { turbo_stream: true }, class: 'btn btn-link'
+          br/
+        = turbo_frame_tag "ex_form" do
+    = form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
+      - 5.times do |i|
+        = form.text_field "name[]", multiple: true, name: "idea[name][]"
+        = form.hidden_field "parent_id", value: idea.id
+        br
+      = form.submit "作成", class: 'btn btn-primary'
+      - if idea.children.present?
+        = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary'
+    br/

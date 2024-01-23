@@ -1,2 +1,2 @@
-h1 Ideas#new
-p Find me in app/views/ideas/new.html.slim
+= turbo_frame_tag "new_idea_form" do
+  = render "form", idea: Idea.new

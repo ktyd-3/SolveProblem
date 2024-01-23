@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "font-awesome";
 
 #chart-1 {
   font-size: 30px;
@@ -21,5 +22,24 @@ label.label {
 }
 
 .ransack_search_form {
-  height: 30px; /* 適切な高さに調整してください */
+  height: 30px;
+}
+
+.span-child-edit {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.serch-form {
+}
+
+.header_manu {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.header_manu > * {
+  margin-right: 10px;
 }
