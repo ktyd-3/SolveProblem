@@ -1,8 +1,8 @@
 
 
-- if @root_idea == @problem
+- if @root_idea == @theme
   h2 Step3 さらに解決策を細かく分解する。
-  p 解決したいテーマ「#{@problem.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
+  p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
   p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
   p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
 - else
@@ -36,16 +36,17 @@ h3 解決アイデアのさらに具体的な案を決める
     = link_to idea.name, solution_idea_path(idea.id), method: :patch
     | 』の解決アイデア
   
-  = turbo_frame_tag "idea_#{idea.id}" do
-    - if idea.children.present?
-      - idea.children.each do |child|
-        .span-child-edit
-          = link_to child.name, solution_idea_path(child.id)
-          = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
-          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
+  - if idea.children.present?
+    - idea.children.each do |child|
+      .span-child-edit
+        = link_to child.name, solution_idea_path(child.id)
+        = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
+        = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
+        = turbo_frame_tag "ex_form_#{child.id}" do
           = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
           br/
-        = turbo_frame_tag "ex_form" do
+        
+  = turbo_frame_tag "idea_#{idea.id}" do
     = form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
       - 5.times do |i|
         = form.text_field "name[]", multiple: true, name: "idea[name][]"

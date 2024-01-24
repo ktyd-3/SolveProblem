@@ -61,19 +61,9 @@ class IdeasController < ApplicationController
 
 
   def first_create
-    @problem = Idea.first
-
-    if @problem.present?
-      # 既存のアイデアが見つかり、データベースに保存されている場合はアップデート
-      if @problem.update(name: params[:idea][:name])
-        # アップデートに成功した場合の処理
-        redirect_to root_path
-      end
-    else
-      name = params[:idea][:name]
-      Idea.create(name: name)
-      redirect_to root_path
-    end
+    name = params[:idea][:name]
+    @problem = Idea.create(name: name)
+    redirect_to first_solution_idea_path(@problem)
   end
 
   def create
@@ -83,16 +73,26 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     names.each do |name|
       parent = Idea.find(this_idea_parent_id)
-      parent.children.create(name: name)
+      @idea = parent.children.create(name: name)
     end
+    refirect_to solution_idea_path(@problem) if this_idea_parent_id == @problem.id
     redirect_to request.referer, notice: '登録が完了しました'
+
+
+
   end
+
+
+  def first_solution
+    @theme = Idea.find_by(id: params[:id])
+  end
+
 
 
 
   def solution
     @root_idea = Idea.select(:id, :name, :parent_id).find_by(id: params[:id])
-    @problem = Idea.first
+    @theme = @root_idea.root
     @childlren_ideas = Idea.select(:id, :name).where(parent_id: @root_idea.id).includes(:children) if @root_idea.present?
   end
 
@@ -137,7 +137,11 @@ class IdeasController < ApplicationController
     if @idea.update(idea_params)
       redirect_to solution_idea_path(@idea.parent_id), notice: 'アイデアが更新されました。'
     else
-      render :edit
+      if @idea.parent.present?
+        render :edit
+      else
+        redirect_to request.referer, notice: '変更しました'
+      end
     end
   end
 
@@ -160,6 +164,7 @@ class IdeasController < ApplicationController
 
   def ex_form
     @idea = Idea.find(params[:id])
+    @child = @idea
   end
 
   private

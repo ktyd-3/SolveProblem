@@ -1,0 +1,31 @@
+
+- content_for :show_header_menu, false
+
+- if @theme.present?
+  h2 Step2 テーマについての解決策を書き出します。
+  p まずは、大きな枠組みで考えましょう。
+  p 「#{@theme.name}」を解決するための、抽象的なアイデアを出します。
+  p 何かを増減させたり、やり方を変えることはできませんか？
+  p 例：体重を減らしたい
+  p 食べる量を減らす。
+  p 運動量を増やす。
+  p 食べ方を変える。
+  br/
+
+  h2 #{@theme.name}を解決する。
+  - if @theme.children.present?
+      - @theme.children.each do |child|
+        = link_to " ・#{child.name}", solution_idea_path(child.id)
+        br/
+
+  = form_with model: Idea.new, local: true do |form|
+    - 5.times do |i|
+      = form.text_field "name[]", multiple: true, name: "idea[name][]"
+      = form.hidden_field "parent_id", value: @theme.id
+      br
+    = form.submit "作成する", class: 'btn btn-primary'
+
+
+
+
+

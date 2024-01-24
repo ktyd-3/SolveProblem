@@ -22,11 +22,13 @@ h2 (1)実行のしやすさ評価
       span.rating-label
         - (1..5).each do |rating|
           label.label
-            input type="radio" required="required" name="idea[#{solution.id}_easy_point][]" value=rating
+            - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_easy_point][]", value: rating }
+            - input_params[:checked] = "checked" if solution.easy_point.present? && solution.easy_point == rating
+            = tag :input, input_params
             = t("ideas.difficulties.#{rating}")
     p
   = submit_tag '評価する'
-  p 
+  p
 
 h2 (2)効果の大きさ評価
 
@@ -41,8 +43,10 @@ h2 (2)効果の大きさ評価
       span.rating-label
         - (1..5).each do |rating|
           label.label
-            input type="radio" required="required" name="idea[#{solution.id}_effect_point][]" value=rating
+            - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_effect_point][]", value: rating }
+            - input_params[:checked] = "checked" if solution.effect_point.present? && solution.effect_point == rating
+            = tag :input, input_params
             = t("ideas.effects.#{rating}") 
     p
   = submit_tag '評価する'
-  p 
+  p
