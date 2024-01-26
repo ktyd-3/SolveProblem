@@ -9,3 +9,7 @@ h2 Step1 問題解決したいテーマを選びます。
 
 
 h2 今まで作ったテーマ
+- @themes.each do |theme|
+  = theme.name
+  = link_to "つづける", first_solution_idea_path(theme), class: 'btn btn-link'
+  br/

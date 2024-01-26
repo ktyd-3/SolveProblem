@@ -1,6 +1,19 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
   before_action :search_initialize
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
+
+
+  def get_generation
+    @theme = Idea.includes([:children]).find_by(id: params[:id])
+    # 子アイデアを持たないアイデアすべてを取得
+    @leaf_descendants = @theme.descendants.select(&:leaf?)
+  end
+
+
+  def tree
+    @theme = Idea.find_by(id: params[:id])
+  end
 
 
   def search_initialize
@@ -9,7 +22,7 @@ class IdeasController < ApplicationController
 
   def generate_graph
     # ルートのアイデアとその子供を取得
-    @problem = Idea.first
+    @problem = Idea.find_by(id: params[:id])
 
     # @problem が nil であることを確認
     return unless @problem
@@ -49,21 +62,29 @@ class IdeasController < ApplicationController
 
   def search
     @q = Idea.ransack(params[:q])
+    @theme = Idea.find_by(id: params[:id])
     @ideas = @q.result(distinct: true)
 
     if @ideas.present?
-      redirect_to solution_idea_path(@ideas.first.id)
+      # @ideasから@themeの子孫アイデアのみを取得
+      matching_ideas = @ideas.select { |idea| @theme.descendants.include?(idea) }
+
+      if matching_ideas.present?
+        redirect_to solution_idea_path(matching_ideas.first.id)
+      else
+        flash[:notice] = "該当するアイデアは解決したいテーマ内にありません。"
+        redirect_back(fallback_location: root_path)
+      end
     else
       flash[:notice] = "該当するアイデアが見つかりません。"
       redirect_back(fallback_location: root_path)
     end
   end
 
-
   def first_create
     name = params[:idea][:name]
-    @problem = Idea.create(name: name)
-    redirect_to first_solution_idea_path(@problem)
+    @theme = Idea.create(name: name)
+    redirect_to first_solution_idea_path(@theme)
   end
 
   def create
@@ -73,18 +94,23 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     names.each do |name|
       parent = Idea.find(this_idea_parent_id)
-      @idea = parent.children.create(name: name)
+      parent.children.create(name: name)
     end
-    refirect_to solution_idea_path(@problem) if this_idea_parent_id == @problem.id
-    redirect_to request.referer, notice: '登録が完了しました'
-
-
-
+    if parent.root?
+      redirect_to solution_idea_path(parent), notice: '登録が完了しました'
+    else
+      redirect_to request.referer, notice: '登録が完了しました'
+    end
   end
 
 
   def first_solution
     @theme = Idea.find_by(id: params[:id])
+  end
+
+
+  def theme
+    @themes = Idea.where(parent_id: nil)
   end
 
 
@@ -98,33 +124,42 @@ class IdeasController < ApplicationController
 
 
   def evaluate
-    @all_solutions = Idea.where.not(id: Idea.pluck(:parent_id).compact).includes(:parent)
+    @theme = Idea.includes(:children).find_by(id: params[:id])
+    # 子アイデアを持たないアイデアすべてを取得
+    @leaf_descendants = @theme.descendants.select(&:leaf?)
   end
 
   def set_easy_points
-    @all_solutions = Idea.select(:id).where.not(id: Idea.pluck(:parent_id).compact)
     easy_points_params = params.require(:idea).permit!
 
-    @all_solutions.each do |solution|
+    @leaf_descendants.each do |solution|
       easy_point = params["idea"][:"#{solution.id}_easy_point"].first
       idea = Idea.find_by(id: solution.id)
       idea.update(easy_point: easy_point)
     end
 
-    redirect_to evaluate_ideas_path, notice: '①の評価が完了しました'
+    redirect_to evaluate_idea_path(@theme), notice: '①の評価が完了しました'
   end
 
   def set_effect_points
-    @all_solutions = Idea.select(:id).where.not(id: Idea.pluck(:parent_id).compact)
     effect_points_params = params.require(:idea).permit!
 
-    @all_solutions.each do |solution|
+    @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first
       idea = Idea.find_by(id: solution.id)
       idea.update(effect_point: effect_point)
     end
 
-    redirect_to score_graph_ideas_path, notice: '②が完了しました'
+    redirect_to score_graph_idea_path(@theme), notice: '②が完了しました'
+  end
+
+
+  def score_graph
+    data = @leaf_descendants.pluck(:name, :effect_point, :easy_point)
+    @result = []
+    data.each do |da|
+      @result.push({name: da[0], data: [[da[1], da[2]]]})
+    end
   end
 
 
@@ -152,15 +187,7 @@ class IdeasController < ApplicationController
     redirect_to solution_idea_path(@idea.parent_id), notice: 'タスクが削除されました。'
   end
 
-  def score_graph
-    @all_solutions = Idea.where.not(id: Idea.pluck(:parent_id).compact)
 
-    data = Idea.leaves.pluck(:name, :effect_point, :easy_point)
-    @result = []
-    data.each do |da|
-     @result.push({name: da[0], data: [[da[1], da[2]]]})
-    end
-  end
 
   def ex_form
     @idea = Idea.find(params[:id])

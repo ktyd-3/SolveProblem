@@ -1,10 +1,13 @@
-- if @all_solutions.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
+
+= link_to  "評価へ戻る", "javascript:history.back()", class: 'btn btn-success'
+
+- if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
   h2 総合評価
   | (1)実行のしやすさと、(2)効果の大きさの合計得点で、解決策を並び替えました。
   br/
   | 効率的な解決策から取り組み始めましょう！
   p 
-  - sorted_solutions = @all_solutions.sort_by { |solution| -(solution.effect_point.to_i + solution.easy_point.to_i) }
+  - sorted_solutions = @leaf_descendants.sort_by { |solution| -(solution.effect_point.to_i + solution.easy_point.to_i) }
   - sorted_solutions.each do |sorted_solution|
     .solution
       = sorted_solution.name 

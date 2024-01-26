@@ -1,4 +1,13 @@
 
+.header_manu
+  = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
+  = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
+  - if @root_idea == @theme
+    = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
+  - else
+    = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+  = render partial: 'search_form', q: @q, locals: { theme: @theme }
+
 
 - if @root_idea == @theme
   h2 Step3 さらに解決策を細かく分解する。
@@ -36,23 +45,24 @@ h3 解決アイデアのさらに具体的な案を決める
     = link_to idea.name, solution_idea_path(idea.id), method: :patch
     | 』の解決アイデア
   
-  - if idea.children.present?
-    - idea.children.each do |child|
-      .span-child-edit
-        = link_to child.name, solution_idea_path(child.id)
-        = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
-        = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
-        = turbo_frame_tag "ex_form_#{child.id}" do
-          = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
-          br/
-        
   = turbo_frame_tag "idea_#{idea.id}" do
-    = form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
-      - 5.times do |i|
-        = form.text_field "name[]", multiple: true, name: "idea[name][]"
-        = form.hidden_field "parent_id", value: idea.id
-        br
-      = form.submit "作成", class: 'btn btn-primary'
-      - if idea.children.present?
-        = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary'
-    br/
+    - if idea.children.present?
+      - idea.children.each do |child|
+        .span-child-edit
+          = link_to child.name, solution_idea_path(child.id)
+          = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
+          = "#{(child.childlen.size)}" if child.childlen.present?
+          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
+          = turbo_frame_tag "ex_form_#{child.id}" do
+            = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
+            br/
+          
+      = form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
+        - 5.times do |i|
+          = form.text_field "name[]", multiple: true, name: "idea[name][]"
+          = form.hidden_field "parent_id", value: idea.id
+          br
+        = form.submit "作成", class: 'btn btn-primary'
+        - if idea.children.present?
+          = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary'
+      br/

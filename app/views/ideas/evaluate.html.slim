@@ -1,6 +1,9 @@
 
 
-= link_to  "アイデア集へ戻る", "/ideas/#{Idea.first.id}/solution", class: 'btn btn-success'
+= link_to  "アイデア集へ戻る", "javascript:history.back()", class: 'btn btn-success'
+
+- if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
+  = link_to  "評価の結果", score_graph_idea_path(@theme), class: 'btn btn-success'
 
 
 h2 Step4 解決策を評価します。
@@ -11,8 +14,8 @@ p 2つの観点から評価を行うことで、より現実的に効果的な�
 
 h2 (1)実行のしやすさ評価
 
-= form_tag set_easy_points_ideas_path, method: :patch do
-  - @all_solutions.each do |solution|
+= form_tag set_easy_points_idea_path(@theme), method: :patch do
+  - @leaf_descendants.each do |solution|
     .solution-easy-points
       span.solution-name
         = solution.name
@@ -32,8 +35,8 @@ h2 (1)実行のしやすさ評価
 
 h2 (2)効果の大きさ評価
 
-= form_tag set_effect_points_ideas_path, method: :patch do
-  - @all_solutions.each do |solution|
+= form_tag set_effect_points_idea_path(@theme), method: :patch do
+  - @leaf_descendants.each do |solution|
     .solution-easy-points
       span.solution-name
         = solution.name

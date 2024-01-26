@@ -1,9 +1,11 @@
 
+= link_to  "アイデア集へ戻る", "javascript:history.back()", class: 'btn btn-success'
+
 h2 解決アイデアの全体像
 
-= render partial: 'generate_graph_partial'
+= render partial: 'generate_graph_partial', locals: { theme: @theme }
 
 p (画像生成に時間がかかる場合があります。)
 
 
-= render partial: 'search_form', q: @q
+= render partial: 'search_form', q: @q, locals: { theme: @theme }
