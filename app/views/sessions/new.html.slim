@@ -1,0 +1,9 @@
+h1 ログイン
+= form_with url: login_ideas_path do |form|
+  .form-group
+    = form.label :メールアドレス
+    = form.text_field :email, placeholder: "sample@mail.com", class: "form-control mb-3"
+  .form-group
+    = form.label :パスワード
+    = form.password_field :password, placeholder: "パスワードを入力", class: "form-control mb-3"
+  = form.submit "ログイン", class: 'btn btn-primary'

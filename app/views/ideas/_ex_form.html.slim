@@ -1,4 +1,4 @@
-= form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
+= form_with model: Idea.new, method: :post do |form|
   - 5.times do |i|
     = form.text_field "name[]", multiple: true, name: "idea[name][]"
     = form.hidden_field "parent_id", value: @idea.id

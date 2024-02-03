@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module SolveProblem
   class Application < Rails::Application
+
+
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
@@ -23,5 +26,8 @@ module SolveProblem
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.session_store :cookie_store, key: 'SolveProblem_session'
+
   end
 end

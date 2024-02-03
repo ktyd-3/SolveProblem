@@ -33,7 +33,7 @@ gem "jbuilder"
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -73,8 +73,7 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'acts_as_tree', '~> 2.9', '>= 2.9.1'
 
-# n+1問題解消
-gem 'bullet'
+# n+1問題解消gem 'bullet'
 
 gem 'chartkick'
 gem 'groupdate'
@@ -87,3 +86,6 @@ gem "jquery-rails"
 
 # アイコン
 gem 'font-awesome-sass'
+
+# 処理速度測定
+gem 'rack-mini-profiler'

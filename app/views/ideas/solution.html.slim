@@ -1,12 +1,14 @@
 
-.header_manu
-  = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
-  = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
-  - if @root_idea == @theme
-    = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
-  - else
-    = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
-  = render partial: 'search_form', q: @q, locals: { theme: @theme }
+
+- cache 'header' do
+  .header_manu
+    = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
+    = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
+    - if @root_idea == @theme
+      = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
+    - else
+      = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+    = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
 
 - if @root_idea == @theme
@@ -14,6 +16,7 @@
   p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
   p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
   p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
+  p Tips: 解決アイデアAの作成ボタンをクリックし保存している間、他のアイデアを作成することができます。
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
   p 
@@ -21,42 +24,46 @@
   = "【#{@root_idea.name}】"
   = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
   br/
-  - if @childlren_ideas.present?
-      - @childlren_ideas.each do |child|
-        .span-child-edit
-          = "#{child.name}"
-          = link_to '変更', edit_idea_path(child), class: 'btn btn-link'
-          = button_to "削除", idea_path(child), class: 'btn btn-link'
-          br/
+
+  
+
+  - @children_ideas.each do |child|
+    .span-child-edit
+      = "#{child.name}"
+      = link_to '変更', edit_idea_path(child), class: 'btn btn-link'
+      = button_to "削除", idea_path(child), class: 'btn btn-link'
 
   = form_with model: Idea.new, data: { turbo_method: :post } do |form|
-      - 5.times do |i| 
-        = form.text_field "name[]", multiple: true, name: "idea[name][]"
-        = form.hidden_field "parent_id", value: @root_idea.id
-        br
-      = form.submit "作成", class: 'btn btn-primary'
+    - 5.times do |i| 
+      = form.text_field "name[]", multiple: true, name: "idea[name][]"
+      = form.hidden_field "parent_id", value: @root_idea.id
+      br
+    = form.submit "作成", class: 'btn btn-primary'
   br/
 
 
-h3 解決アイデアのさらに具体的な案を決める
-- @childlren_ideas.each do |idea|
-  h4
-    | 『
-    = link_to idea.name, solution_idea_path(idea.id), method: :patch
-    | 』の解決アイデア
-  
-  = turbo_frame_tag "idea_#{idea.id}" do
-    - if idea.children.present?
-      - idea.children.each do |child|
-        .span-child-edit
-          = link_to child.name, solution_idea_path(child.id)
-          = link_to '変更', edit_idea_path(child), method: :patch, class: 'btn btn-link'
-          = "#{(child.childlen.size)}" if child.childlen.present?
-          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link'
-          = turbo_frame_tag "ex_form_#{child.id}" do
-            = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
+- cache 'children_solution' do
+  h3 解決アイデアのさらに具体的な案を決める
+  - @children_ideas.each do |idea|
+    h4
+      | 『
+      = link_to idea.name, solution_idea_path(idea.id), method: :patch
+      | 』の解決アイデア
+    
+    = turbo_frame_tag "idea_#{idea.id}" do
+      - if idea.children.present?
+        - idea.children.find_each do |child|
+          .span-child-edit
+            = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
+            = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
+            = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete,turbo_frame: "_top" }
+            = turbo_frame_tag "ex_form_#{child.id}" do
+              = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
+            - if child.children.present?
+              span.badge
+                = child.children.count 
             br/
-          
+            
       = form_with model: Idea.new, method: :post, data: { turbo_method: :post } do |form|
         - 5.times do |i|
           = form.text_field "name[]", multiple: true, name: "idea[name][]"
@@ -64,5 +71,5 @@ h3 解決アイデアのさらに具体的な案を決める
           br
         = form.submit "作成", class: 'btn btn-primary'
         - if idea.children.present?
-          = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary'
+          = link_to 'もっと具体的に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
       br/

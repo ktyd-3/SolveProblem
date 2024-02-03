@@ -1,11 +1,23 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
-  before_action :search_initialize
+  before_action :search_initialize,:autheniticate_user
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
+  # アイデアへの閲覧制限
+  before_action :autheniticate_ideas, except: [:theme]
 
+
+  def autheniticate_ideas
+    @theme = Idea.find_by(id: params[:id])
+
+    if @theme.user_id != @current_user.id
+      redirect_to root
+      flash[:notice] = "権限がありません。"
+    end
+
+  end
 
   def get_generation
-    @theme = Idea.includes([:children]).find_by(id: params[:id])
+    @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
   end
@@ -83,7 +95,7 @@ class IdeasController < ApplicationController
 
   def first_create
     name = params[:idea][:name]
-    @theme = Idea.create(name: name)
+    @theme = Idea.create(name: name, user_id: current_user.id)
     redirect_to first_solution_idea_path(@theme)
   end
 
@@ -94,7 +106,7 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     names.each do |name|
       parent = Idea.find(this_idea_parent_id)
-      parent.children.create(name: name)
+      parent.children.create(name: name,user_id: current_user.id)
     end
     if parent.root?
       redirect_to solution_idea_path(parent), notice: '登録が完了しました'
@@ -110,16 +122,14 @@ class IdeasController < ApplicationController
 
 
   def theme
-    @themes = Idea.where(parent_id: nil)
+    @themes = Idea.where(parent_id: nil,user_id: @current_user.id)
   end
 
 
-
-
   def solution
-    @root_idea = Idea.select(:id, :name, :parent_id).find_by(id: params[:id])
+    @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
-    @childlren_ideas = Idea.select(:id, :name).where(parent_id: @root_idea.id).includes(:children) if @root_idea.present?
+    @children_ideas = @root_idea.children.select(:id, :name) if @root_idea.present?
   end
 
 
@@ -184,7 +194,7 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:children).find_by(id: params[:id])
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
-    redirect_to solution_idea_path(@idea.parent_id), notice: 'タスクが削除されました。'
+    redirect_to request.referer, notice: 'タスクが削除されました。'
   end
 
 

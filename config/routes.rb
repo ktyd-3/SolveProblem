@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "ideas#theme"
   resources :ideas do
     member do
-      get 'edit'
+      post 'edit'
       get 'solution'
       get "ex_form"
       get "first_solution"
@@ -13,12 +13,16 @@ Rails.application.routes.draw do
       patch 'set_easy_points'
       patch 'set_effect_points'
       get 'score_graph'
-
     end
 
     collection do
       get "theme"
       post 'first_create'
+      get "signup", to: "users#new"
+      post "signup", to: "users#create"
+      get "login", to: "sessions#new"
+      post "login", to: "sessions#create"
+      delete "logout", to: "sessions#destroy"
     end
   end
 

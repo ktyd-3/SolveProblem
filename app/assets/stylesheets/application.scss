@@ -43,3 +43,19 @@ label.label {
 .header_manu > * {
   margin-right: 10px;
 }
+
+/* 子アイデアの数を表示する丸バッジ */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  background-color: #007bff; /* バッジの背景色（例: 青色） */
+  color: #fff; /* バッジの文字色 */
+  margin-left: 5px; /* バッジとテキストの間のマージン */
+}

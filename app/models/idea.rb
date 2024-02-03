@@ -1,6 +1,10 @@
 class Idea < ApplicationRecord
+
+  has_many :children, class_name: "Idea", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "Idea", optional: true
+  belongs_to :user
+
   acts_as_tree order: "name"
-  extend ActsAsTree::TreeView
 
   def dig
     if children.empty?

@@ -1,15 +1,27 @@
+
+
+
+
+
 h2 Step1 問題解決したいテーマを選びます。
 
-- content_for :show_header_menu, false
+- if @current_user
+  = @current_user.user_name
+  | さん、続きをはじめましょう。
+  = button_to "ログアウト", logout_ideas_path, method: :delete, class: 'btn btn-primary'
+
+
+
 
 = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
   = form.text_field "name", value: @problem&.name
   br
-  = form.submit "作成", class: 'btn btn-primary'
+  = form.submit "新規作成", class: 'btn btn-primary'
 
 
-h2 今まで作ったテーマ
-- @themes.each do |theme|
-  = theme.name
-  = link_to "つづける", first_solution_idea_path(theme), class: 'btn btn-link'
-  br/
+- if @theme.present?
+  h2 今まで作ったテーマ
+  - @themes.each do |theme|
+    = theme.name
+    = link_to "つづける", first_solution_idea_path(theme), class: 'btn btn-link'
+    br/
