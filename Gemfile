@@ -94,3 +94,5 @@ gem 'font-awesome-sass'
 
 # 処理速度測定
 gem 'rack-mini-profiler'
+
+gem 'webpacker'
