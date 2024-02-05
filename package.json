@@ -5,10 +5,10 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "webpack": "^4.46.0",
+    "webpack": "^5.90.1",
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^4.15.1"
   }
 }
