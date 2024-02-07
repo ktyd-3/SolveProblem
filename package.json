@@ -2,7 +2,7 @@
   "name": "app",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config ./config/webpack/webpack.config.js"
   },
   "devDependencies": {
     "webpack": "^5.90.1",
