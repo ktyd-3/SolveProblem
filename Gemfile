@@ -86,11 +86,6 @@ gem 'groupdate'
 gem "ruby-graphviz"
 # 検索機能
 gem 'ransack'
-# ajax
-gem "jquery-rails"
-
-# アイコン
-gem 'font-awesome-sass'
 
 # 処理速度測定
 gem 'rack-mini-profiler'
