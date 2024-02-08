@@ -1,9 +1,9 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
-  before_action :search_initialize,:autheniticate_user
+  before_action :search_initialize
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:theme]
+  before_action :autheniticate_ideas,:autheniticate_user, except: [:theme]
 
 
   def autheniticate_ideas

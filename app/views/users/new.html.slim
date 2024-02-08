@@ -1,3 +1,6 @@
+
+h2 ユーザー登録
+
 = form_with model: @user, url: signup_ideas_path do |form|
   - if form.object.errors.any?
     .alert.alert-danger
@@ -13,7 +16,7 @@
 
   .form-group
     = form.label :パスワード
-    = form.password_field :password, placeholder: "英数字の両方を含める", class: "form-control mb-3"
+    = form.password_field :password, placeholder: "password", class: "form-control mb-3"
 
   .form-group
     = form.label :パスワード確認
