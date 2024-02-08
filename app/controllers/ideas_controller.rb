@@ -122,7 +122,7 @@ class IdeasController < ApplicationController
 
 
   def theme
-    @themes = Idea.where(parent_id: nil,user_id: @current_user.id)
+    @themes = Idea.where(parent_id: nil,user_id: @current_user.id) if @current_user.present?
   end
 
 
