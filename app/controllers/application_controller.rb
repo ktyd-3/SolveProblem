@@ -8,13 +8,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # ログインしてない場合のアクセス制限
-  def autheniticate_user
-    if @current_user == nil
-      flash[:notice] = "ログインが必要です"
-      redirect_to login_ideas_path
-    end
-  end
+
 
 
 end

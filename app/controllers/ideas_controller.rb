@@ -6,6 +6,14 @@ class IdeasController < ApplicationController
   before_action :autheniticate_ideas,:autheniticate_user, except: [:theme]
 
 
+    # ログインしてない場合のアクセス制限
+    def autheniticate_user
+      if @current_user == nil
+        flash[:notice] = "ログインが必要です"
+        redirect_to login_ideas_path
+      end
+    end
+
   def autheniticate_ideas
     @theme = Idea.find_by(id: params[:id])
 
