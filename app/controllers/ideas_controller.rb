@@ -3,7 +3,7 @@ class IdeasController < ApplicationController
   before_action :set_current_user,:search_initialize, :autheniticate_user
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:theme,:first_create]
+  before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
 
 
 
@@ -20,13 +20,11 @@ class IdeasController < ApplicationController
   end
 
   def autheniticate_ideas
-    @theme = Idea.find_by(id: params[:id])
-
-    if @theme.user_id != @current_user.id
+    @idea = Idea.find_by(id: params[:id])
+    if @idea.user_id != @current_user.id
       redirect_to root
       flash[:notice] = "権限がありません。"
     end
-
   end
 
 
@@ -122,7 +120,7 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     names.each do |name|
       parent = Idea.find(this_idea_parent_id)
-      parent.children.create(name: name,user_id: current_user.id)
+      parent.children.create(name: name,user_id: @current_user.id)
     end
     if parent.root?
       redirect_to solution_idea_path(parent), notice: '登録が完了しました'
