@@ -1,0 +1,18 @@
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-f6rb0p sitelibdir\=./.gem.20240209-13911-f6rb0p clean
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-f6rb0p sitelibdir\=./.gem.20240209-13911-f6rb0p
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-f6rb0p sitelibdir\=./.gem.20240209-13911-f6rb0p install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20240209-13911-f6rb0p/skiptrace/internal
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-f6rb0p sitelibdir\=./.gem.20240209-13911-f6rb0p clean

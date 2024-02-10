@@ -8,6 +8,17 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    nav.navbar
+      ul.navbar-nav.navbar-right
+        li
+          - if @current_user.present?
+            span.navbar-text
+              | #{@current_user.user_name}
+            li
+              = link_to "ログアウト", logout_ideas_path, method: :delete
+          - else
+            li
+              = link_to "ログイン", login_ideas_path
   body
     #loading-overlay.loader-wrap
       .loader

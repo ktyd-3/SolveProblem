@@ -11,8 +11,6 @@ h2 Step1 問題解決したいテーマを選びます。
   = button_to "ログアウト", logout_ideas_path, method: :delete, class: 'btn btn-primary'
 
 
-
-
 = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
   = form.text_field "name", value: @problem&.name
   br

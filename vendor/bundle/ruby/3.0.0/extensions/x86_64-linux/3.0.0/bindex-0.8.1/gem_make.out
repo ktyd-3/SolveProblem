@@ -1,0 +1,21 @@
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20240209-18057-zvarcy.rb extconf.rb
+creating Makefile
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= clean
+make: Warning: File 'Makefile' has modification time 14712 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\=
+make: Warning: File 'Makefile' has modification time 14712 s in the future
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= install
+make: Warning: File 'Makefile' has modification time 14710 s in the future
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20240209-18057-r8no8r/skiptrace/internal
+make: warning:  Clock skew detected.  Your build may be incomplete.

@@ -1,0 +1,53 @@
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/hpricot-0.8.6/ext/hpricot_scan
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20240209-18057-bzdkvx.rb extconf.rb
+checking for main() in -lc... yes
+creating Makefile
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= clean
+make: Warning: File 'Makefile' has modification time 14711 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\=
+make: Warning: File 'Makefile' has modification time 14711 s in the future
+compiling hpricot_css.c
+hpricot_css.rl: In function ‘hpricot_css’:
+hpricot_css.rl:15:17: warning: field precision specifier ‘.*’ expects argument of type ‘int’, but argument 3 has type ‘long int’ [-Wformat=]
+   15 |   sprintf(filt, "%.*s", te - ts, ts); \
+      |                 ^~~~~~  ~~~~~~~
+      |                            |
+      |                            long int
+hpricot_css.rl:87:14: note: in expansion of macro ‘FILTERAUTO’
+   87 |     traverse   => { FILTERAUTO(); };
+      |              ^~~~~~~~~~
+hpricot_css.c:3407:16: warning: comparison between pointer and integer
+ 3407 |         if ( p == eof )
+      |                ^~
+compiling hpricot_scan.c
+In file included from /usr/include/ruby-3.0.0/ruby/ruby.h:24,
+                 from /usr/include/ruby-3.0.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+hpricot_scan.rl: In function ‘Init_hpricot_scan’:
+/usr/include/ruby-3.0.0/ruby/internal/anyargs.h:307:143: warning: passing argument 3 of ‘rb_define_singleton_method_03’ from incompatible pointer type [-Wincompatible-pointer-types]
+  307 | #define rb_define_singleton_method(obj, mid, func, arity)   RBIMPL_ANYARGS_DISPATCH_rb_define_singleton_method((arity), (func))((obj), (mid), (func), (arity))
+      |                                                                                                                                               ^~~~~~
+      |                                                                                                                                               |
+      |                                                                                                                                               VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)}
+hpricot_scan.rl:855:3: note: in expansion of macro ‘rb_define_singleton_method’
+  855 |   rb_define_singleton_method(mHpricot, "css", hpricot_css, 3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-3.0.0/ruby/internal/anyargs.h:270:21: note: expected ‘VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)’}
+  270 | RBIMPL_ANYARGS_DECL(rb_define_singleton_method, VALUE, const char *)
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/ruby-3.0.0/ruby/internal/anyargs.h:257:41: note: in definition of macro ‘RBIMPL_ANYARGS_DECL’
+  257 | RBIMPL_ANYARGS_ATTRSET(sym) static void sym ## _03(__VA_ARGS__, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); \
+      |                                         ^~~
+linking shared-object hpricot_scan.so
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.0.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= install
+make: Warning: File 'Makefile' has modification time 14682 s in the future
+/usr/bin/install -c -m 0755 hpricot_scan.so ./.gem.20240209-18057-6et0r3
+make: warning:  Clock skew detected.  Your build may be incomplete.

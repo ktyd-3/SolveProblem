@@ -1,0 +1,339 @@
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/hpricot-0.8.6/ext/hpricot_scan
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+checking for main() in -lc... yes
+creating Makefile
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-ndazdu sitelibdir\=./.gem.20240209-13911-ndazdu clean
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-ndazdu sitelibdir\=./.gem.20240209-13911-ndazdu
+compiling hpricot_css.c
+hpricot_css.rl: In function ‘hpricot_css’:
+hpricot_css.rl:15:17: warning: field precision specifier ‘.*’ expects argument of type ‘int’, but argument 3 has type ‘long int’ [-Wformat=]
+   15 |   sprintf(filt, "%.*s", te - ts, ts); \
+      |                 ^~~~~~  ~~~~~~~
+      |                            |
+      |                            long int
+hpricot_css.rl:87:14: note: in expansion of macro ‘FILTERAUTO’
+   87 |     traverse   => { FILTERAUTO(); };
+      |              ^~~~~~~~~~
+hpricot_css.c:3407:16: warning: comparison between pointer and integer
+ 3407 |         if ( p == eof )
+      |                ^~
+At top level:
+hpricot_css.c:34:18: warning: ‘hpricot_css_en_main’ defined but not used [-Wunused-const-variable=]
+   34 | static const int hpricot_css_en_main = 87;
+      |                  ^~~~~~~~~~~~~~~~~~~
+hpricot_css.c:32:18: warning: ‘hpricot_css_error’ defined but not used [-Wunused-const-variable=]
+   32 | static const int hpricot_css_error = 0;
+      |                  ^~~~~~~~~~~~~~~~~
+hpricot_css.rl: In function ‘hpricot_css’:
+hpricot_css.c:3407:16: warning: ‘eof’ may be used uninitialized [-Wmaybe-uninitialized]
+ 3407 |         if ( p == eof )
+      |              ~~^~~~~~
+hpricot_css.rl:96:16: note: ‘eof’ was declared here
+   96 |   int cs, act, eof;
+      |                ^~~
+hpricot_css.rl: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling hpricot_scan.c
+hpricot_scan.rl: In function ‘rb_yield_tokens’:
+hpricot_scan.rl:190:5: warning: ‘RB_OBJ_TAINT’ is deprecated: taintedness turned out to be a wrong idea. [-Wdeprecated-declarations]
+  190 |     OBJ_TAINT(ary);
+      |     ^~~~~~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/core/rstring.h:30,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic/char.h:29,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic.h:24,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:28,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:116:30: note: declared here
+  116 | #define RB_OBJ_TAINT         RB_OBJ_TAINT
+      |                              ^~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:852:1: note: in expansion of macro ‘RB_OBJ_TAINT’
+  852 | RB_OBJ_TAINT(VALUE obj)
+      | ^~~~~~~~~~~~
+hpricot_scan.rl:191:5: warning: ‘RB_OBJ_TAINT’ is deprecated: taintedness turned out to be a wrong idea. [-Wdeprecated-declarations]
+  191 |     OBJ_TAINT(tag);
+      |     ^~~~~~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/core/rstring.h:30,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic/char.h:29,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic.h:24,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:28,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:116:30: note: declared here
+  116 | #define RB_OBJ_TAINT         RB_OBJ_TAINT
+      |                              ^~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:852:1: note: in expansion of macro ‘RB_OBJ_TAINT’
+  852 | RB_OBJ_TAINT(VALUE obj)
+      | ^~~~~~~~~~~~
+hpricot_scan.rl:192:5: warning: ‘RB_OBJ_TAINT’ is deprecated: taintedness turned out to be a wrong idea. [-Wdeprecated-declarations]
+  192 |     OBJ_TAINT(attr);
+      |     ^~~~~~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/core/rstring.h:30,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic/char.h:29,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic.h:24,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:28,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:116:30: note: declared here
+  116 | #define RB_OBJ_TAINT         RB_OBJ_TAINT
+      |                              ^~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:852:1: note: in expansion of macro ‘RB_OBJ_TAINT’
+  852 | RB_OBJ_TAINT(VALUE obj)
+      | ^~~~~~~~~~~~
+hpricot_scan.rl:193:5: warning: ‘RB_OBJ_TAINT’ is deprecated: taintedness turned out to be a wrong idea. [-Wdeprecated-declarations]
+  193 |     OBJ_TAINT(raw);
+      |     ^~~~~~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/core/rstring.h:30,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic/char.h:29,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic.h:24,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:28,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:116:30: note: declared here
+  116 | #define RB_OBJ_TAINT         RB_OBJ_TAINT
+      |                              ^~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:852:1: note: in expansion of macro ‘RB_OBJ_TAINT’
+  852 | RB_OBJ_TAINT(VALUE obj)
+      | ^~~~~~~~~~~~
+hpricot_scan.rl: In function ‘hpricot_scan’:
+hpricot_scan.rl:504:3: warning: ‘RB_OBJ_TAINTED’ is deprecated: taintedness turned out to be a wrong idea. [-Wdeprecated-declarations]
+  504 |   taint = OBJ_TAINTED(port);
+      |   ^~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/core/rstring.h:30,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic/char.h:29,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/arithmetic.h:24,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:28,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:118:30: note: declared here
+  118 | #define RB_OBJ_TAINTED       RB_OBJ_TAINTED
+      |                              ^~~~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/fl_type.h:822:1: note: in expansion of macro ‘RB_OBJ_TAINTED’
+  822 | RB_OBJ_TAINTED(VALUE obj)
+      | ^~~~~~~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:73:20: note: in expansion of macro ‘TEXT_PASS’
+   73 |     any | newline { TEXT_PASS(); };
+      |                    ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+NONE:12:19: note: in expansion of macro ‘TEXT_PASS’
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:73:14: note: in expansion of macro ‘TEXT_PASS’
+   73 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:73:14: note: in expansion of macro ‘TEXT_PASS’
+   73 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:73:16: note: in expansion of macro ‘TEXT_PASS’
+   73 |     any | newline { TEXT_PASS(); };
+      |                ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:46:4: note: in expansion of macro ‘TEXT_PASS’
+   46 |   StartXmlProcIns = "<?" Name >{ TEXT_PASS(); } space+ ;
+      |    ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:46:4: note: in expansion of macro ‘TEXT_PASS’
+   46 |   StartXmlProcIns = "<?" Name >{ TEXT_PASS(); } space+ ;
+      |    ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:51:20: note: in expansion of macro ‘TEXT_PASS’
+   51 |     any | newline { TEXT_PASS(); };
+      |                    ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:51:14: note: in expansion of macro ‘TEXT_PASS’
+   51 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:51:14: note: in expansion of macro ‘TEXT_PASS’
+   51 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:51:16: note: in expansion of macro ‘TEXT_PASS’
+   51 |     any | newline { TEXT_PASS(); };
+      |                ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:56:20: note: in expansion of macro ‘TEXT_PASS’
+   56 |     any | newline { TEXT_PASS(); };
+      |                    ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:56:14: note: in expansion of macro ‘TEXT_PASS’
+   56 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:56:14: note: in expansion of macro ‘TEXT_PASS’
+   56 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:56:16: note: in expansion of macro ‘TEXT_PASS’
+   56 |     any | newline { TEXT_PASS(); };
+      |                ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:61:14: note: in expansion of macro ‘TEXT_PASS’
+   61 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:61:14: note: in expansion of macro ‘TEXT_PASS’
+   61 |     any | newline { TEXT_PASS(); };
+      |              ^~~~~~~~~
+hpricot_scan.rl:105:16: warning: ordered comparison of pointer with integer zero [-Wextra]
+  105 |         if (ts > 0) { \
+      |                ^
+hpricot_common.rl:61:16: note: in expansion of macro ‘TEXT_PASS’
+   61 |     any | newline { TEXT_PASS(); };
+      |                ^~~~~~~~~
+hpricot_scan.rl:619:14: warning: ordered comparison of pointer with integer zero [-Wextra]
+  619 |       if (ts > 0) {
+      |              ^
+hpricot_scan.rl: In function ‘Init_hpricot_scan’:
+hpricot_scan.rl:821:6: warning: old-style function definition [-Wold-style-definition]
+  821 | void Init_hpricot_scan()
+      |      ^~~~~~~~~~~~~~~~~
+In file included from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/ruby.h:27,
+                 from /mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby.h:38,
+                 from hpricot_scan.rl:9:
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/anyargs.h:308:143: warning: passing argument 3 of ‘rb_define_singleton_method_03’ from incompatible pointer type [-Wincompatible-pointer-types]
+  308 | #define rb_define_singleton_method(obj, mid, func, arity)   RBIMPL_ANYARGS_DISPATCH_rb_define_singleton_method((arity), (func))((obj), (mid), (func), (arity))
+      |                                                                                                                                               ^~~~~~
+      |                                                                                                                                               |
+      |                                                                                                                                               VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)}
+hpricot_scan.rl:855:3: note: in expansion of macro ‘rb_define_singleton_method’
+  855 |   rb_define_singleton_method(mHpricot, "css", hpricot_css, 3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/anyargs.h:271:21: note: expected ‘VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE,  VALUE,  VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)’}
+  271 | RBIMPL_ANYARGS_DECL(rb_define_singleton_method, VALUE, const char *)
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/include/ruby-3.2.0/ruby/internal/anyargs.h:258:41: note: in definition of macro ‘RBIMPL_ANYARGS_DECL’
+  258 | RBIMPL_ANYARGS_ATTRSET(sym) static void sym ## _03(__VA_ARGS__, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); \
+      |                                         ^~~
+At top level:
+hpricot_scan.rl:241:16: warning: ‘hpricot_ele_get_children’ defined but not used [-Wunused-function]
+  241 |   static VALUE hpricot_ele_get_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:259:1: note: in expansion of macro ‘H_PROP’
+  259 | H_PROP(children, H_ELE_CHILDREN);
+      | ^~~~~~
+hpricot_scan.rl:237:16: warning: ‘hpricot_ele_clear_children’ defined but not used [-Wunused-function]
+  237 |   static VALUE hpricot_ele_clear_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~~~
+hpricot_scan.rl:259:1: note: in expansion of macro ‘H_PROP’
+  259 | H_PROP(children, H_ELE_CHILDREN);
+      | ^~~~~~
+hpricot_scan.rl:233:16: warning: ‘hpricot_ele_set_children’ defined but not used [-Wunused-function]
+  233 |   static VALUE hpricot_ele_set_##prop(VALUE self, VALUE x) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:259:1: note: in expansion of macro ‘H_PROP’
+  259 | H_PROP(children, H_ELE_CHILDREN);
+      | ^~~~~~
+hpricot_scan.rl:241:16: warning: ‘hpricot_ele_get_etag’ defined but not used [-Wunused-function]
+  241 |   static VALUE hpricot_ele_get_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:258:1: note: in expansion of macro ‘H_PROP’
+  258 | H_PROP(etag, H_ELE_ETAG);
+      | ^~~~~~
+hpricot_scan.rl:237:16: warning: ‘hpricot_ele_clear_etag’ defined but not used [-Wunused-function]
+  237 |   static VALUE hpricot_ele_clear_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~~~
+hpricot_scan.rl:258:1: note: in expansion of macro ‘H_PROP’
+  258 | H_PROP(etag, H_ELE_ETAG);
+      | ^~~~~~
+hpricot_scan.rl:233:16: warning: ‘hpricot_ele_set_etag’ defined but not used [-Wunused-function]
+  233 |   static VALUE hpricot_ele_set_##prop(VALUE self, VALUE x) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:258:1: note: in expansion of macro ‘H_PROP’
+  258 | H_PROP(etag, H_ELE_ETAG);
+      | ^~~~~~
+hpricot_scan.rl:241:16: warning: ‘hpricot_ele_get_parent’ defined but not used [-Wunused-function]
+  241 |   static VALUE hpricot_ele_get_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:256:1: note: in expansion of macro ‘H_PROP’
+  256 | H_PROP(parent, H_ELE_PARENT);
+      | ^~~~~~
+hpricot_scan.rl:237:16: warning: ‘hpricot_ele_clear_parent’ defined but not used [-Wunused-function]
+  237 |   static VALUE hpricot_ele_clear_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~~~
+hpricot_scan.rl:256:1: note: in expansion of macro ‘H_PROP’
+  256 | H_PROP(parent, H_ELE_PARENT);
+      | ^~~~~~
+hpricot_scan.rl:233:16: warning: ‘hpricot_ele_set_parent’ defined but not used [-Wunused-function]
+  233 |   static VALUE hpricot_ele_set_##prop(VALUE self, VALUE x) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:256:1: note: in expansion of macro ‘H_PROP’
+  256 | H_PROP(parent, H_ELE_PARENT);
+      | ^~~~~~
+hpricot_scan.rl:241:16: warning: ‘hpricot_ele_get_raw’ defined but not used [-Wunused-function]
+  241 |   static VALUE hpricot_ele_get_##prop(VALUE self) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:255:1: note: in expansion of macro ‘H_PROP’
+  255 | H_PROP(raw, H_ELE_RAW);
+      | ^~~~~~
+hpricot_scan.rl:233:16: warning: ‘hpricot_ele_set_raw’ defined but not used [-Wunused-function]
+  233 |   static VALUE hpricot_ele_set_##prop(VALUE self, VALUE x) { \
+      |                ^~~~~~~~~~~~~~~~
+hpricot_scan.rl:255:1: note: in expansion of macro ‘H_PROP’
+  255 | H_PROP(raw, H_ELE_RAW);
+      | ^~~~~~
+hpricot_scan.c:132:18: warning: ‘hpricot_scan_en_main’ defined but not used [-Wunused-const-variable=]
+  132 | static const int hpricot_scan_en_main = 198;
+      |                  ^~~~~~~~~~~~~~~~~~~~
+hpricot_scan.c:131:18: warning: ‘hpricot_scan_en_html_procins’ defined but not used [-Wunused-const-variable=]
+  131 | static const int hpricot_scan_en_html_procins = 212;
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hpricot_scan.c:130:18: warning: ‘hpricot_scan_en_html_cdata’ defined but not used [-Wunused-const-variable=]
+  130 | static const int hpricot_scan_en_html_cdata = 210;
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~
+hpricot_scan.c:129:18: warning: ‘hpricot_scan_en_html_comment’ defined but not used [-Wunused-const-variable=]
+  129 | static const int hpricot_scan_en_html_comment = 208;
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+linking shared-object hpricot_scan.so
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-ndazdu sitelibdir\=./.gem.20240209-13911-ndazdu install
+/usr/bin/install -c -m 0755 hpricot_scan.so ./.gem.20240209-13911-ndazdu
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/hpricot-0.8.6/ext/hpricot_scan
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-ndazdu sitelibdir\=./.gem.20240209-13911-ndazdu clean

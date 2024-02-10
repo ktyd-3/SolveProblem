@@ -1,0 +1,19 @@
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/debug-1.9.1/ext/debug
+/mnt/c/Users/runnn/ubuntu/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/debug-1.9.1/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-aw719f sitelibdir\=./.gem.20240209-13911-aw719f clean
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/debug-1.9.1/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-aw719f sitelibdir\=./.gem.20240209-13911-aw719f
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/debug-1.9.1/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-aw719f sitelibdir\=./.gem.20240209-13911-aw719f install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20240209-13911-aw719f/debug
+
+current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/debug-1.9.1/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240209-13911-aw719f sitelibdir\=./.gem.20240209-13911-aw719f clean

@@ -1,18 +1,23 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
-  before_action :search_initialize
+  before_action :set_current_user,:search_initialize, :autheniticate_user
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas,:autheniticate_user, except: [:theme]
+  before_action :autheniticate_ideas, except: [:theme,:first_create]
 
 
-    # ログインしてない場合のアクセス制限
-    def autheniticate_user
-      if @current_user == nil
-        flash[:notice] = "ログインが必要です"
-        redirect_to login_ideas_path
-      end
+
+  def set_current_user
+    @current_user = User.find_by(id: session[:user_id]) if session[:user_id].present?
+  end
+
+  # ログインしてない場合のアクセス制限
+  def autheniticate_user
+    if @current_user == nil
+      flash[:notice] = "ログインが必要です"
+      redirect_to login_ideas_path
     end
+  end
 
   def autheniticate_ideas
     @theme = Idea.find_by(id: params[:id])
@@ -22,6 +27,13 @@ class IdeasController < ApplicationController
       flash[:notice] = "権限がありません。"
     end
 
+  end
+
+
+  def first_create
+    name = params[:idea][:name]
+    @theme = Idea.create(name: name, user_id: @current_user.id)
+    redirect_to first_solution_idea_path(@theme)
   end
 
   def get_generation
@@ -101,11 +113,7 @@ class IdeasController < ApplicationController
     end
   end
 
-  def first_create
-    name = params[:idea][:name]
-    @theme = Idea.create(name: name, user_id: current_user.id)
-    redirect_to first_solution_idea_path(@theme)
-  end
+
 
   def create
     idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
