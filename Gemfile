@@ -90,6 +90,4 @@ gem 'ransack'
 # 処理速度測定
 gem 'rack-mini-profiler'
 
-gem 'jsbundling-rails'
-
 gem 'railties', '~> 7.1', '>= 7.1.3'
