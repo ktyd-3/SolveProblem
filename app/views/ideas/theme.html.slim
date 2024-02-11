@@ -17,7 +17,7 @@ h2 Step1 問題解決したいテーマを選びます。
   = form.submit "新規作成", class: 'btn btn-primary'
 
 
-- if @theme.present?
+- if @themes.present?
   h2 今まで作ったテーマ
   - @themes.each do |theme|
     = theme.name
