@@ -61,7 +61,8 @@ label.label {
 
 /* ヘッダーのログイン・ログアウト表示 */
 .navbar {
-  background-color: #333; /* ナビゲーションバーの背景色 */
+  display: flex;
+  background-color: #00c476; /* ナビゲーションバーの背景色 */
   color: #fff; /* ナビゲーションバーのテキスト色 */
 }
 
