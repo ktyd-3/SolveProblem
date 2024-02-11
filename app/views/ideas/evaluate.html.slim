@@ -1,8 +1,7 @@
 
 
-= link_to  "アイデア集へ戻る", "javascript:history.back()", class: 'btn btn-success'
 
-- if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
+- if @leaf_descendants.present? { |solution| solution.effect_point.present? && solution.easy_point.present? }
   = link_to  "評価の結果", score_graph_idea_path(@theme), class: 'btn btn-success'
 
 

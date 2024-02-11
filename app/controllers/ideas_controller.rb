@@ -148,7 +148,7 @@ class IdeasController < ApplicationController
 
 
   def evaluate
-    @theme = Idea.includes(:children).find_by(id: params[:id])
+    @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
   end
