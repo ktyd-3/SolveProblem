@@ -7,16 +7,16 @@ checking for whether -std=c99 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.3/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-z05p9j sitelibdir\=./.gem.20240209-13911-z05p9j clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-xhjr0f sitelibdir\=./.gem.20240211-21869-xhjr0f clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.3/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-z05p9j sitelibdir\=./.gem.20240209-13911-z05p9j
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-xhjr0f sitelibdir\=./.gem.20240211-21869-xhjr0f
 compiling bootsnap.c
 linking shared-object bootsnap/bootsnap.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.3/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-z05p9j sitelibdir\=./.gem.20240209-13911-z05p9j install
-/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20240209-13911-z05p9j/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-xhjr0f sitelibdir\=./.gem.20240211-21869-xhjr0f install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20240211-21869-xhjr0f/bootsnap
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.3/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-z05p9j sitelibdir\=./.gem.20240209-13911-z05p9j clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-xhjr0f sitelibdir\=./.gem.20240211-21869-xhjr0f clean

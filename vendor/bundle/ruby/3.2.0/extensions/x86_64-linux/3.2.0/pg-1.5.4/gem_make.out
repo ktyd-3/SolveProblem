@@ -25,10 +25,10 @@ creating extconf.h
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/pg-1.5.4/ext
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9863vc sitelibdir\=./.gem.20240209-13911-9863vc clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-rh3gi sitelibdir\=./.gem.20240211-21869-rh3gi clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/pg-1.5.4/ext
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9863vc sitelibdir\=./.gem.20240209-13911-9863vc
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-rh3gi sitelibdir\=./.gem.20240211-21869-rh3gi
 compiling gvl_wrappers.c
 compiling pg.c
 compiling pg_binary_decoder.c
@@ -53,9 +53,9 @@ compiling pg_util.c
 linking shared-object pg_ext.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/pg-1.5.4/ext
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9863vc sitelibdir\=./.gem.20240209-13911-9863vc install
-/usr/bin/install -c -m 0755 pg_ext.so ./.gem.20240209-13911-9863vc
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-rh3gi sitelibdir\=./.gem.20240211-21869-rh3gi install
+/usr/bin/install -c -m 0755 pg_ext.so ./.gem.20240211-21869-rh3gi
 installing pg_ext libraries
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/pg-1.5.4/ext
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9863vc sitelibdir\=./.gem.20240209-13911-9863vc clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-rh3gi sitelibdir\=./.gem.20240211-21869-rh3gi clean

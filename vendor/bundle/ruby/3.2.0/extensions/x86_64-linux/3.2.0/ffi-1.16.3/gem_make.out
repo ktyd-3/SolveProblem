@@ -10,10 +10,10 @@ creating extconf.h
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-zzz0ex sitelibdir\=./.gem.20240209-13911-zzz0ex clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-e4jvew sitelibdir\=./.gem.20240211-21869-e4jvew clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-zzz0ex sitelibdir\=./.gem.20240209-13911-zzz0ex
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-e4jvew sitelibdir\=./.gem.20240211-21869-e4jvew
 compiling AbstractMemory.c
 compiling ArrayType.c
 compiling Buffer.c
@@ -40,8 +40,8 @@ compiling ffi.c
 linking shared-object ffi_c.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-zzz0ex sitelibdir\=./.gem.20240209-13911-zzz0ex install
-/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20240209-13911-zzz0ex
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-e4jvew sitelibdir\=./.gem.20240211-21869-e4jvew install
+/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20240211-21869-e4jvew
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-zzz0ex sitelibdir\=./.gem.20240209-13911-zzz0ex clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-e4jvew sitelibdir\=./.gem.20240211-21869-e4jvew clean

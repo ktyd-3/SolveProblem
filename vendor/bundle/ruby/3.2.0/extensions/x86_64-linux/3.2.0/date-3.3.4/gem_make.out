@@ -6,10 +6,10 @@ checking for altzone in time.h with  -Werror... no
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/date-3.3.4/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-mllm82 sitelibdir\=./.gem.20240209-13911-mllm82 clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-cy97dg sitelibdir\=./.gem.20240211-21869-cy97dg clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/date-3.3.4/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-mllm82 sitelibdir\=./.gem.20240209-13911-mllm82
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-cy97dg sitelibdir\=./.gem.20240211-21869-cy97dg
 compiling date_core.c
 compiling date_parse.c
 compiling date_strftime.c
@@ -17,8 +17,8 @@ compiling date_strptime.c
 linking shared-object date_core.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/date-3.3.4/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-mllm82 sitelibdir\=./.gem.20240209-13911-mllm82 install
-/usr/bin/install -c -m 0755 date_core.so ./.gem.20240209-13911-mllm82
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-cy97dg sitelibdir\=./.gem.20240211-21869-cy97dg install
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20240211-21869-cy97dg
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/date-3.3.4/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-mllm82 sitelibdir\=./.gem.20240209-13911-mllm82 clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-cy97dg sitelibdir\=./.gem.20240211-21869-cy97dg clean

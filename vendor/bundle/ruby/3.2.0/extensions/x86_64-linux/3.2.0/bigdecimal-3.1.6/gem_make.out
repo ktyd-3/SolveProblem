@@ -32,17 +32,17 @@ checking for RB_WARN_CATEGORY_DEPRECATED in ruby.h... yes
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bigdecimal-3.1.6/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9l86iy sitelibdir\=./.gem.20240209-13911-9l86iy clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-y0b4sj sitelibdir\=./.gem.20240211-21869-y0b4sj clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bigdecimal-3.1.6/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9l86iy sitelibdir\=./.gem.20240209-13911-9l86iy
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-y0b4sj sitelibdir\=./.gem.20240211-21869-y0b4sj
 compiling bigdecimal.c
 compiling missing.c
 linking shared-object bigdecimal.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bigdecimal-3.1.6/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9l86iy sitelibdir\=./.gem.20240209-13911-9l86iy install
-/usr/bin/install -c -m 0755 bigdecimal.so ./.gem.20240209-13911-9l86iy
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-y0b4sj sitelibdir\=./.gem.20240211-21869-y0b4sj install
+/usr/bin/install -c -m 0755 bigdecimal.so ./.gem.20240211-21869-y0b4sj
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/bigdecimal-3.1.6/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-9l86iy sitelibdir\=./.gem.20240209-13911-9l86iy clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-y0b4sj sitelibdir\=./.gem.20240211-21869-y0b4sj clean

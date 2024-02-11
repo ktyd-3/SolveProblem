@@ -3,10 +3,10 @@ current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-s2dnuy sitelibdir\=./.gem.20240209-13911-s2dnuy clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-kvzzhc sitelibdir\=./.gem.20240211-21869-kvzzhc clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-s2dnuy sitelibdir\=./.gem.20240209-13911-s2dnuy
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-kvzzhc sitelibdir\=./.gem.20240211-21869-kvzzhc
 compiling websocket_mask.c
 websocket_mask.c: In function ‘Init_websocket_mask’:
 websocket_mask.c:26:6: warning: old-style function definition [-Wold-style-definition]
@@ -19,8 +19,8 @@ cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ 
 linking shared-object websocket_mask.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-s2dnuy sitelibdir\=./.gem.20240209-13911-s2dnuy install
-/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20240209-13911-s2dnuy
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-kvzzhc sitelibdir\=./.gem.20240211-21869-kvzzhc install
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20240211-21869-kvzzhc
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-s2dnuy sitelibdir\=./.gem.20240209-13911-s2dnuy clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-kvzzhc sitelibdir\=./.gem.20240211-21869-kvzzhc clean

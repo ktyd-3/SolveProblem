@@ -16,18 +16,18 @@ checking for Random.bytes... yes
 creating Makefile
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/puma-6.4.2/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-httkj4 sitelibdir\=./.gem.20240209-13911-httkj4 clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-ziogsb sitelibdir\=./.gem.20240211-21869-ziogsb clean
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/puma-6.4.2/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-httkj4 sitelibdir\=./.gem.20240209-13911-httkj4
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-ziogsb sitelibdir\=./.gem.20240211-21869-ziogsb
 compiling http11_parser.c
 compiling mini_ssl.c
 compiling puma_http11.c
 linking shared-object puma/puma_http11.so
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/puma-6.4.2/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-httkj4 sitelibdir\=./.gem.20240209-13911-httkj4 install
-/usr/bin/install -c -m 0755 puma_http11.so ./.gem.20240209-13911-httkj4/puma
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-ziogsb sitelibdir\=./.gem.20240211-21869-ziogsb install
+/usr/bin/install -c -m 0755 puma_http11.so ./.gem.20240211-21869-ziogsb/puma
 
 current directory: /mnt/c/Users/runnn/ubuntu/SolveProblem/vendor/bundle/ruby/3.2.0/gems/puma-6.4.2/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20240209-13911-httkj4 sitelibdir\=./.gem.20240209-13911-httkj4 clean
+make DESTDIR\= sitearchdir\=./.gem.20240211-21869-ziogsb sitelibdir\=./.gem.20240211-21869-ziogsb clean
