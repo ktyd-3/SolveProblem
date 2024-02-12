@@ -9,4 +9,3 @@ test/output/
 Gemfile.lock
 .yardoc/
 node_modules/
-package-lock.json
