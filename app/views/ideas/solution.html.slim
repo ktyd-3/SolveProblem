@@ -56,9 +56,9 @@ h3 解決アイデアのさらに具体的な案を決める
         .span-child-edit
           = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
           = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
-          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete,turbo_frame: "_top" }
+          = button_to "削除", solution_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete,turbo_frame: "_top" }
           = turbo_frame_tag "ex_form_#{child.id}" do
-            = link_to "フォーム追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
+            = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link'
           - if child.children.present?
             span.badge
               = child.children.count 

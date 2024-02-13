@@ -13,7 +13,7 @@ html
         li
           - if @current_user.present?
             span.navbar-text
-              | #{@current_user.user_name}
+              | ログイン中: #{@current_user.user_name}
             li
               = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
           - else
