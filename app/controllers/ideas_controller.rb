@@ -209,7 +209,11 @@ class IdeasController < ApplicationController
     @idea_parent = @idea.parent
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
+    redirect_to request.referer, notice: 'タスクが削除されました。'
+
+  rescue ActiveRecord::RecordNotFound => e
     redirect_to solution_idea_path(@idea_parent), notice: 'タスクが削除されました。'
+
   end
 
   # solutionでは削除後同じページ
