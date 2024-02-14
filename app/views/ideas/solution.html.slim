@@ -16,7 +16,6 @@
   p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
   p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
   p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
-  p Tips: 解決アイデアAの作成ボタンをクリックし保存している間、他のアイデアを作成することができます。
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
   p 

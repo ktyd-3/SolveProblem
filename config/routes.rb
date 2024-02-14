@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       patch 'set_easy_points'
       patch 'set_effect_points'
       get 'score_graph'
-      delete 'solution', to: 'ideas#destroy'
+      delete 'solution', to: 'ideas#destroy_solution'
     end
 
     collection do

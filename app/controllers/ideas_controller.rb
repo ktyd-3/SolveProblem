@@ -212,6 +212,15 @@ class IdeasController < ApplicationController
     redirect_to solution_idea_path(@idea_parent), notice: 'タスクが削除されました。'
   end
 
+  # solutionでは削除後同じページ
+  def destroy_solution
+    @idea = Idea.find_by(id: params[:id])
+    @idea_parent = @idea.parent
+    @idea_family = @idea.self_and_descendants
+    @idea_family.each(&:destroy)
+    redirect_to request.referer, notice: 'タスクが削除されました。'
+  end
+
 
 
   def ex_form
