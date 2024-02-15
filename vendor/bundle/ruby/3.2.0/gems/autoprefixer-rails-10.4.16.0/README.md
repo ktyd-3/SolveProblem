@@ -1,4 +1,4 @@
-﻿# Autoprefixer Rails [![Build Status][ci-img]][ci]
+# Autoprefixer Rails [![Build Status][ci-img]][ci]
 
 <img align="right" width="94" height="71"
      src="http://postcss.github.io/autoprefixer/logo.svg"
