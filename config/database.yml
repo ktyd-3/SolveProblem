@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: solve_problem_production
-  username: solve_problem
+  database: mainichijie_jue_db
+  username: mainichijie_jue_db_user
   password: <%= ENV["SOLVE_PROBLEM_DATABASE_PASSWORD"] %>
