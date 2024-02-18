@@ -9,3 +9,6 @@ window.Stimulus = application;
 export { application };
 
 import "controllers";
+
+import "chartkick";
+import "Chart.bundle";

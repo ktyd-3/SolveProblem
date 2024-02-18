@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_03_133834) do
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "easy_point"
-    t.integer "effect_point"
+    t.integer "easy_point",default: null
+    t.integer "effect_point",default: null
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end

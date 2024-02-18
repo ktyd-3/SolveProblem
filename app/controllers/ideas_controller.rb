@@ -151,6 +151,7 @@ class IdeasController < ApplicationController
     @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
+    @last_idea = @leaf_descendants.last
   end
 
   def set_easy_points
