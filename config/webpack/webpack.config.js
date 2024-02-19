@@ -1,35 +1,21 @@
-// Extracts CSS into .css file
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// Removes exported JavaScript files from CSS-only entries
-// in this example, entry.custom will create a corresponding empty custom.js file
-const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
-
-module.exports = {
-  mode: "development",
-  entry: {
-    // add your css or sass entries
-    application: [
-      "./app/assets/javascripts/application.js",
-      "./app/assets/stylesheets/application.scss",
-    ],
-    custom: "./app/assets/stylesheets/custom.scss",
+{
+  "name": "app",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config ./config/webpack/webpack.config.js"
   },
-  module: {
-    rules: [
-      // Add CSS/SASS/SCSS rule with loaders
-      {
-        test: /\.(?:sa|sc|c)ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-    ],
+  "devDependencies": {
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
   },
-  resolve: {
-    // Add additional file types
-    extensions: [".js", ".jsx", ".scss", ".css"],
-  },
-  plugins: [
-    // Include plugins
-    new RemoveEmptyScriptsPlugin(),
-    new MiniCssExtractPlugin(),
-  ],
-};
+  "dependencies": {
+    "@hotwired/turbo-rails": "^7.3.0",
+    "bootstrap": "^5.3.2",
+    "chartkick": "^5.0.1",
+    "css-loader": "^6.10.0",
+    "mini-css-extract-plugin": "^2.8.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "webpack-remove-empty-scripts": "^1.0.4"
+  }
+}
