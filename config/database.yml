@@ -82,3 +82,4 @@ production:
   database: solve_problem_production
   username: solve_problem
   password: <%= ENV["SOLVE_PROBLEM_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

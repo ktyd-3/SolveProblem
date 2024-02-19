@@ -33,5 +33,7 @@ module SolveProblem
 
     config.session_store :cookie_store, key: 'SolveProblem_session'
 
+    config.hosts << 'mainichijie-jue.onrender.com'
+
   end
 end
