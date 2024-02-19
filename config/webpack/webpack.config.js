@@ -9,10 +9,9 @@ module.exports = {
   entry: {
     // add your css or sass entries
     application: [
-      "./app/assets/javascripts/application.js",
-      "./app/assets/stylesheets/application.scss",
+      "./app/javascript/application.js",
+      "./app/stylesheets/application.scss",
     ],
-    custom: "./app/assets/stylesheets/custom.scss",
   },
   module: {
     rules: [
