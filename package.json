@@ -5,6 +5,7 @@
     "build": "webpack --config ./config/webpack/webpack.config.js"
   },
   "devDependencies": {
+    "@rails/webpacker": "^5.4.4",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4"
   },
