@@ -9,7 +9,7 @@ module.exports = {
   entry: {
     // add your css or sass entries
     application: [
-      "./app/assets/javascripts/application.js",
+      "./app/assets/javascript/application.js",
       "./app/assets/stylesheets/application.scss",
     ],
     custom: "./app/assets/stylesheets/custom.scss",
