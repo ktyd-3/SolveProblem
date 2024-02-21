@@ -93,3 +93,7 @@ gem 'rack-mini-profiler'
 
 
 gem 'railties', '~> 7.1', '>= 7.1.3'
+
+gem 'hotwire-rails'
+
+gem 'redis', '~> 4.0'

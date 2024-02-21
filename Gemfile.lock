@@ -115,6 +115,10 @@ GEM
       activesupport (>= 6.1)
     groupdate (6.4.0)
       activesupport (>= 6.1)
+    hotwire-rails (0.1.3)
+      rails (>= 6.0.0)
+      stimulus-rails
+      turbo-rails
     hpricot (0.8.6)
     html2slim (0.2.0)
       hpricot
@@ -211,6 +215,7 @@ GEM
       i18n
     rdoc (6.6.2)
       psych (>= 4.0.0)
+    redis (4.8.1)
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
@@ -286,6 +291,7 @@ DEPENDENCIES
   capybara
   chartkick
   groupdate
+  hotwire-rails
   html2slim
   importmap-rails
   jbuilder
@@ -295,6 +301,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   railties (~> 7.1, >= 7.1.3)
   ransack
+  redis (~> 4.0)
   ruby-graphviz
   sassc-rails
   selenium-webdriver
