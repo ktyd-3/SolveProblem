@@ -61,21 +61,17 @@ label.label {
   margin-left: 5px; /* バッジとテキストの間のマージン */
 }
 
-/* ヘッダーのログイン・ログアウト表示 */
 .navbar {
-  background-color: #ffffffeb;
-  color: #1c1c1c;
-}
+  border-bottom: solid 1.5px rgb(0, 123, 255);
 
-.navbar-nav {
-  margin-right: 0; /* 右側の余白をゼロに設定 */
-}
+  ul.navber-li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0 0 0 auto; // 右寄せ
 
-.navbar-nav > li {
-  display: inline-block !important; /* リスト項目を横並びにする */
-  padding: 15px 20px; /* 上下左右のパディング */
-}
-
-.navbar-text {
-  margin-right: 15px; /* テキストの右マージン */
+    li {
+      margin-right: 30px; // リンク間のスペースを調整
+    }
+  }
 }
