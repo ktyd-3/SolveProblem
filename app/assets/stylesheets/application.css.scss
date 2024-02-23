@@ -72,7 +72,7 @@ label.label {
 }
 
 .navbar-nav > li {
-  display: inline-block; /* リスト項目を横並びにする */
+  display: inline-block !important; /* リスト項目を横並びにする */
   padding: 15px 20px; /* 上下左右のパディング */
 }
 

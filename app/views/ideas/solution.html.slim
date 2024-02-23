@@ -1,14 +1,14 @@
 
 
-- cache 'header' do
-  .header_manu
-    = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
-    = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
-    - if @root_idea == @theme
-      = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
-    - else
-      = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
-    = render partial: 'search_form', q: @q, locals: { theme: @theme }
+
+.header_manu
+  = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
+  = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
+  - if @root_idea == @theme
+    = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
+  - else
+    = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+  = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
 
 - if @root_idea == @theme
