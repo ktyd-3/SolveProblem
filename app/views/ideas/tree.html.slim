@@ -1,12 +1,15 @@
+
+= link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+
 h2 解決アイデアの全体像
-
-= render partial: 'generate_graph_partial', locals: { theme: @theme }
-
-p (画像生成に時間がかかる場合があります。)
 
 
 = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
+p 
 
 h6= @theme.name
 = display_descendants(@theme).html_safe
+
+
+

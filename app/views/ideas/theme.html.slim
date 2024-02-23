@@ -10,7 +10,7 @@ h2 Step1 問題解決したいテーマを選びます。
   | さん、続きをはじめましょう。
   p
 
-= form_with model: Idea.new, url: first_create_ideas_path, local: true, class: 'solution-form' do |form|
+= form_with model: Idea.new, url: first_create_ideas_path, class: "idea_form", local: true do |form|
   = form.text_field "name", value: @problem&.name
   = form.submit "新規作成", class: 'btn btn-primary'
 

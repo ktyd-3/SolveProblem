@@ -83,4 +83,11 @@ Rails.application.configure do
 
   config.assets.digest = true
 
+  # ローカルでコンパイルなしでCSSを読み込む
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
+
 end

@@ -4,9 +4,9 @@
   font-size: 30px;
 }
 
-.solution-form textarea,
-.solution-form input {
-  width: 50%;
+/* アイデア入力欄 */
+.idea_form input[type="text"] {
+  width: 20%;
 }
 
 .solution-easy-points span {
@@ -56,15 +56,15 @@ label.label {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-  background-color: #007bff; /* バッジの背景色（例: 青色） */
+  background-color: #007bff;
   color: #fff; /* バッジの文字色 */
   margin-left: 5px; /* バッジとテキストの間のマージン */
 }
 
 /* ヘッダーのログイン・ログアウト表示 */
 .navbar {
-  background-color: #ffffffeb; /* ナビゲーションバーの背景色 */
-  color: #1c1c1c; /* ナビゲーションバーのテキスト色 */
+  background-color: #ffffffeb;
+  color: #1c1c1c;
 }
 
 .navbar-nav {
