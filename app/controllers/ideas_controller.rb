@@ -7,6 +7,7 @@ class IdeasController < ApplicationController
 
 
 
+
   def set_current_user
     @current_user = User.find_by(id: session[:user_id]) if session[:user_id].present?
   end
@@ -65,7 +66,7 @@ class IdeasController < ApplicationController
       # 現在のアイデアをノードとして追加
       node = graph.add_nodes(idea.name)
       # 現在のアイデアからその子供へのエッジを追加
-      idea.children.includes([:children]).each do |child|
+      idea.children.each do |child|
         child_node = add_idea_and_children(graph, child)
         graph.add_edges(node, child_node) if child_node # child_nodeがある場合のみ。
       end

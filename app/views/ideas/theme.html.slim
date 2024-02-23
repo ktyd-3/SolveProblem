@@ -8,14 +8,13 @@ h2 Step1 問題解決したいテーマを選びます。
 - if @current_user
   = @current_user.user_name
   | さん、続きをはじめましょう。
-  = button_to "ログアウト", logout_ideas_path, method: :delete, class: 'btn btn-primary'
+  p
 
-
-= form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+= form_with model: Idea.new, url: first_create_ideas_path, local: true, class: 'solution-form' do |form|
   = form.text_field "name", value: @problem&.name
-  br
   = form.submit "新規作成", class: 'btn btn-primary'
 
+p 
 
 - if @themes.present?
   h2 今まで作ったテーマ

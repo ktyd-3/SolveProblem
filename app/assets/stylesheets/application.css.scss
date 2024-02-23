@@ -4,6 +4,11 @@
   font-size: 30px;
 }
 
+.solution-form textarea,
+.solution-form input {
+  width: 50%;
+}
+
 .solution-easy-points span {
   display: inline-block;
   vertical-align: bottom;

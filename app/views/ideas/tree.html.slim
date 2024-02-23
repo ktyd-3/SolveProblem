@@ -6,3 +6,7 @@ p (画像生成に時間がかかる場合があります。)
 
 
 = render partial: 'search_form', q: @q, locals: { theme: @theme }
+
+
+h6= @theme.name
+= display_descendants(@theme).html_safe
