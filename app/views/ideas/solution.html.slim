@@ -12,14 +12,14 @@
 
 
 - if @root_idea == @theme
-  h2 Step3 さらに解決策を細かく分解する。
+  h1 Step3 さらに解決策を細かく分解する。
   p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
   p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
   p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
   p 
-  h2 「#{@root_idea.name}」の解決アイデアを作成
+  h3 「#{@root_idea.name}」の解決アイデアを作成
   = "【#{@root_idea.name}】"
   = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
   br/
@@ -28,7 +28,7 @@
 
   - @children_ideas.each do |child|
     .span-child-edit
-      = "#{child.name}"
+      = child.name
       = link_to '変更', edit_idea_path(child), class: 'btn btn-link'
       = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_frame: "_top" }
 
@@ -44,7 +44,7 @@
 
 h3 解決アイデアのさらに具体的な案を決める
 - @children_ideas.each do |idea|
-  h4
+  h4.child_idea_title
     | 『
     = link_to idea.name, solution_idea_path(idea.id), method: :patch
     | 』の解決アイデア

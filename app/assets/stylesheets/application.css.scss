@@ -4,6 +4,19 @@
   font-size: 30px;
 }
 
+h1 {
+  font-size: 30px;
+  display: inline-block;
+  border-bottom: dashed 2px #65e086;
+}
+
+//子アイデアの個別の見出し
+.child_idea_title {
+  padding: 0.25em 0.5em; /*上下 左右の余白*/
+  background: transparent; /*背景透明に*/
+  border-left: solid 5px #0419ffc2; /*左線*/
+}
+
 /* アイデア入力欄 */
 .idea_form input[type="text"] {
   width: 20%;
@@ -63,6 +76,7 @@ label.label {
 
 .navbar {
   border-bottom: solid 1.5px rgb(0, 123, 255);
+  margin-bottom: 10px;
 
   ul.navber-li {
     display: flex;
