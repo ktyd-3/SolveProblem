@@ -19,8 +19,6 @@ html
             li
               = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
   body
-    #loading-overlay.loader-wrap
-      .loader
     - if flash.notice.present?
       .alert.alert-success= flash.notice
     = yield

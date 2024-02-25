@@ -1,11 +1,9 @@
 
 = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
 
-h2 解決アイデアの全体像
-
-
 = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
+h2 解決アイデアの全体像
 p 
 
 h6= @theme.name

@@ -16,6 +16,10 @@
   p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
   p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
   p アイデアが全て出しきったあと、左上にある「総合評価」でアイデアの優先順位を選べます。
+
+  = link_to 'Step2へ戻る', first_solution_idea_path(@root_idea), class: 'btn btn-link'
+  p 
+
 - else
   = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
   p 
@@ -55,7 +59,7 @@ h3 解決アイデアのさらに具体的な案を決める
         .span-child-edit
           = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
           = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
-          = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete,turbo_frame: "_top" }
+          = button_to "削除", destroy_solution_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete,turbo_frame: "_top" }
           = turbo_frame_tag "ex_form_#{child.id}" do
             = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
           - if child.children.present?
@@ -72,3 +76,7 @@ h3 解決アイデアのさらに具体的な案を決める
       - if idea.children.present?
         = link_to 'もっと詳細に' ,"/ideas/#{idea.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
     br/
+    div.tree_box
+      .idea_tree
+        h4 【アイデア全体像】
+        = render partial: 'tree'

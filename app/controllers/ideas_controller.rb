@@ -24,7 +24,7 @@ class IdeasController < ApplicationController
     @idea = Idea.find_by(id: params[:id])
     if @idea.user_id != @current_user.id
       redirect_to root
-      flash[:notice] = "権限がありません。"
+      flash[:notice] = "権限がありません"
     end
   end
 
@@ -103,11 +103,11 @@ class IdeasController < ApplicationController
       if matching_ideas.present?
         redirect_to solution_idea_path(matching_ideas.first.id)
       else
-        flash[:notice] = "該当するアイデアは解決したいテーマ内にありません。"
+        flash[:notice] = "該当するアイデアは解決したいテーマ内にありません"
         redirect_back(fallback_location: root_path)
       end
     else
-      flash[:notice] = "該当するアイデアが見つかりません。"
+      flash[:notice] = "該当するアイデアが見つかりません"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -124,9 +124,9 @@ class IdeasController < ApplicationController
       parent.children.create(name: name,user_id: @current_user.id)
     end
     if parent.root?
-      redirect_to solution_idea_path(parent), notice: '登録が完了しました'
+      redirect_to solution_idea_path(parent)
     else
-      redirect_to request.referer, notice: '登録が完了しました'
+      redirect_to request.referer
     end
   end
 
@@ -211,10 +211,10 @@ class IdeasController < ApplicationController
     @idea_parent = @idea.parent
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
-    redirect_to request.referer, notice: 'タスクが削除されました。'
+    redirect_to solution_idea_path(@idea_parent)
 
   rescue ActiveRecord::RecordNotFound => e
-    redirect_to solution_idea_path(@idea_parent), notice: 'タスクが削除されました。'
+    redirect_to theme_ideas_path, notice: 'タスクが削除されました。'
 
   end
 
@@ -224,7 +224,7 @@ class IdeasController < ApplicationController
     @idea_parent = @idea.parent
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
-    redirect_to request.referer, notice: 'タスクが削除されました。'
+    redirect_to request.referer
   end
 
 
