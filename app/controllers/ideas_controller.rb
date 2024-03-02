@@ -44,40 +44,6 @@ class IdeasController < ApplicationController
     @q = Idea.ransack(params[:q])
   end
 
-  def generate_graph
-    # ルートのアイデアとその子供を取得
-    @problem = Idea.find_by(id: params[:id])
-
-    # @problem が nil であることを確認
-    return unless @problem
-
-    # 新しいグラフを作成
-    g = GraphViz.new(:G, type: :digraph, charset: 'UTF-8', fontname: 'Noto Sans CJK JP', fontsize: 18)
-
-    # アイデアとその子供のノードとエッジを追加する再帰メソッドを定義
-    def add_idea_and_children(graph, idea)
-      # 現在のアイデアをノードとして追加
-      node = graph.add_nodes(idea.name)
-      # 現在のアイデアからその子供へのエッジを追加
-      idea.children.each do |child|
-        child_node = add_idea_and_children(graph, child)
-        graph.add_edges(node, child_node) if child_node # child_nodeがある場合のみ。
-      end
-      node
-    end
-
-    # ルートのアイデアから再帰メソッドを呼び出す
-    add_idea_and_children(g, @problem)
-
-    # 画像を生成
-    @image_data = g.output(png: String)
-
-    # 画像データをレスポンスとして送信
-    send_data(@image_data, type: 'image/png', disposition: 'inline')
-  end
-
-
-
   def index
     @problem = Idea.includes(:children).first
     @problem_children = @problem.children if @problem.present?
@@ -113,6 +79,26 @@ class IdeasController < ApplicationController
     redirect_to first_solution_idea_path(@theme)
   end
 
+
+  def parent_create
+    idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
+    names = idea_params[:name].reject(&:blank?)
+    this_idea_parent_id = params.dig(:idea, :parent_id)
+    parent = Idea.find(this_idea_parent_id)
+    @parent = parent
+    @theme = @parent.root
+    names.each do |name|
+      parent = Idea.find(this_idea_parent_id)
+      parent.children.create(name: name,user_id: @current_user.id)
+    end
+    if @parent.root?
+      redirect_to solution_idea_path(@parent)
+    else
+      redirect_to request.referer
+    end
+
+  end
+
   def create
     idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
     names = idea_params[:name].reject(&:blank?)
@@ -120,18 +106,9 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     @parent = parent
     @theme = @parent.root
-    #最初のsolutionの場合、turboを使わずリダイレクトする。
-    if @parent.root?
-      names.each do |name|
-        parent = Idea.find(this_idea_parent_id)
-        parent.children.create(name: name,user_id: @current_user.id)
-      end
-      redirect_to solution_idea_path(@parent)
-    else
-      names.each do |name|
-        parent = Idea.find(this_idea_parent_id)
-        parent.children.create(name: name,user_id: @current_user.id)
-      end
+    names.each do |name|
+      parent = Idea.find(this_idea_parent_id)
+      parent.children.create(name: name,user_id: @current_user.id)
     end
 
   end

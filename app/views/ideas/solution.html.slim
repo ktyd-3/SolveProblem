@@ -27,16 +27,13 @@
   = "【#{@root_idea.name}】"
   = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
   br/
-
-  
-
   - @children_ideas.each do |child|
     .span-child-edit
       = child.name
       = link_to '変更', edit_idea_path(child), class: 'btn btn-link'
       = button_to "削除", idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_frame: "_top" }
 
-  = form_with model: Idea.new, class: "idea_form", data: { turbo_method: :post } do |form|
+  = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
     - 5.times do |i| 
       = form.text_field "name[]", multiple: true, name: "idea[name][]"
       = form.hidden_field "parent_id", value: @root_idea.id
@@ -45,9 +42,6 @@
   br/
 
 
-
 h3 解決アイデアのさらに具体的な案を決める
 = render partial: "child_form", collection: @children_ideas
-
-
 = render partial: 'tree'

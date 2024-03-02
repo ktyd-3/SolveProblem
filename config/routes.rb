@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       delete 'solution', to: 'ideas#destroy'
       delete "destroy_solution"
       get 'small_tree'
+      post "parent_create"
     end
 
     collection do

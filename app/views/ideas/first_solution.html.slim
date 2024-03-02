@@ -17,7 +17,7 @@
         = link_to " ・#{child.name}", solution_idea_path(child.id)
         br/
 
-  = form_with model: Idea.new, local: true do |form|
+  = form_with model: Idea.new, url: parent_create_idea_path, local: true do |form|
     - 5.times do |i|
       = form.text_field "name[]", multiple: true, name: "idea[name][]"
       = form.hidden_field "parent_id", value: @theme.id
