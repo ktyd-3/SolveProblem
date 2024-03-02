@@ -1,1 +1,2 @@
-= turbo_stream.update "children_box", partial: "form", locals: { idea: @idea }
+= turbo_stream.update "idea_#{@parent.id}", partial: "child_form", locals: { child_form: @parent }
+= turbo_stream.update "tree_box", partial: "tree"

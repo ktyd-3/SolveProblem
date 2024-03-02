@@ -28,13 +28,6 @@ class IdeasController < ApplicationController
     end
   end
 
-
-  def first_create
-    name = params[:idea][:name]
-    @theme = Idea.create(name: name, user_id: @current_user.id)
-    redirect_to first_solution_idea_path(@theme)
-  end
-
   def get_generation
     @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
@@ -114,20 +107,33 @@ class IdeasController < ApplicationController
 
 
 
+  def first_create
+    name = params[:idea][:name]
+    @theme = Idea.create(name: name, user_id: @current_user.id)
+    redirect_to first_solution_idea_path(@theme)
+  end
+
   def create
     idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
     names = idea_params[:name].reject(&:blank?)
     this_idea_parent_id = params.dig(:idea, :parent_id)
     parent = Idea.find(this_idea_parent_id)
-    names.each do |name|
-      parent = Idea.find(this_idea_parent_id)
-      parent.children.create(name: name,user_id: @current_user.id)
-    end
-    if parent.root?
-      redirect_to solution_idea_path(parent)
+    @parent = parent
+    @theme = @parent.root
+    #最初のsolutionの場合、turboを使わずリダイレクトする。
+    if @parent.root?
+      names.each do |name|
+        parent = Idea.find(this_idea_parent_id)
+        parent.children.create(name: name,user_id: @current_user.id)
+      end
+      redirect_to solution_idea_path(@parent)
     else
-      redirect_to request.referer
+      names.each do |name|
+        parent = Idea.find(this_idea_parent_id)
+        parent.children.create(name: name,user_id: @current_user.id)
+      end
     end
+
   end
 
 
