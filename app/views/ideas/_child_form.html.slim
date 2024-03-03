@@ -2,7 +2,7 @@
   div id = "idea_#{child_form.id}"
     h4.child_idea_title
       | 『
-      = link_to child_form.name, solution_idea_path(child_form.id), method: :patch
+      = link_to child_form.name, solution_idea_path(child_form.id), data: { turbo_frame: "_top" }
       | 』の解決アイデア
     - if child_form.children.present?
       - child_form.children.each do |child|
@@ -18,12 +18,9 @@
           br/
           
     = form_with model: Idea.new, class: "idea_form" do |form|
-      - 5.times do |i|
-        = form.text_field "name[]", multiple: true, name: "idea[name][]"
-        = form.hidden_field "parent_id", value: child_form.id
-        br
+      = form.text_area :names, class: "form-control", rows: 5
+      = form.hidden_field :parent_id, value: child_form.id
       = form.submit "作成", class: 'btn btn-primary'
       - if child_form.children.present?
         = link_to 'もっと詳細に' ,"/ideas/#{child_form.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
     br/
-

@@ -81,14 +81,13 @@ class IdeasController < ApplicationController
 
 
   def parent_create
-    idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
-    names = idea_params[:name].reject(&:blank?)
+    idea_params = params.require(:idea).permit(:parent_id, :names)
+    names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = params.dig(:idea, :parent_id)
     parent = Idea.find(this_idea_parent_id)
     @parent = parent
     @theme = @parent.root
     names.each do |name|
-      parent = Idea.find(this_idea_parent_id)
       parent.children.create(name: name,user_id: @current_user.id)
     end
     if @parent.root?
@@ -100,17 +99,15 @@ class IdeasController < ApplicationController
   end
 
   def create
-    idea_params = params.require(:idea).permit(:parent_id ,name: [], parent_id: [])
-    names = idea_params[:name].reject(&:blank?)
-    this_idea_parent_id = params.dig(:idea, :parent_id)
+    idea_params = params.require(:idea).permit(:parent_id, :names)
+    names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
+    this_idea_parent_id = idea_params[:parent_id]
     parent = Idea.find(this_idea_parent_id)
     @parent = parent
     @theme = @parent.root
     names.each do |name|
-      parent = Idea.find(this_idea_parent_id)
-      parent.children.create(name: name,user_id: @current_user.id)
+      parent.children.create(name: name, user_id: @current_user.id)
     end
-
   end
 
 
@@ -204,7 +201,7 @@ class IdeasController < ApplicationController
   # solutionでは削除後同じページ
   def destroy_solution
     @idea = Idea.find_by(id: params[:id])
-    @idea_parent = @idea.parent
+    @parent = @idea.parent
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
     redirect_to request.referer

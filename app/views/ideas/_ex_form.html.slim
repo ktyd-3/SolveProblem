@@ -1,7 +1,5 @@
 = form_with model: Idea.new, method: :post do |form|
-  - 5.times do |i|
-    = form.text_field "name[]", multiple: true, name: "idea[name][]"
-    = form.hidden_field "parent_id", value: @idea.id
-    br
+  = form.text_area :names, class: "form-control", rows: 5
+  = form.hidden_field "parent_id", value: @idea.id
   = form.submit "作成", class: 'btn btn-info'
   br/
