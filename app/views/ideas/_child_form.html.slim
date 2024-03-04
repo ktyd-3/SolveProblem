@@ -1,4 +1,7 @@
 
+
+
+
   div id = "idea_#{child_form.id}"
     h4.child_idea_title
       | 『
@@ -9,18 +12,24 @@
         .span-child-edit
           = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
           = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
-          = button_to "削除", destroy_solution_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete }
-          = turbo_frame_tag "ex_form_#{child.id}" do
+          = button_to "削除", destroy_solution_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？', turbo_method: :delete, turbo_frame: "true" }
+          div id = "ex_form_#{child.id}"
             = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
           - if child.children.present?
             span.badge
               = child.children.count 
           br/
           
-    = form_with model: Idea.new, class: "idea_form" do |form|
-      = form.text_area :names, class: "form-control", rows: 5
+    = form_with model: Idea.new, class: "idea_form", id:"commentInput" do |form|
+      = form.text_area :names, class: "form-control", rows: 5 ,id: "commentSubmit"
       = form.hidden_field :parent_id, value: child_form.id
       = form.submit "作成", class: 'btn btn-primary'
       - if child_form.children.present?
         = link_to 'もっと詳細に' ,"/ideas/#{child_form.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
     br/
+
+
+
+
+
+
