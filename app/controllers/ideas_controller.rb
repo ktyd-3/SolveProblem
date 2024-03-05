@@ -3,10 +3,13 @@ class IdeasController < ApplicationController
   before_action :set_current_user,:search_initialize, :autheniticate_user
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
+  before_action :autheniticate_ideas, except: [:theme,:first_create,:create,:destroy_solution]
 
-
-
+  def get_generation
+    @theme = Idea.find_by(id: params[:id])
+    # 子アイデアを持たないアイデアすべてを取得
+    @leaf_descendants = @theme.descendants.select(&:leaf?)
+  end
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id]) if session[:user_id].present?
@@ -27,13 +30,6 @@ class IdeasController < ApplicationController
       flash[:notice] = "権限がありません"
     end
   end
-
-  def get_generation
-    @theme = Idea.find_by(id: params[:id])
-    # 子アイデアを持たないアイデアすべてを取得
-    @leaf_descendants = @theme.descendants.select(&:leaf?)
-  end
-
 
   def tree
     @theme = Idea.find_by(id: params[:id])
@@ -108,6 +104,7 @@ class IdeasController < ApplicationController
     names.each do |name|
       parent.children.create(name: name, user_id: @current_user.id)
     end
+
   end
 
 
@@ -202,9 +199,9 @@ class IdeasController < ApplicationController
   def destroy_solution
     @idea = Idea.find_by(id: params[:id])
     @parent = @idea.parent
+    @theme = @parent.root
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
-    redirect_to request.referer
   end
 
 

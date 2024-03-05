@@ -1,6 +1,28 @@
 
 
 
+javascript:
+  let focusedElement = null;
+  document.addEventListener("keydown", function(e) {
+    if (e.shiftKey && e.key === "Enter") {
+      const target = e.target;
+      if (target.closest("form")) {
+        const form = target.closest("form");
+        focusedElement = document.activeElement;
+        form.requestSubmit();
+      }
+    }
+  });
+  document.addEventListener("turbo:submit-end", function(e) {
+    if (focusedElement) {
+      focusedElement.blur(); // フォーカスを解除する
+      focusedElement = null;
+    }
+  });
+
+
+
+
 .header_manu
   = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-outline-success'
   = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
