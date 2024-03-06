@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       patch 'set_effect_points'
       get 'score_graph'
       delete 'solution', to: 'ideas#destroy'
+      get "destroy_solution"
       delete "destroy_solution"
       get 'small_tree'
       post "parent_create"
