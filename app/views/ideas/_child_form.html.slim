@@ -9,16 +9,17 @@
       | 』の解決アイデア
     - if child_form.children.present?
       - child_form.children.each do |child|
-        .span-child-edit
-          = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
-          = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
-          = link_to "削除", destroy_solution_idea_path(child), class: 'btn btn-link', data: { turbo_method: :delete }
-          div id = "ex_form_#{child.id}"
-            = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
-          - if child.children.present?
-            span.badge
-              = child.children.count 
-          br/
+        div id = "idea_line_#{child.id}"
+          .span-child-edit
+            = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
+            = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
+            = link_to "削除", destroy_solution_idea_path(child), class: 'btn btn-link', data: { turbo_method: :delete }
+            = turbo_frame_tag "ex_form_#{child.id}" do
+              = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
+            - if child.children.present?
+              span.badge
+                = child.children.count 
+            br/
           
     = form_with model: Idea.new, class: "idea_form", id: "idea_form_#{child_form.id}" do |form|
       = form.text_area :names, class: "form-control", rows: 5

@@ -1,5 +1,6 @@
-= form_with model: Idea.new, method: :post do |form|
-  = form.text_area :names, class: "form-control", rows: 5
-  = form.hidden_field "parent_id", value: @idea.id
-  = form.submit "作成", class: 'btn btn-info'
-  br/
+div id = "ex_form_area"
+  = form_with model: Idea.new, method: :post do |form|
+    = form.text_area :names, class: "form-control", rows: 5
+    = form.hidden_field "parent_id", value: @idea.id
+    = form.submit "作成", class: 'btn btn-info'
+    br/
