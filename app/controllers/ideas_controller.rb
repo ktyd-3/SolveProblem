@@ -3,7 +3,7 @@ class IdeasController < ApplicationController
   before_action :set_current_user,:search_initialize, :autheniticate_user
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:theme,:first_create,:create,:destroy_solution]
+  before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
 
   def get_generation
     @theme = Idea.find_by(id: params[:id])
@@ -168,6 +168,7 @@ class IdeasController < ApplicationController
 
   def edit
     @idea = Idea.find_by(id: params[:id])
+    @theme = @idea.root
   end
 
   def update

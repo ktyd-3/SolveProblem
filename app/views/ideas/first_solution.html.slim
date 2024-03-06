@@ -1,3 +1,23 @@
+javascript:
+  let focusedElement = null;
+  document.addEventListener("keydown", function(e) {
+    if (e.shiftKey && e.key === "Enter") {
+      const target = e.target;
+      if (target.closest("form")) {
+        const form = target.closest("form");
+        focusedElement = document.activeElement;
+        form.requestSubmit();
+      }
+    }
+  });
+  document.addEventListener("turbo:submit-end", function(e) {
+    if (focusedElement) {
+      focusedElement.blur(); // フォーカスを解除する
+      focusedElement = null;
+    }
+  });
+
+
 - if @theme.present?
   h1 Step2 テーマについての解決策を書き出します。
   p 大きな枠組みから小さく分解して考えるのがコツです。
@@ -21,7 +41,11 @@
     = form.text_area :names, class: "form-control", rows: 5
     = form.hidden_field "parent_id", value: @theme.id
     br
+    p 「Shift + Enter」で作成のショートカットが使えます。
     = form.submit "作成する", class: 'btn btn-primary'
+    
+
+p
 
 
 
