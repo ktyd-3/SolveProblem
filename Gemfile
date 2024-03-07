@@ -97,5 +97,3 @@ gem 'railties', '~> 7.1', '>= 7.1.3'
 gem 'hotwire-rails'
 
 gem 'redis', '~> 4.0'
-
-gem 'jquery-hotkeys-rails', '~> 0.7.9.1'
