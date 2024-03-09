@@ -13,7 +13,9 @@ Bundler.require(*Rails.groups)
 module SolveProblem
   class Application < Rails::Application
 
-
+    config.generators do |g|
+      g.test_framework :rspec
+    end
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
@@ -33,7 +35,10 @@ module SolveProblem
 
     config.session_store :cookie_store, key: 'SolveProblem_session'
 
-    config.hosts << 'mainichijie-jue.onrender.com'
+    # config.hosts << 'mainichijie-jue.onrender.com'
+
+    config.i18n.default_locale = :ja
+
 
   end
 end

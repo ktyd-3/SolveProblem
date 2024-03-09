@@ -11,7 +11,8 @@ class UsersController < ApplicationController
         flash[:success] = "アカウントを作成しました。"
         redirect_to root_path
     else
-        render :new
+      flash.now[:alert] = @user.errors.full_messages.join(", ")
+      render :new
     end
   end
 
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-      params.require(:user).permit(:user_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:user_name, :email, :password)
   end
 
 end

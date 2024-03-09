@@ -1,5 +1,5 @@
 h1 ログイン
-= form_with url: login_ideas_path do |form|
+= form_with url: login_ideas_path, data: { turbo: false } do |form|
   .form-group
     = form.label :メールアドレス
     = form.text_field :email, placeholder: "sample@mail.com", class: "form-control mb-3"

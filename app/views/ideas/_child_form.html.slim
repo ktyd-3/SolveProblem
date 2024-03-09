@@ -8,8 +8,10 @@
         div id = "idea_line_#{child.id}"
           .span-child-edit
             = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
-            = link_to '変更', edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
-            = link_to "削除", destroy_solution_idea_path(child), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
+            = link_to edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
+                i.fas.fa-pen-to-square
+            = link_to destroy_solution_idea_path(child), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
+              i class="fa-solid fa-square-xmark"
             div id = "ex_form_#{child.id}"
               = link_to "子アイデア追加", ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
             - if child.children.present?

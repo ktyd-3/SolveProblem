@@ -25,7 +25,7 @@ class IdeasController < ApplicationController
 
   def autheniticate_ideas
     @idea = Idea.find_by(id: params[:id])
-    if @idea.user_id != @current_user.id
+    if @current_user == nil || @idea.user_id != @current_user.id
       redirect_to root
       flash[:notice] = "権限がありません"
     end
