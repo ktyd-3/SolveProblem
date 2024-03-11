@@ -9,16 +9,17 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
-    nav.navbar
-      ul.navber-li
-        li
-          - if @current_user.present?
-            | ログイン中: #{@current_user.user_name}
-            li
-              = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
-          - else
-            li
-              = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+    - unless controller_name == 'ideas' && action_name == 'solution'
+      nav.navbar
+        ul.navber-li
+          li
+            - if @current_user.present?
+              | ログイン中: #{@current_user.user_name}
+              li
+                = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
+            - else
+              li
+                = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
   body
     - if flash.notice.present?
       .alert.alert-success= flash.notice

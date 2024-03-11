@@ -1,8 +1,8 @@
-  div id = "idea_#{child_form.id}"
+  div.children_idea_box id = "idea_#{child_form.id}"
     h4.child_idea_title
       | 『
       = link_to child_form.name, solution_idea_path(child_form.id), data: { turbo_frame: "_top" }
-      | 』の解決アイデア
+      | 』
     - if child_form.children.present?
       - child_form.children.each do |child|
         div id = "idea_line_#{child.id}"
@@ -20,12 +20,13 @@
             br/
           
     = form_with model: Idea.new, class: "idea_form", id: "idea_form_#{child_form.id}" do |form|
-      = form.text_area :names, class: "form-control", rows: 5
-      = form.hidden_field :parent_id, value: child_form.id
-      = form.submit "作成", class: 'btn btn-primary'
-      - if child_form.children.present?
-        = link_to 'もっと詳細に' ,"/ideas/#{child_form.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
-    br/
+      div.text_area_wrapper
+        = form.text_area :names, class: "form-control", rows: 5
+        = form.hidden_field :parent_id, value: child_form.id
+        div.create_buttons
+        - if child_form.children.present?
+            = link_to 'もっと詳細に' ,"/ideas/#{child_form.id}/solution", class: 'btn btn-secondary', data: { turbo_frame: "_top" }
+        = form.submit "作成", class: 'btn btn-primary'
 
 
 

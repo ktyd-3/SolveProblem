@@ -1,5 +1,22 @@
 @import "bootstrap";
 
+.navbar {
+  border-bottom: solid 1.5px rgb(0, 123, 255);
+  margin-bottom: 10px;
+  padding: 0.5rem 1rem;
+
+  ul.navber-li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0 0 0 auto; // 右寄せ
+
+    li {
+      margin-right: 30px; // リンク間のスペースを調整
+    }
+  }
+}
+
 #chart-1 {
   font-size: 30px;
 }
@@ -14,7 +31,7 @@ body {
   padding: 1rem 1rem;
 }
 
-// 削除ボタン
+// 子アイデア削除ボタン
 .fa-square-xmark {
   color: rgb(194, 18, 18);
 }
@@ -54,16 +71,39 @@ h1 {
   border-bottom: dashed 2px #65e086;
 }
 
-//子アイデアの個別の見出し
-.child_idea_title {
-  padding: 0.25em 0.5em; /*上下 左右の余白*/
-  background: transparent; /*背景透明に*/
-  border-left: solid 5px #0419ffc2; /*左線*/
+//個別の小アイデアの大枠
+.children_idea_box {
+  background-color: #feffcc;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  padding: 24px;
+  margin: 8px 0;
+  border-radius: 8px;
 }
 
 /* アイデア入力欄 */
+.idea_form {
+}
+
 .idea_form textarea {
-  width: 40%;
+  width: 480px;
+}
+
+.text_area_wrapper {
+  position: relative !important;
+}
+.create_buttons {
+  position: absolute !important;
+  top: -30px !important;
+  left: 442px !important;
+}
+
+//　子アイデアの個別の見出し
+.child_idea_title {
+  padding: 0.25em 0.5em; /*上下 左右の余白*/
+  background: transparent; /*背景透明に*/
+  border-left: solid 5px #65e086; /*左線*/
 }
 
 .solution-easy-points span {
@@ -116,20 +156,4 @@ label.label {
   background-color: #007bff;
   color: #fff; /* バッジの文字色 */
   margin-left: 5px; /* バッジとテキストの間のマージン */
-}
-
-.navbar {
-  border-bottom: solid 1.5px rgb(0, 123, 255);
-  margin-bottom: 10px;
-
-  ul.navber-li {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    margin: 0 0 0 auto; // 右寄せ
-
-    li {
-      margin-right: 30px; // リンク間のスペースを調整
-    }
-  }
 }
