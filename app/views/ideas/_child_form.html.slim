@@ -4,7 +4,7 @@
     - if child_form.children.present?
       - child_form.children.each do |child|
         div.name_and_icons id = "idea_line_#{child.id}"
-          .span-child-edit
+          .span_icons
             = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
             = link_to edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
                 i.fas.fa-pen-to-square

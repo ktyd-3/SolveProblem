@@ -1,13 +1,15 @@
 
-= link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
 
-= render partial: 'search_form', q: @q, locals: { theme: @theme }
+.body__container
+    = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
 
-h2 解決アイデアの全体像
-p 
+    = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
-h6= @theme.name
-= display_descendants(@theme).html_safe
+    h2 解決アイデアの全体像
+    p 
+
+    h6= @theme.name
+    = display_descendants(@theme).html_safe
 
 
 

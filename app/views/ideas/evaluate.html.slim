@@ -1,45 +1,23 @@
 
 
-
-= link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
-
-- if @last_idea.effect_point.present? && @last_idea.easy_point.present?
-  = link_to  "評価の結果", score_graph_idea_path(@theme), class: 'btn btn-success'
+.body__container
+  = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
 
 
-h2 Step4 解決策を評価します。
-| 今まで出したアイデアを評価し、優先すべきタスクを選定します。
-| (1)実行のしやすさ
-| (2)効果の大きさ
-p 2つの観点から評価を行うことで、より現実的に効果的な解決策を選ぶことができます。
+  - if @last_idea.effect_point.present? && @last_idea.easy_point.present?
+    = link_to  "評価の結果", score_graph_idea_path(@theme), class: 'btn btn-success'
 
-h2 (1)実行のしやすさ評価
-
-= form_tag set_easy_points_idea_path(@theme), method: :patch do
-  - @leaf_descendants.each do |solution|
-    .solution-easy-points
-      span.solution-name
-        = solution.name
-      span.parent-name
-        = "(親アイデア: #{solution.parent.name})"
-      br/
-      span.rating-label
-        - (1..5).each do |rating|
-          label.label
-            - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_easy_point][]", value: rating }
-            - input_params[:checked] = "checked" if solution.easy_point.present? && solution.easy_point == rating
-            = tag :input, input_params
-            = t("ideas.difficulties.#{rating}")
-    p
-  = submit_tag '評価する'
   p
 
+  h1 Step4 アイデアを評価します。
+  p 今まで出したアイデアを評価し、優先すべきタスクを選定します。
+  p ①実行のしやすさ
+  p ②効果の大きさ
+  p 2つの観点から評価を行うことで、現実的かつ効果的な解決策を選ぶことができます。
 
+  h2 ①実行のしやすさ評価
 
-- if @last_idea.easy_point.present?
-  h2 (2)効果の大きさ評価
-
-  = form_tag set_effect_points_idea_path(@theme), method: :patch do
+  = form_tag set_easy_points_idea_path(@theme), method: :patch do
     - @leaf_descendants.each do |solution|
       .solution-easy-points
         span.solution-name
@@ -50,10 +28,34 @@ h2 (1)実行のしやすさ評価
         span.rating-label
           - (1..5).each do |rating|
             label.label
-              - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_effect_point][]", value: rating }
-              - input_params[:checked] = "checked" if solution.effect_point.present? && solution.effect_point == rating
+              - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_easy_point][]", value: rating }
+              - input_params[:checked] = "checked" if solution.easy_point.present? && solution.easy_point == rating
               = tag :input, input_params
-              = t("ideas.effects.#{rating}") 
+              = t("ideas.difficulties.#{rating}")
       p
-    = submit_tag '評価する'
+    = submit_tag '評価する' , class: 'btn btn-primary'
     p
+
+
+
+  - if @last_idea.easy_point.present?
+    h2 ②効果の大きさ評価
+
+    = form_tag set_effect_points_idea_path(@theme), method: :patch do
+      - @leaf_descendants.each do |solution|
+        .solution-easy-points
+          span.solution-name
+            = solution.name
+          span.parent-name
+            = "(親アイデア: #{solution.parent.name})"
+          br/
+          span.rating-label
+            - (1..5).each do |rating|
+              label.label
+                - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_effect_point][]", value: rating }
+                - input_params[:checked] = "checked" if solution.effect_point.present? && solution.effect_point == rating
+                = tag :input, input_params
+                = t("ideas.effects.#{rating}") 
+        p
+      = submit_tag '評価する' , class: 'btn btn-primary'
+      p

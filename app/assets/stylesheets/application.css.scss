@@ -28,6 +28,21 @@ body {
 }
 
 .body__container {
+  /* 方眼紙模様 */
+  background-image: linear-gradient(
+      0deg,
+      transparent calc(100% - 1px),
+      #def6ff calc(100% - 1px)
+    ),
+    linear-gradient(
+      90deg,
+      transparent calc(100% - 1px),
+      #def6ff calc(100% - 1px)
+    );
+  background-size: 16px 16px;
+  background-repeat: repeat;
+  background-position: center center;
+
   padding: 1rem 1.5rem;
 }
 
@@ -76,6 +91,27 @@ h1 {
   border-bottom: dashed 2px #65e086;
 }
 
+.parentIdea_container {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 0 24px 0;
+}
+
+.parentIdea_box {
+  background-color: #cfffbe;
+  width: fit-content;
+  height: fit-content;
+  padding: 16px;
+  margin: 8px 0;
+}
+
+.parent_create_button {
+  position: absolute;
+  top: -45px;
+  left: 423px;
+}
+
 //個別の小アイデアの大枠
 .children_idea_box {
   background-color: #feffcc;
@@ -87,6 +123,9 @@ h1 {
   border-radius: 8px;
 }
 
+.children_idea_box:after {
+}
+
 //　子アイデアの個別の見出し
 .child_idea_title {
   padding: 0.5em 0.5em; /*上下 左右の余白*/
@@ -96,6 +135,12 @@ h1 {
 .name_and_icons {
   // 親アイデアタイトルの左バーと少し離す
   padding: 0 0 0 8px;
+}
+
+.span_icons {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 
 /* アイデア入力欄 */
@@ -110,6 +155,7 @@ h1 {
 
 .text_area_wrapper {
 }
+
 .create_buttons {
   position: absolute;
   top: -45px;
@@ -136,12 +182,6 @@ label.label {
   height: 30px;
 }
 
-.span-child-edit {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-
 .header_manu {
   display: flex;
   flex-direction: row;
@@ -152,18 +192,7 @@ label.label {
   margin-right: 10px;
 }
 
-/* 子アイデアの数を表示する丸バッジ */
-.badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
-  background-color: #007bff;
-  color: #fff; /* バッジの文字色 */
-  margin-left: 5px; /* バッジとテキストの間のマージン */
+.graph_container {
+  background-color: #ffffff;
+  padding: 16 16;
 }
