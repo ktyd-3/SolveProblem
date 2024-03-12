@@ -18,34 +18,33 @@ javascript:
   });
 
 
-- if @theme.present?
-  h1 Step2 テーマについての解決策を書き出します。
-  p 大きな枠組みから小さく分解して考えるのがコツです。
-  p モレのない発想がしやすくなり、効果的な問題解決に繋がります。
-  p ここでは、「#{@theme.name}」を解決するための、抽象的なアイデアを出します。
-  br/
-  p 何かを増減させたり、やり方を変えることはできませんか？
-  p 例：体重を減らしたい
-  p 食べる量を減らす。
-  p 運動量を増やす。
-  p 食べ方を変える。
-  br/
+.body__container
+  - if @theme.present?
+    h1 Step2 テーマについての解決策を書き出します。
+    p 大きな枠組みから小さく分解して考えるのがコツです。
+    p モレのない発想がしやすくなり、効果的な問題解決に繋がります。
+    p ここでは、「#{@theme.name}」を解決するための、抽象的なアイデアを出します。
+    br/
+    p 何かを増減させたり、やり方を変えることはできませんか？
+    p 例：体重を減らしたい
+    p 食べる量を減らす。
+    p 運動量を増やす。
+    p 食べ方を変える。
+    br/
 
-  h2 #{@theme.name}を解決する。
-  - if @theme.children.present?
-      - @theme.children.each do |child|
-        = link_to " ・#{child.name}", solution_idea_path(child.id)
-        br/
+    h2 #{@theme.name}を解決する。
+    - if @theme.children.present?
+        - @theme.children.each do |child|
+          = link_to " ・#{child.name}", solution_idea_path(child.id)
+          br/
 
-  = form_with model: Idea.new, url: parent_create_idea_path,class: "idea_form", local: true do |form|
-    = form.text_area :names, class: "form-control", rows: 5
-    = form.hidden_field "parent_id", value: @theme.id
-    br
-    p 「Shift + Enter」で作成のショートカットが使えます。
-    = form.submit "作成する", class: 'btn btn-primary'
-    
-
-p
+    = form_with model: Idea.new, url: parent_create_idea_path,class: "idea_form", local: true do |form|
+      = form.text_area :names, class: "form-control", rows: 5
+      = form.hidden_field "parent_id", value: @theme.id
+      br
+      p 「Shift + Enter」で作成のショートカットが使えます。
+      = form.submit "作成する", class: 'btn btn-primary'
+      
 
 
 

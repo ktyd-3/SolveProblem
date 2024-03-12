@@ -3,7 +3,7 @@
 .navbar {
   border-bottom: solid 1.5px rgb(0, 123, 255);
   margin-bottom: 10px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
 
   ul.navber-li {
     display: flex;
@@ -28,7 +28,7 @@ body {
 }
 
 .body__container {
-  padding: 1rem 1rem;
+  padding: 1rem 1.5rem;
 }
 
 // 子アイデア削除ボタン
@@ -36,7 +36,12 @@ body {
   color: rgb(194, 18, 18);
 }
 
-//アイデア一覧表示
+.fa-file-circle-plus {
+  color: #00b3ea;
+  vertical-align: 0.5px;
+}
+
+//アイデアツリー　一覧表示
 #tree_box {
   position: fixed;
   bottom: 20px;
@@ -77,13 +82,26 @@ h1 {
   display: block;
   width: fit-content;
   height: fit-content;
-  padding: 24px;
+  padding: 16px;
   margin: 8px 0;
   border-radius: 8px;
 }
 
+//　子アイデアの個別の見出し
+.child_idea_title {
+  padding: 0.5em 0.5em; /*上下 左右の余白*/
+  border-left: solid 4.5px #65e086; /*左線*/
+}
+
+.name_and_icons {
+  // 親アイデアタイトルの左バーと少し離す
+  padding: 0 0 0 8px;
+}
+
 /* アイデア入力欄 */
 .idea_form {
+  position: relative;
+  margin: 40px 0 0 0;
 }
 
 .idea_form textarea {
@@ -91,19 +109,11 @@ h1 {
 }
 
 .text_area_wrapper {
-  position: relative !important;
 }
 .create_buttons {
-  position: absolute !important;
-  top: -30px !important;
-  left: 442px !important;
-}
-
-//　子アイデアの個別の見出し
-.child_idea_title {
-  padding: 0.25em 0.5em; /*上下 左右の余白*/
-  background: transparent; /*背景透明に*/
-  border-left: solid 5px #65e086; /*左線*/
+  position: absolute;
+  top: -45px;
+  right: 0;
 }
 
 .solution-easy-points span {
