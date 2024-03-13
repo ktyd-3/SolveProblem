@@ -1,4 +1,4 @@
 = turbo_stream.update "idea_#{@parent.id}", partial: "child_form", locals: { child_form: @parent }
-= turbo_stream.replace "dot_position", partial: "tree"
+= turbo_stream.update "dot_position", partial: "tree"
 = turbo_stream.replace "ex_form_area"
 

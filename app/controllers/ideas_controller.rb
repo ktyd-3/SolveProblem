@@ -33,7 +33,6 @@ class IdeasController < ApplicationController
 
   def tree
     @theme = Idea.find_by(id: params[:id])
-    theme = @theme.root
   end
 
 
@@ -185,7 +184,7 @@ class IdeasController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy_move
     @idea = Idea.find_by(id: params[:id])
     @idea_parent = @idea.parent
     @idea_family = @idea.self_and_descendants
@@ -197,8 +196,8 @@ class IdeasController < ApplicationController
 
   end
 
-  # solutionでは削除後同じページ
-  def destroy_solution
+  # solutionの小アイデアでは削除後同じページ
+  def destroy
     @idea = Idea.find_by(id: params[:id])
     @parent = @idea.parent
     @theme = @idea.root
