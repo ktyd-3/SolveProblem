@@ -33,6 +33,7 @@ class IdeasController < ApplicationController
 
   def tree
     @theme = Idea.find_by(id: params[:id])
+    theme = @theme.root
   end
 
 
@@ -200,7 +201,7 @@ class IdeasController < ApplicationController
   def destroy_solution
     @idea = Idea.find_by(id: params[:id])
     @parent = @idea.parent
-    @theme = @parent.root
+    @theme = @idea.root
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
   end
