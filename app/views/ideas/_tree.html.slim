@@ -1,6 +1,8 @@
-div#tree_box
-  .idea_tree
-    h4 - Idea Tree -
-    h6
-      = link_to @theme.name , solution_idea_path(@theme), data: { turbo_frame: "_top" }
-    = display_descendants(@theme).html_safe
+
+div#dot_position
+  div#tree_box.treeShadow
+    .idea_tree
+      h4 - Idea Tree -
+      h6
+        = link_to @theme.name , solution_idea_path(@theme), data: { turbo_frame: "_top" }
+      = display_descendants(@theme).html_safe
