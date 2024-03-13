@@ -58,7 +58,7 @@ nav.navbar
     = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
     .parentIdea_container
-      h3 「#{@root_idea.name}」の解決アイデアを作成
+      h2 「#{@root_idea.name}」の解決アイデアを作成
       .parentIdea_box
         = "【#{@root_idea.name}】"
         = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
@@ -79,7 +79,7 @@ nav.navbar
 
 
 
-  h3 アイデアをもっと具体的にする
+  h2.childBorder アイデアをもっと具体的にする
   = render partial: "child_form", collection: @children_ideas
 
 

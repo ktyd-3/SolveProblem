@@ -15,9 +15,11 @@
     = form.submit "新規作成", class: 'btn btn-primary'
 
   p 
+  p 
 
   - if @themes.present?
     h2 今まで作ったテーマ
+    br/
     - @themes.each do |theme|
       = theme.name
       = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'

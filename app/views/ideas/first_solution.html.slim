@@ -32,18 +32,22 @@ javascript:
     p 食べ方を変える。
     br/
 
-    h2 #{@theme.name}を解決する。
+  h2 #{@theme.name}を解決する。
+  .parentIdea_box
     - if @theme.children.present?
-        - @theme.children.each do |child|
-          = link_to " ・#{child.name}", solution_idea_path(child.id)
-          br/
+      br/
+      - @theme.children.each do |child|
+        = link_to " ・#{child.name}", solution_idea_path(child.id)
+        br/
 
     = form_with model: Idea.new, url: parent_create_idea_path,class: "idea_form", local: true do |form|
+      div.parent_create_button
+        = form.submit "作成する", class: 'btn btn-primary'
       = form.text_area :names, class: "form-control", rows: 5
       = form.hidden_field "parent_id", value: @theme.id
       br
       p 「Shift + Enter」で作成のショートカットが使えます。
-      = form.submit "作成する", class: 'btn btn-primary'
+      
       
 
 

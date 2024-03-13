@@ -59,22 +59,25 @@ body {
 //アイデアツリー　一覧表示
 #tree_box {
   position: fixed;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   bottom: 20px;
   right: 20px;
   max-width: 30%;
   max-height: 80%;
   width: auto;
   height: auto;
-
-  box-shadow: 0px 0px 20px -28px #777777;
+  border-radius: 8px;
+  filter: drop-shadow(0px 0px 5px rgba(212, 212, 212, 0.6));
 
   .idea_tree {
-    // border: 1.5px solid #767676;
-    // border-radius: 10px;
     padding: 20px;
     margin-top: 10px;
   }
+}
+
+.treeShadow {
+  position: relative;
+  box-shadow: 0px 0px 20px -28px #000000 !important;
 }
 
 #dot_position {
@@ -92,7 +95,7 @@ body {
   right: 0;
   bottom: 0;
   margin: 0 auto;
-  border-top: dotted 10px #65e086; /*ドットの形・大きさ・色*/
+  border-top: dotted 10px #4e4e4e; /*ドットの形・大きさ・色*/
 }
 
 textarea {
@@ -108,17 +111,38 @@ textarea {
   background-attachment: local;
 }
 
-h1 {
-  font-size: 30px;
+h2 {
   display: inline-block;
   border-bottom: dashed 2px #65e086;
+}
+
+h2.childBorder {
+  display: inline-block;
+  border-bottom: dashed 2px #fff200;
+}
+
+h1 {
+  font-size: 30px;
+  width: fit-content;
+  position: relative;
+  border-bottom: 4px solid rgb(0, 162, 100);
+}
+
+h1:before {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 20%;
+  height: 4px;
+  content: "";
+  background: #65e086;
 }
 
 .parentIdea_container {
   display: block;
   width: fit-content;
   height: fit-content;
-  margin: 0 0 24px 0;
+  margin: 0 0 32px 0;
 }
 
 .parentIdea_box {
@@ -126,6 +150,7 @@ h1 {
   width: fit-content;
   height: fit-content;
   padding: 16px;
+  border-radius: 8px;
   margin: 8px 0;
 }
 
