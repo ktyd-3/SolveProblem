@@ -141,7 +141,7 @@ class IdeasController < ApplicationController
       idea.update(easy_point: easy_point)
     end
 
-    redirect_to evaluate_idea_path(@theme), notice: '①の評価が完了しました'
+    redirect_to evaluate_idea_path(@theme, anchor: 'target'), notice: '①の評価が完了しました'
   end
 
   def set_effect_points

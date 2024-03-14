@@ -44,6 +44,7 @@ body {
   background-position: center center;
 
   padding: 1rem 1.5rem;
+  min-height: 100vh;
 }
 
 // 子アイデア削除ボタン
@@ -171,12 +172,12 @@ h1:before {
 
 //　子アイデアの個別の見出し
 .child_idea_title {
-  padding: 0.5em 0.5em; /*上下 左右の余白*/
+  padding: 0.5em 0.5em; /*上下 左右の余白 OK */
   border-left: solid 4.5px #65e086; /*左線*/
 }
 
 .name_and_icons {
-  // 親アイデアタイトルの左バーと少し離す
+  // 親アイデアタイトルの左バーと少し離す OK
   padding: 0 0 0 8px;
 }
 
@@ -202,12 +203,28 @@ h1:before {
 .create_buttons {
   position: absolute;
   top: -45px;
-  right: 0;
+  left: 423px;
 }
 
 .solution-easy-points span {
   display: inline-block;
   vertical-align: bottom;
+}
+
+.solution-easy-points {
+  text-decoration: none;
+  padding: 0.2rem 0.5rem 1rem 0.5rem;
+  background: #e7f8ff;
+  border-left: solid 6px #5bb1fc;
+  box-shadow: 0px 0px 15px -12px #777777;
+}
+
+.solution-effect-points {
+  text-decoration: none;
+  padding: 0.2rem 0.5rem 1rem 0.5rem;
+  background: #e7fff3;
+  border-left: solid 6px #65e086;
+  box-shadow: 0px 0px 15px -12px #777777;
 }
 
 .solution-name {
