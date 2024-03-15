@@ -3,24 +3,47 @@
 
 
 .body__container
-  h1 Step1 問題解決したいテーマを選びます。
-  p 
-  - if @current_user
-    = @current_user.user_name
-    | さん、続きをはじめましょう。
-    p
-
-  = form_with model: Idea.new, url: first_create_ideas_path, class: "idea_form", local: true do |form|
-    = form.text_field "name", value: @problem&.name
-    = form.submit "新規作成", class: 'btn btn-primary'
-
-  p 
-  p 
-
-  - if @themes.present?
-    h2 今まで作ったテーマ
-    br/
-    - @themes.each do |theme|
-      = theme.name
-      = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'
+  - if @current_user #ログインしているか
+    - if @themes.present? #１回以上アイデア出しをしたことがあるか
+      h1 Step1 問題解決したいテーマを選びます。
+      p 
+      = @current_user.user_name
+      | さん、続きをはじめましょう。
+      p
+      h2 今まで作ったテーマ
       br/
+      - @themes.each do |theme|
+        = theme.name
+        = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'
+        br/
+    - else #はじめてのアイデア出しの場合
+      h1 Step1 問題解決したいテーマを選びます。
+      p このアプリは、解決したい問題点に対し、アイデアを出し、優先順位の決定を支援するものです。
+      p 以下の流れを取ることで、幅広い解決アイデアと、現実的な行動を見つけることができます。
+      h6 Step1 テーマ設定
+      h6 Step2 解決アイデアを大きな視点で考える
+      h6 Step3 アイデアを具体化する
+      h6 Step4 アイデアの実行可能性・効果の評価
+      br/
+      p さっそく、テーマ選定からはじめてみましょう。
+    br/
+    h2 テーマを決める
+    p
+    = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+      = form.text_field "name", value: @problem&.name
+      = form.submit "新規作成", class: 'btn btn-primary'
+      br/
+  
+  - else #ログインしていない場合トップページ表示
+    .topPage_container
+      p.topTitle まいにち解決
+      p.subTitle ツリー状のアイデア作成支援アプリ
+      p 直感的なアイデア作成を円滑化し、評価機能を備えた
+      p 頭の中のアイデアを簡単にまとめられるWebツールです。
+      div.top_buttons
+        .signup_topButton
+          = link_to "新規登録", signup_ideas_path, class: 'btn btn-success'
+        .login_topButoon
+          = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+      svg class="icons-top" viewBox="0 0 350 350" width = "350" height = "350"
+        use(xlink:href="#icons-top")

@@ -254,5 +254,40 @@ label.label {
 
 .graph_container {
   background-color: #ffffff;
-  padding: 16 16;
+  padding: 40px 32px 40px 16px;
+}
+
+.topPage_container {
+  text-align: center;
+  margin-top: -8px;
+
+  .topTitle {
+    font-size: 48px;
+    font-weight: 400;
+    border-bottom: 4px solid #0085ff;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .subTitle {
+    font-size: 28px;
+    padding: 24 0 8 0;
+    margin-top: 10px;
+  }
+  .top_buttons {
+    justify-content: center;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 5rem; // ボタン間の間隔を設定
+    z-index: 10;
+
+    .signup_topButton,
+    .login_topButoon {
+      z-index: 10;
+    }
+  }
+  .icons-top {
+    margin-top: -24px;
+    z-index: 0;
+  }
 }

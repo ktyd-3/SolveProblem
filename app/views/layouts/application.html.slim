@@ -23,4 +23,5 @@ html
   body
     - if flash.notice.present?
       .alert.alert-success= flash.notice
+    = raw Rails.application.assets_manifest.find_sources('icons.svg').first
     = yield

@@ -68,7 +68,7 @@ nav.navbar
             = child.name
             = link_to edit_idea_path(child), class: 'btn btn-link' do
               i.fas.fa-pen-to-square
-            = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_frame: "_top" }
+            = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
               i class="fa-solid fa-square-xmark"
 
         = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
