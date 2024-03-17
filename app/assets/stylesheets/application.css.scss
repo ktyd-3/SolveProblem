@@ -156,18 +156,15 @@ h1:before {
   left: 423px;
 }
 
-//個別の小アイデアの大枠
+//個別の子アイデアの大枠
 .children_idea_box {
   background-color: #feffcc;
-  display: block;
+
   width: fit-content;
   height: fit-content;
-  padding: 16px;
+  padding: 16px; //OK
   margin: 8px 0;
   border-radius: 8px;
-}
-
-.children_idea_box:after {
 }
 
 //　子アイデアの個別の見出し
@@ -178,13 +175,14 @@ h1:before {
 
 .name_and_icons {
   // 親アイデアタイトルの左バーと少し離す OK
-  padding: 0 0 0 8px;
+  margin-left: 8px;
 }
 
 .span_icons {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  width: auto;
 }
 
 /* アイデア入力欄 */
@@ -205,6 +203,8 @@ h1:before {
   top: -45px;
   left: 423px;
 }
+
+//評価ページ//
 
 .solution-easy-points span {
   display: inline-block;
@@ -233,9 +233,12 @@ h1:before {
 
 .parent-name {
   font-size: 14px;
+  padding-bottom: 7px;
 }
+
 label.label {
   padding-right: 10px;
+  padding-top: 4px;
 }
 
 .ransack_search_form {

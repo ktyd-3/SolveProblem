@@ -20,11 +20,14 @@
   = form_tag set_easy_points_idea_path(@theme), method: :patch, data: { turbo: "false" } do
     - @leaf_descendants.each do |solution|
       .solution-easy-points
-        span.solution-name
-          = solution.name
-        span.parent-name
-          = "(親アイデア: #{solution.parent.name})"
-        br/
+        .evaluate_line
+          span.solution-name
+            = solution.name
+            = link_to edit_idea_path(solution), class: 'btn btn-link', data: { turbo_frame: "_top" }
+              i.fas.fa-pen-to-square
+          span.parent-name
+            = "(親アイデア: #{solution.parent.name})"
+          br/
         span.rating-label
           - (1..5).each do |rating|
             label.label

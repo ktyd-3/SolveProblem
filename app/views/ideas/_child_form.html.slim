@@ -1,6 +1,6 @@
   div.children_idea_box id = "idea_#{child_form.id}"
     h4.child_idea_title
-      = link_to child_form.name, solution_idea_path(child_form.id), data: { turbo_frame: "_top" }
+      = link_to child_form.name, solution_idea_path(child_form.id)
     - if child_form.children.present?
       - child_form.children.each do |child|
         div.name_and_icons id = "idea_line_#{child.id}"

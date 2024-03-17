@@ -8,8 +8,10 @@
     h2 解決アイデアの全体像
     p 
 
-    h6= @theme.name
-    = display_descendants(@theme).html_safe
+    .ideaTree_text
+        h6= @theme.name
+        = display_descendants(@theme).html_safe
+
 
 
 
