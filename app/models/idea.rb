@@ -5,6 +5,10 @@ class Idea < ApplicationRecord
 
   acts_as_tree order: "name"
 
+  def sum_points
+    easy_point.to_i + effect_point.to_i
+  end
+
   def dig
     if children.empty?
       self

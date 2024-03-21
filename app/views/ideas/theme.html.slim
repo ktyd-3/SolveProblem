@@ -10,6 +10,12 @@
       = @current_user.user_name
       | さん、続きをはじめましょう。
       p
+      h2 テーマを決める
+      p
+      = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+        = form.text_field "name", value: @problem&.name
+        = form.submit "新規作成", class: 'btn btn-primary'
+      br/
       h2 今まで作ったテーマ
       br/
       - @themes.each do |theme|
@@ -27,13 +33,6 @@
       br/
       p さっそく、テーマ選定からはじめてみましょう。
     br/
-    h2 テーマを決める
-    p
-    = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
-      = form.text_field "name", value: @problem&.name
-      = form.submit "新規作成", class: 'btn btn-primary'
-      br/
-  
   - else #ログインしていない場合トップページ表示
     .topPage_container
       p.topTitle まいにち解決

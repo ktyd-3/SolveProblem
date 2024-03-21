@@ -1,7 +1,8 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
-  before_action :set_current_user,:search_initialize
+  before_action :set_current_user
   before_action :autheniticate_user, except: :theme
+  before_action :search_initialize, except: :score_graph
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
   before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
@@ -26,7 +27,7 @@ class IdeasController < ApplicationController
   def autheniticate_ideas
     @idea = Idea.find_by(id: params[:id])
     if @current_user == nil || @idea.user_id != @current_user.id
-      redirect_to root
+      redirect_to root_path
       flash[:notice] = "権限がありません"
     end
   end
@@ -157,12 +158,15 @@ class IdeasController < ApplicationController
   end
 
 
+
   def score_graph
-    data = @leaf_descendants.pluck(:name, :effect_point, :easy_point)
-    @result = []
-    data.each do |da|
-      @result.push({name: da[0], data: [[da[1], da[2]]]})
+    @sorted_solutions = @leaf_descendants.sort_by { |solution| -solution.sum_points }
+    @data = @sorted_solutions.map do |solution|
+      score = solution.sum_points
+      [solution.name, score]
     end
+
+
   end
 
 

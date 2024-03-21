@@ -296,3 +296,56 @@ label.label {
     z-index: 0;
   }
 }
+
+.table_design09 {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+}
+.table_design09 tr {
+  background-color: #e6f1f6;
+}
+.table_design09 tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
+.table_design09 th,
+.table_design09 td {
+  padding: 1em;
+}
+
+.table_design09 td.table_name {
+  font-size: 16px;
+}
+.table_design09 td.table_num {
+  font-size: 24px;
+}
+
+.table_design09 td.table_num.easyPoints {
+  text-decoration: underline;
+  text-decoration-color: rgb(25, 225, 65);
+  text-underline-offset: 4px;
+}
+
+.table_design09 td.table_num.effectPoints {
+  text-decoration: underline;
+  text-decoration-color: rgb(62, 117, 255);
+  text-underline-offset: 4px;
+}
+
+.table_design09 td.table_num.sumPoints {
+  font-weight: bold;
+}
+
+.table_design09 thead th {
+  background-color: #0076e4;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.table_design09 tbody th {
+  color: #4d9bc1;
+}
