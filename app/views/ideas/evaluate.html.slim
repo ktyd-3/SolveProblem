@@ -18,7 +18,7 @@
   h2 ①実行のしやすさ評価
 
   = form_tag set_easy_points_idea_path(@theme), method: :patch, data: { turbo: "false" } do
-    - @leaf_descendants.each do |solution|
+    - @leaf_descendants.sort_by(&:id).each do |solution|
       .solution-easy-points
         .evaluate_line
           span.solution-name
@@ -45,7 +45,7 @@
     h2 ②効果の大きさ評価
 
     = form_tag set_effect_points_idea_path(@theme), method: :patch do
-      - @leaf_descendants.each do |solution|
+      - @leaf_descendants.sort_by(&:id).each do |solution|
         .solution-effect-points
           span.solution-name
             = solution.name
