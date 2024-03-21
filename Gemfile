@@ -107,3 +107,7 @@ gem 'redis', '~> 4.0'
 
 # svg画像
 gem 'svgeez', '~> 4.1'
+
+
+gem 'jquery-rails'
+gem 'clipboard-rails'

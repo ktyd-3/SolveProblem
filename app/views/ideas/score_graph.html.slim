@@ -25,7 +25,16 @@
             td.table_num.sumPoints = idea.sum_points
     p 
 
-    
+  div id= "lastSolution_list"
+    - @sorted_solutions.each do |sorted_solution|
+      .solution
+        = sorted_solution.name
+        | (#{sorted_solution.sum_points})
+        p
+  button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#lastSolution_list" style="border: none; background: none;")
+    i.fa-regular.fa-clipboard
+
+
 
   p
 

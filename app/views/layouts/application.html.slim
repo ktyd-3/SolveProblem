@@ -8,6 +8,7 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
     - unless controller_name == 'ideas' && action_name == 'solution'
       nav.navbar
