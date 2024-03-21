@@ -1,24 +1,10 @@
-# README
+# アプリ名
+まいにち解決
+～ツリー状のアイデア作成支援アプリ～
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリ概要
+困っている問題について、アイデアをロジカルツリー状に生み出して細分化していき、効果的な解決アイデアを決定するためのアイデア作成支援サービスです。
+通常のwebロジカルツリーでは、ツール自体の操作に慣れが必要ですが、当アプリでは、箇条書きの文章入力でアイデアを作成し非同期更新できるので、誰でも直感的でストレスフリーな機能を設計しました。
+ただアイデア出しを支援するだけではなく、評価機能によって優先順位決める機能まで兼ね備えているので、PDCAサイクルにおける、計画・実行の部分をスムーズに着手できるように心懸けました。
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 作成背景
