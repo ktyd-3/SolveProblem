@@ -29,10 +29,10 @@
 
 # 機能一部紹介
 
-## Turboを使ったアイデア作成・削除、フォーム追加
+## 非同期更新のアイデア作成・削除、フォーム追加
 https://github.com/ktyd-3/SolveProblem/assets/150873817/41cff689-ce57-4058-ac5b-7af1cdb38de5
 - 「Shift + Enter」で作成ボタンのショートカット
-- アイデア一覧表示（右下部分）との非同期更新連携
+- アイデア一覧表示（右下部分）との更新連携
 
 ## アイデアへの評価での優先順位機能
 https://github.com/ktyd-3/SolveProblem/assets/150873817/2e287504-eda0-4aab-aabc-5af2cafbc702
