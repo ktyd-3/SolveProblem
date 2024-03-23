@@ -12,6 +12,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-free";
 library.add(fas, far, fab);
+import jquery from "jquery";
+window.$ = jquery;
 
 $(document).ready(function () {
   var clipboard = new Clipboard(".clipboard-btn");

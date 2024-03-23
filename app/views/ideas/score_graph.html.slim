@@ -24,8 +24,10 @@
             td.table_num.effectPoints = idea.effect_point
             td.table_num.sumPoints = idea.sum_points
     p 
+    br/
 
   div id= "lastSolution_list"
+    h2 【#{@theme.name}の解決アイデア】
     - @sorted_solutions.each do |sorted_solution|
       .solution
         = sorted_solution.name
@@ -33,6 +35,7 @@
         p
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#lastSolution_list" class="btn btn-primary")
     | Copy
+
 
 
 
