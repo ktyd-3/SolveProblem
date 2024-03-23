@@ -154,7 +154,7 @@ class IdeasController < ApplicationController
       idea.update(effect_point: effect_point)
     end
 
-    redirect_to score_graph_idea_path(@theme), notice: '②が完了しました'
+    redirect_to score_graph_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
   end
 
 

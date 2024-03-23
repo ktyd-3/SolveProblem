@@ -1,4 +1,11 @@
 
+javascript:
+  document.addEventListener("turbo:load", function () {
+    var clipboard = new Clipboard(".clipboard-btn");
+    console.log(clipboard);
+  });
+
+
 .body__container
   = link_to  "評価へ戻る", "javascript:history.back()", class: 'btn btn-success'
   p 
@@ -23,11 +30,12 @@
             td.table_num.easyPoints = idea.easy_point
             td.table_num.effectPoints = idea.effect_point
             td.table_num.sumPoints = idea.sum_points
-    p 
+    
     br/
 
   div id= "lastSolution_list"
     h2 【#{@theme.name}の解決アイデア】
+    p
     - @sorted_solutions.each do |sorted_solution|
       .solution
         = sorted_solution.name

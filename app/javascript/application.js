@@ -15,7 +15,7 @@ library.add(fas, far, fab);
 import jquery from "jquery";
 window.$ = jquery;
 
-$(document).ready(function () {
+document.addEventListener("turbo:load", function () {
   var clipboard = new Clipboard(".clipboard-btn");
   console.log(clipboard);
 });
