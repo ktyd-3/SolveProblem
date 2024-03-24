@@ -1,8 +1,7 @@
 class IdeasController < ApplicationController
   require "ruby-graphviz"
-  before_action :set_current_user
+  before_action :set_current_user,:search_initialize
   before_action :autheniticate_user, except: :theme
-  before_action :search_initialize, except: :score_graph
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
   # アイデアへの閲覧制限
   before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
@@ -148,13 +147,25 @@ class IdeasController < ApplicationController
   def set_effect_points
     effect_points_params = params.require(:idea).permit!
 
+    @theme = Idea.find_by(id: params[:id])
+
+    success = true
+
     @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first
       idea = Idea.find_by(id: solution.id)
-      idea.update(effect_point: effect_point)
+      unless idea.update(effect_point: effect_point)
+        success = false
+        break
+      end
     end
 
-    redirect_to score_graph_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
+    if success
+      @theme.update(evaluate_done: 1)
+      redirect_to score_graph_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
+    else
+
+    end
   end
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_20_090622) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_24_005934) do
   create_table "ideas", force: :cascade do |t|
     t.string "name"
     t.integer "parent_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_090622) do
     t.integer "effect_point"
     t.integer "user_id", null: false
     t.integer "sum_points"
+    t.integer "evaluate_done", default: 0
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 

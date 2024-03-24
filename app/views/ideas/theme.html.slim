@@ -10,17 +10,23 @@
       = @current_user.user_name
       | さん、続きをはじめましょう。
       p
-      h2 テーマを決める
+      h1 テーマを決める
       p
       = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
         = form.text_field "name", value: @problem&.name
         = form.submit "新規作成", class: 'btn btn-primary'
       br/
       h2 今まで作ったテーマ
-      br/
-      - @themes.each do |theme|
-        = theme.name
-        = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'
+      .theme_table-wrapper
+        table.theme
+          tbody
+            - @themes.each do |theme|
+              tr
+                td = theme.name
+                td = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'
+                td
+                  - if theme.evaluate_done == 1
+                    = link_to "総合評価", score_graph_idea_path(theme), class: 'btn btn-link'
         br/
     - else #はじめてのアイデア出しの場合
       h1 Step1 問題解決したいテーマを選びます。

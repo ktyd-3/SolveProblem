@@ -1,9 +1,6 @@
 
 
 .body__container
-  = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
-
-
   - if @last_idea.effect_point.present? && @last_idea.easy_point.present?
     = link_to  "評価の結果", score_graph_idea_path(@theme), class: 'btn btn-success'
 
