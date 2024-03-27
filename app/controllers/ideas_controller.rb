@@ -204,7 +204,7 @@ class IdeasController < ApplicationController
         end
       else
         @leaf_descendants.each do |solution|
-          new_point = solution.easy_point * @value.easy
+          new_point = (solution.easy_point * @value.easy* 10**3).ceil / 10.0**3
           solution.update(easy_point: new_point)
         end
       end
@@ -230,7 +230,7 @@ class IdeasController < ApplicationController
         end
       else
         @leaf_descendants.each do |solution|
-          new_point = solution.effect_point * @value.effect
+          new_point = (solution.effect_point * @value.effect* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
       end
