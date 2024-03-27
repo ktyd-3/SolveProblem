@@ -20,8 +20,12 @@ javascript:
       thead
         tr
           th 名前
-          th 簡単さ
-          th 効果量
+          - if @value.easy == 1.0 && @value.effect == 1.0
+            th 簡単さ
+            th 効果量
+          - else
+            th 簡単さ(×#{@value.easy})
+            th 効果量(×#{@value.effect})
           th 合計点
       tbody
         - @leaf_descendants.sort_by! { |idea| -idea.sum_points.to_i }.each do |idea|
