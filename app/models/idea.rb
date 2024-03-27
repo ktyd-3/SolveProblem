@@ -1,12 +1,13 @@
 class Idea < ApplicationRecord
   has_many :children, class_name: "Idea", foreign_key: "parent_id"
   belongs_to :parent, class_name: "Idea", optional: true
+  has_one :value
   belongs_to :user
 
   acts_as_tree order: "name"
 
   def sum_points
-    easy_point.to_i + effect_point.to_i
+    easy_point.to_f + effect_point.to_f
   end
 
   def dig

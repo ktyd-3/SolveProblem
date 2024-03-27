@@ -1,8 +1,7 @@
 class IdeasController < ApplicationController
-  require "ruby-graphviz"
   before_action :set_current_user,:search_initialize
   before_action :autheniticate_user, except: :theme
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph]
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph,:update_easy_value,:update_effect_value]
   # アイデアへの閲覧制限
   before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
 
@@ -171,13 +170,67 @@ class IdeasController < ApplicationController
 
 
   def score_graph
+    @theme = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @value.easy ||= 1.0
+    @value.effect ||= 1.0
     @sorted_solutions = @leaf_descendants.sort_by { |solution| -solution.sum_points }
     @data = @sorted_solutions.map do |solution|
       score = solution.sum_points
       [solution.name, score]
     end
+  end
 
+  def update_easy_value
+    @theme = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @value.easy ||= 1
+    @value.effect ||= 1
+    before_value = @value.easy
+    value_params = params.dig(:value, :easy).to_f
+    if @value.update(easy: value_params)
+      if before_value != 1.0
+        @leaf_descendants.each do |solution|
+          default = format('%.1f',solution.easy_point / before_value).to_f
+          new_point = (default * @value.easy* 10**3).ceil / 10.0**3
+          solution.update(easy_point: new_point)
+        end
+      else
+        @leaf_descendants.each do |solution|
+          new_point = solution.easy_point * @value.easy
+          solution.update(easy_point: new_point)
+        end
+      end
+      redirect_to score_graph_idea_path(@theme), notice: '簡単さの重みを更新しました'
+    else
+      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+    end
+  end
 
+  def update_effect_value
+    @theme = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @value.easy ||= 1
+    @value.effect ||= 1
+    before_value = @value.effect
+    value_params = params.dig(:value, :effect).to_f
+    if @value.update(effect: value_params)
+      if before_value != 1.0
+        @leaf_descendants.each do |solution|
+          default = format('%.1f',solution.effect_point / before_value).to_f
+          new_point = (default * @value.effect* 10**3).ceil / 10.0**3
+          solution.update(effect_point: new_point)
+        end
+      else
+        @leaf_descendants.each do |solution|
+          new_point = solution.effect_point * @value.effect
+          solution.update(effect_point: new_point)
+        end
+      end
+      redirect_to score_graph_idea_path(@theme), notice: '簡単さの重みを更新しました'
+    else
+      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+    end
   end
 
 
@@ -238,6 +291,10 @@ class IdeasController < ApplicationController
       name: [],
       parent_id: []
       )
+  end
+
+  def value_params
+    params.require(:value).permit(:easy, :effect)
   end
 
 

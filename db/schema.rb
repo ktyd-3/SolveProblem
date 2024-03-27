@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_24_005934) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_26_042602) do
   create_table "ideas", force: :cascade do |t|
     t.string "name"
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "easy_point"
-    t.integer "effect_point"
+    t.float "easy_point"
+    t.float "effect_point"
     t.integer "user_id", null: false
-    t.integer "sum_points"
+    t.float "sum_points"
     t.integer "evaluate_done", default: 0
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end
@@ -32,5 +32,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_005934) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "values", force: :cascade do |t|
+    t.float "easy", default: 1.0, null: false
+    t.float "effect", default: 1.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "idea_id", null: false
+    t.index ["idea_id"], name: "index_values_on_idea_id"
+  end
+
   add_foreign_key "ideas", "users"
+  add_foreign_key "values", "ideas"
 end

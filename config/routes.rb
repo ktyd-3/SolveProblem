@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       delete "destroy_move"
       get 'small_tree'
       post "parent_create"
+      patch "update_easy_value"
+      patch "update_effect_value"
     end
 
     collection do
