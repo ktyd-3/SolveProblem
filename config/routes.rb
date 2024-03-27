@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       post "parent_create"
       patch "update_easy_value"
       patch "update_effect_value"
+      get "add_weighted_value"
+      get "remove_weighted_value"
     end
 
     collection do

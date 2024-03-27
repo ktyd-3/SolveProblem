@@ -32,22 +32,14 @@ javascript:
             td.table_num.sumPoints = idea.sum_points
     br/
 
-    
-    p オプション：評価項目の重みづけ
-    = link_to edit_idea_path(child), class: 'btn btn-link' do
-      i.fas.fa-pen-to-square
-    div id = "weighted_#{@theme.id}"
-      p 評価項目について、相対的にどれだけ重要か、という評価付けをすることで、適切な優先順位を決められます。
-      p 例えば、「運動がしたいのに、なかなか続かない」という問題を解消したいなら、実行のしやすさの項目の重要度を、効果の大きさよりも強く評価すべきかもしれません。
-      h5 ①実行のしやすさの重み:#{@value.easy}
-      = form_with model: @value, url: update_easy_value_idea_path(@theme) do |form|
-        = form.select :easy, options_for_select([["1.0倍", 1.0],["1.1倍", 1.1],["1.2倍", 1.2],["1.3倍",1.3],["1.4倍",1.4],["1.5倍", 1.5],["1.6倍",1.6],["1.7倍",1.7],["1.8倍",1.8],["1.9倍",1.9],["2.0倍",2.0]]), prompt: "選択してください"
-        = form.submit '更新', class: 'btn btn-link'
-      h5 ②効果の大きさの重み:#{@value.effect}
-      = form_with model: @value, url: update_effect_value_idea_path(@theme) do |form|
-        = form.select :effect, options_for_select([["1.0倍", 1.0],["1.1倍", 1.1],["1.2倍", 1.2],["1.3倍",1.3],["1.4倍",1.4],["1.5倍", 1.5],["1.6倍",1.6],["1.7倍",1.7],["1.8倍",1.8],["1.9倍",1.9],["2.0倍",2.0]]), prompt: "選択してください"
-        = form.submit '更新', class: 'btn btn-link'
-      br/
+    span.weighted_line
+      p オプション：評価項目の重みづけ
+      = link_to add_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
+        i class="fa-solid fa-plus"
+      = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
+        i class="fa-solid fa-minus"
+    div id = "add_weighted_#{@theme.id}"
+
 
 
 

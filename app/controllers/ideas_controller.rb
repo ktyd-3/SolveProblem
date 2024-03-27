@@ -1,6 +1,7 @@
 class IdeasController < ApplicationController
   before_action :set_current_user,:search_initialize
   before_action :autheniticate_user, except: :theme
+  before_action :theme_and_value_set, only:[:add_weighted_value, :remove_weighted_value]
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph,:update_easy_value,:update_effect_value]
   # アイデアへの閲覧制限
   before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
@@ -20,6 +21,12 @@ class IdeasController < ApplicationController
     if @current_user == nil
       redirect_to root_path
     end
+  end
+
+  # 評価の重み付けをする機能に使う
+  def theme_and_value_set
+    @theme = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
   end
 
   def autheniticate_ideas
@@ -273,6 +280,12 @@ class IdeasController < ApplicationController
     @idea_family.each(&:destroy)
   end
 
+
+  def add_weighted_value
+  end
+
+  def remove_weighted_value
+  end
 
 
   def ex_form
