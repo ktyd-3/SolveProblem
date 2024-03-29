@@ -7,7 +7,7 @@ class Idea < ApplicationRecord
   acts_as_tree order: "name"
 
   def sum_points
-    easy_point.to_f + effect_point.to_f
+    ((easy_point.to_f + effect_point.to_f)* 10**3).ceil / 10.0**3
   end
 
   def dig
