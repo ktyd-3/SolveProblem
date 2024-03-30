@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :set_current_user,:search_initialize
   before_action :autheniticate_user, except: :theme
   before_action :theme_and_value_set, only:[:add_weighted_value, :remove_weighted_value]
@@ -249,7 +250,7 @@ class IdeasController < ApplicationController
   def update
     @idea = Idea.find_by(id: params[:id])
     if @idea.update(idea_params)
-      redirect_to solution_idea_path(@idea.parent_id), notice: 'アイデアが更新されました。'
+      redirect_to solution_idea_path(@idea.id), notice: 'アイデアが更新されました。'
     else
       if @idea.parent.present?
         render :edit
@@ -266,8 +267,8 @@ class IdeasController < ApplicationController
     @idea_family.each(&:destroy)
     redirect_to solution_idea_path(@idea_parent)
 
-  rescue ActiveRecord::RecordNotFound => e
-    redirect_to theme_ideas_path, notice: 'タスクが削除されました。'
+  rescue ActiveRecord::InvalidForeignKey => e
+    redirect_to theme_ideas_path, notice: 'テーマが削除されました。'
 
   end
 
@@ -291,6 +292,11 @@ class IdeasController < ApplicationController
   def ex_form
     @idea = Idea.find(params[:id])
     @child = @idea
+  end
+
+
+  def record_not_found
+    redirect_to root_path
   end
 
   private

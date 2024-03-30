@@ -15,6 +15,9 @@ div#dot_position.test
           button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#treeIdea_list" style="border: none; background: none;")
             i.fa-regular.fa-clipboard
       div id = "treeIdea_list"
-        h6 
+        h6.tree_titleName
           = link_to @theme.name , solution_idea_path(@theme), data: { turbo_frame: "_top" }
+          = link_to edit_idea_path(@theme), class: 'btn btn-link' do
+            i.fas.fa-pen-to-square
         = display_descendants(@theme).html_safe
+    i class="fa-brands fa-pagelines leaf"

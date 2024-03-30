@@ -95,11 +95,36 @@ body {
   .idea_tree {
     padding: 20px;
     margin-top: 10px;
+    z-index: 5;
   }
+}
+
+#treeIdea_list {
+}
+
+.leaf {
+  position: absolute;
+  z-index: -4;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 40%;
+  color: #65e086;
+  opacity: 0.4;
+  padding: 20px;
+}
+
+.tree_titleName {
+  margin-top: -8px;
+  margin-bottom: -4px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 
 .treeShadow {
   position: relative;
+  z-index: 1;
 }
 
 div#dot_position #tree_box::before {
