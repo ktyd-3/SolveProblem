@@ -265,11 +265,11 @@ class IdeasController < ApplicationController
     @idea_parent = @idea.parent
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
-    redirect_to solution_idea_path(@idea_parent)
-
-  rescue ActiveRecord::InvalidForeignKey => e
-    redirect_to theme_ideas_path, notice: 'テーマが削除されました。'
-
+    if @idea_parent == nil
+      redirect_to theme_ideas_path, notice: 'テーマが削除されました'
+    else
+      redirect_to solution_idea_path(@idea_parent)
+    end
   end
 
   # solutionの小アイデアでは削除後同じページ

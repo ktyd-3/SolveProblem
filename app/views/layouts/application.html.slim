@@ -26,7 +26,6 @@ html
       nav.navbar
         .header_manu
           = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-success'
-          = link_to  "アイデア全体図", "/ideas/#{@theme.id}/tree/", class: 'btn btn-outline-primary'
           - if @root_idea == @theme
             = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
           - else
