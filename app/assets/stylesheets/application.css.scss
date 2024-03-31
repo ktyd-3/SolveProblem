@@ -102,7 +102,30 @@ body {
 #treeIdea_list {
 }
 
-.leaf {
+.small_leaf {
+  position: absolute;
+  z-index: -4;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 20%;
+  color: #65e086;
+  opacity: 0.4;
+  padding: 10px;
+}
+.mid_leaf {
+  position: absolute;
+  z-index: -4;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  height: 40%;
+  color: #65e086;
+  opacity: 0.4;
+  padding: 10px;
+}
+
+.big_tree {
   position: absolute;
   z-index: -4;
   bottom: 0;

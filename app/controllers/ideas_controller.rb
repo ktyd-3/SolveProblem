@@ -40,6 +40,8 @@ class IdeasController < ApplicationController
 
   def tree
     @theme = Idea.find_by(id: params[:id])
+    all_children_ideas = @theme.descendants
+    @all_children_ideasSize = all_children_ideas.size
   end
 
 
@@ -108,6 +110,8 @@ class IdeasController < ApplicationController
     parent = Idea.find(this_idea_parent_id)
     @parent = parent
     @theme = @parent.root
+    all_children_ideas = @theme.descendants
+    @all_children_ideasSize = all_children_ideas.size
     names.each do |name|
       parent.children.create(name: name, user_id: @current_user.id)
     end
@@ -128,6 +132,9 @@ class IdeasController < ApplicationController
   def solution
     @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
+    all_children_ideas = @theme.descendants
+    @all_children_ideasSize = all_children_ideas.size
+
     @children_ideas = @root_idea.children.select(:id, :name) if @root_idea.present?
   end
 
