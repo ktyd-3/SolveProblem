@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_26_042602) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_02_023334) do
   create_table "ideas", force: :cascade do |t|
     t.string "name"
     t.integer "parent_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_26_042602) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "idea_id", null: false
+    t.boolean "public", default: false
     t.index ["idea_id"], name: "index_values_on_idea_id"
   end
 

@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
         session[:user_id] = @user.id
-        flash[:success] = "アカウントを作成完了"
-        redirect_to root_path
+        flash[:success] = "アカウントを作成成功"
+        redirect_to theme_ideas_path
     else
       flash.now[:alert] = @user.errors.full_messages.join(", ")
       render :new

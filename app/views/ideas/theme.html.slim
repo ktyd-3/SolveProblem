@@ -1,7 +1,3 @@
-
-
-
-
 .body__container
   - if @current_user #ログインしているか
     - if @themes.present? #１回以上アイデア出しをしたことがあるか
@@ -28,6 +24,16 @@
                   - if theme.evaluate_done == 1
                     = link_to "総合評価", score_graph_idea_path(theme), class: 'btn btn-link'
         br/
+      - if @another_user_themes.present?
+        h2 他の人の公開テーマ
+        .theme_table-wrapper
+          table.theme
+            tbody
+              - @another_user_themes.each do |another_user_theme|
+                tr
+                  td = another_user_theme.name
+                  td = link_to "閲覧する", solution_idea_path(another_user_theme), class: 'btn btn-link'
+          
     - else #はじめてのアイデア出しの場合
       h1 Step1 問題解決したいテーマを選びます。
       p このアプリは、解決したい問題点に対し、アイデアを出し、優先順位の決定を支援するものです。
@@ -38,17 +44,10 @@
       h6 Step4 アイデアの実行可能性・効果の評価
       br/
       p さっそく、テーマ選定からはじめてみましょう。
-    br/
-  - else #ログインしていない場合トップページ表示
-    .topPage_container
-      p.topTitle まいにち解決
-      p.subTitle ツリー状のアイデア作成支援アプリ
-      p 直感的なアイデア作成を円滑化し、評価機能を備えた
-      p 頭の中のアイデアを簡単にまとめられるWebツールです。
-      div.top_buttons
-        .signup_topButton
-          = link_to "新規登録", signup_ideas_path, class: 'btn btn-success'
-        .login_topButoon
-          = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
-      svg class="icons-top" viewBox="0 0 350 350" width = "350" height = "350"
-        use(xlink:href="#icons-top")
+      br/
+      h1 テーマを決める
+      p
+      = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+        = form.text_field "name", value: @problem&.name
+        = form.submit "新規作成", class: 'btn btn-primary'
+      br/

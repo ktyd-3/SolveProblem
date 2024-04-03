@@ -3,6 +3,8 @@
 .body__container
   h2 ユーザー登録
 
+
+
   = form_with model: @user, url: signup_ideas_path, data: { turbo: false } do |form|
     - if form.object.errors.any?
       .alert.alert-danger

@@ -1,6 +1,5 @@
 
 .body__container
-
   h2 ログイン
   = form_with url: login_ideas_path, data: { turbo: false } do |form|
     .form-group
@@ -11,3 +10,5 @@
       = form.password_field :password, placeholder: "パスワードを入力", class: "form-control mb-3"
     = form.submit "ログイン", class: 'btn btn-primary'
     = link_to "新規登録", "signup", class: 'btn btn-link'
+
+    

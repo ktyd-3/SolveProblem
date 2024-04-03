@@ -1,11 +1,12 @@
 class IdeasController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :set_current_user,:search_initialize
-  before_action :autheniticate_user, except: :theme
+  before_action :autheniticate_user, except: :top #トップページ以外でログインを求める
+  before_action :autheniticate_ideas, except: [:top,:theme,:first_create,:create] # アイデアへの閲覧制限
+  before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form] #他ユーザーアイデア閲覧中の編集制限
   before_action :theme_and_value_set, only:[:add_weighted_value, :remove_weighted_value]
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph,:update_easy_value,:update_effect_value]
-  # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:theme,:first_create,:create]
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph,:update_easy_value,:update_effect_value] #テーマ以下の子孫アイデアを全て取得
+
 
   def get_generation
     @theme = Idea.find_by(id: params[:id])
@@ -21,22 +22,60 @@ class IdeasController < ApplicationController
   def autheniticate_user
     if @current_user == nil
       redirect_to root_path
+      flash[:notice] = "ログインしてください"
     end
   end
 
-  # 評価の重み付けをする機能に使う
+  def autheniticate_ideas #アイデア閲覧制限
+    @idea = Idea.find_by(id: params[:id])
+    root = @idea.root || @idea
+    @value = Value.find_or_create_by(idea_id: root.id)
+    if @idea.user_id != @current_user.id
+      if @value == false
+        redirect_to theme_ideas_path
+        flash[:notice] = "権限がありません"
+      end
+    end
+  end
+
+  def not_permit_edit
+    @idea = Idea.find_by(id: params[:id])
+    if @idea.user_id != @current_user.id
+      redirect_to request.referer
+      flash[:notice] = "閲覧のみ可能です。編集権限がありません"
+    end
+  end
+
+  # 評価の重み付けをする機能に共通部分
   def theme_and_value_set
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
   end
 
-  def autheniticate_ideas
-    @idea = Idea.find_by(id: params[:id])
-    if @current_user == nil || @idea.user_id != @current_user.id
-      redirect_to root_path
-      flash[:notice] = "権限がありません"
+
+
+  def copy_idea_generation
+    @idea = Idea.find_by(params[:id])
+    @theme = @idea.root
+    @new_theme = Idea.create(name: @theme.name,user_id: @current_user.id)
+    copy_create_children(@theme,@new_theme)
+    @new_theme.reload
+    redirect_to solution_idea_path(@new_theme)
+    flash[:notice] = "テーマのアイデアを全体コピーしました"
+  end
+
+  def copy_create_children(idea,new_idea)
+    if idea.children.any?
+      idea.children.each do |child|
+        copy_name = child.name
+        new_child = Idea.create(name: copy_name,parent_id: new_idea.id,user_id: @current_user.id)
+        copy_create_children(child,new_child)
+      end
     end
   end
+
+
+
 
   def tree
     @theme = Idea.find_by(id: params[:id])
@@ -68,11 +107,11 @@ class IdeasController < ApplicationController
         redirect_to solution_idea_path(matching_ideas.first.id)
       else
         flash[:notice] = "該当するアイデアは解決したいテーマ内にありません"
-        redirect_back(fallback_location: root_path)
+        redirect_back(fallback_location: theme_ideas_path)
       end
     else
       flash[:notice] = "該当するアイデアが見つかりません"
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: theme_ideas_path)
     end
   end
 
@@ -85,22 +124,33 @@ class IdeasController < ApplicationController
   end
 
 
+  def permit_create(idea)
+    if idea.user_id == @current_user.id
+      return true
+    else
+      redirect_to request.referer
+      flash[:notice] = "閲覧のみ可能です。編集権限がありません"
+      return false
+    end
+  end
+
+
   def parent_create
     idea_params = params.require(:idea).permit(:parent_id, :names)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = params.dig(:idea, :parent_id)
     parent = Idea.find(this_idea_parent_id)
-    @parent = parent
-    @theme = @parent.root
-    names.each do |name|
-      parent.children.create(name: name,user_id: @current_user.id)
+    @theme = parent.root
+    if permit_create(@theme)
+      names.each do |name|
+        parent.children.create(name: name, user_id: @current_user.id)
+      end
+      if parent.root?
+        redirect_to solution_idea_path(parent)
+      else
+        redirect_to request.referer
+      end
     end
-    if @parent.root?
-      redirect_to solution_idea_path(@parent)
-    else
-      redirect_to request.referer
-    end
-
   end
 
   def create
@@ -108,12 +158,13 @@ class IdeasController < ApplicationController
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = idea_params[:parent_id]
     parent = Idea.find(this_idea_parent_id)
-    @parent = parent
-    @theme = @parent.root
-    all_children_ideas = @theme.descendants
-    @all_children_ideasSize = all_children_ideas.size
-    names.each do |name|
-      parent.children.create(name: name, user_id: @current_user.id)
+    @theme = parent.root
+    if permit_create(@theme)
+      all_children_ideas = @theme.descendants
+      @all_children_ideasSize = all_children_ideas.size
+      names.each do |name|
+        parent.children.create(name: name, user_id: @current_user.id)
+      end
     end
 
   end
@@ -125,8 +176,22 @@ class IdeasController < ApplicationController
 
 
   def theme
-    @themes = Idea.where(parent_id: nil,user_id: @current_user.id) if @current_user.present?
+    @themes = Idea.where(parent_id: nil, user_id: @current_user.id)
+    @public_themes = Value.where(public: true)
+    if @public_themes.present?
+      @another_user_themes = []
+      @public_themes.each do |public_theme|
+        idea = Idea.find_by(id: public_theme.id)
+        if idea == nil
+        else
+          if idea.user_id != @current_user.id #他の人のテーマのみを配列に入れる。
+            @another_user_themes << idea
+          end
+        end
+      end
+    end
   end
+
 
 
   def solution
@@ -230,19 +295,31 @@ class IdeasController < ApplicationController
     before_value = @value.effect
     value_params = params.dig(:value, :effect).to_f
     if @value.update(effect: value_params)
-      if before_value != 1.0
+      if before_value != 1.0 #すでに重み付けをしてあった場合
         @leaf_descendants.each do |solution|
           default = format('%.1f',solution.effect_point / before_value).to_f
           new_point = (default * @value.effect* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
-      else
+      else #初めての重み付けの場合
         @leaf_descendants.each do |solution|
           new_point = (solution.effect_point * @value.effect* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
       end
       redirect_to score_graph_idea_path(@theme), notice: '簡単さの重みを更新しました'
+    else
+      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+    end
+  end
+
+
+  def public_setting
+    @theme = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
+    value_params = params.dig(:value,:public)
+    if @value.update(public: value_params)
+      redirect_to score_graph_idea_path(@theme), notice: '全体公開を変更しました'
     else
       redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
     end
@@ -303,7 +380,7 @@ class IdeasController < ApplicationController
 
 
   def record_not_found
-    redirect_to root_path
+    redirect_to theme_ideas_path
   end
 
   private
@@ -320,7 +397,7 @@ class IdeasController < ApplicationController
   end
 
   def value_params
-    params.require(:value).permit(:easy, :effect)
+    params.require(:value).permit(:easy, :effect,:public)
   end
 
 

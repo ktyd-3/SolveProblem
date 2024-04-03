@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "ideas#theme"
+  root to: "ideas#top"
   resources :ideas do
     member do
       post 'edit'
@@ -21,9 +21,13 @@ Rails.application.routes.draw do
       patch "update_effect_value"
       get "add_weighted_value"
       get "remove_weighted_value"
+      patch "public_setting"
+      get "copy_idea_generation"
+      get "copy_create_children"
     end
 
     collection do
+      get "top"
       get "theme"
       post 'first_create'
       get "signup", to: "users#new"

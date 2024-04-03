@@ -20,8 +20,6 @@ javascript:
     }
   });
 
-
-
 .body__container
   - if @root_idea == @theme
     h1 Step3 さらに解決策を細かく分解する。
@@ -51,12 +49,12 @@ javascript:
               i.fas.fa-pen-to-square
             = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
               i class="fa-solid fa-square-xmark"
-
-        = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
-          div.parent_create_button
-            = form.submit "作成", class: 'btn btn-primary'
-          = form.text_area :names, class: "form-control", rows: 5
-          = form.hidden_field "parent_id", value: @root_idea.id
+        - if permit_create(@root_idea)
+          = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
+            div.parent_create_button
+              = form.submit "作成", class: 'btn btn-primary'
+            = form.text_area :names, class: "form-control", rows: 5
+            = form.hidden_field "parent_id", value: @root_idea.id
 
 
 

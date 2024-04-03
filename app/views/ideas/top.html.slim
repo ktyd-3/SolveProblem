@@ -1,0 +1,13 @@
+.body__container
+    .topPage_container
+        p.topTitle まいにち解決
+        p.subTitle ツリー状のアイデア作成支援アプリ
+        p 直感的なアイデア作成を円滑化し、評価機能を備えた
+        p 頭の中のアイデアを簡単にまとめられるWebツールです。
+        div.top_buttons
+            .signup_topButton
+                = link_to "新規登録", signup_ideas_path, class: 'btn btn-success'
+            .login_topButoon
+                = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+        svg class="icons-top" viewBox="0 0 350 350" width = "350" height = "350"
+            use(xlink:href="#icons-top")

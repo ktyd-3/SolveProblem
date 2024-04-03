@@ -58,7 +58,15 @@ javascript:
         p
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#lastSolution_list" class="btn btn-primary")
     | Copy
+  p 
 
+  h2 全体公開設定
+  p 作ったアイデアを全体に公開することができます。
+  | 現在は#{@value.public}設定です。
+  p 同じような問題に困っている人の助けになりますので、ぜひご協力お願いします。
+  = form_with model: @value, url: public_setting_idea_path(@theme), data: { turbo: "false" } do |form|
+    = form.select :public, options_for_select([["非公開", false],["全体公開", true]]), prompt: "選択してください"
+    = form.submit '更新', class: 'btn btn-link'
 
 
 
