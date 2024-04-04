@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
   before_action :autheniticate_ideas, except: [:top,:theme,:first_create,:create] # アイデアへの閲覧制限
   before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form] #他ユーザーアイデア閲覧中の編集制限
   before_action :theme_and_value_set, only:[:add_weighted_value, :remove_weighted_value]
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:score_graph,:update_easy_value,:update_effect_value] #テーマ以下の子孫アイデアを全て取得
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:result,:update_easy_value,:update_effect_value] #テーマ以下の子孫アイデアを全て取得
 
 
   def get_generation
@@ -181,7 +181,7 @@ class IdeasController < ApplicationController
 
 
   def theme
-    @themes = Idea.where(parent_id: nil, user_id: @current_user.id)
+    @themes = Idea.where(parent_id: nil, user_id: @current_user.id).order(updated_at: :desc).page(params[:theme_page]).per(10)
     @public_themes = Value.where(public: true)
     if @public_themes.present?
       @another_user_themes = []
@@ -194,7 +194,8 @@ class IdeasController < ApplicationController
           end
         end
       end
-      @another_user_themes = Kaminari.paginate_array(@another_user_themes).page(params[:page]).per(1)
+      @another_user_themes = @another_user_themes.sort_by(&:updated_at).reverse
+      @another_user_themes = Kaminari.paginate_array(@another_user_themes).page(params[:another_user_theme_page]).per(15)
     end
   end
 
@@ -247,7 +248,7 @@ class IdeasController < ApplicationController
 
     if success
       @theme.update(evaluate_done: 1)
-      redirect_to score_graph_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
+      redirect_to result_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
     else
 
     end
@@ -255,7 +256,7 @@ class IdeasController < ApplicationController
 
 
 
-  def score_graph
+  def result
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
     @value.easy ||= 1.0
@@ -287,9 +288,9 @@ class IdeasController < ApplicationController
           solution.update(easy_point: new_point)
         end
       end
-      redirect_to score_graph_idea_path(@theme), notice: '簡単さの重みを更新しました'
+      redirect_to result_idea_path(@theme), notice: '簡単さの重みを更新しました'
     else
-      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 
@@ -313,9 +314,9 @@ class IdeasController < ApplicationController
           solution.update(effect_point: new_point)
         end
       end
-      redirect_to score_graph_idea_path(@theme), notice: '簡単さの重みを更新しました'
+      redirect_to result_idea_path(@theme), notice: '簡単さの重みを更新しました'
     else
-      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 
@@ -325,9 +326,9 @@ class IdeasController < ApplicationController
     @value = Value.find_or_create_by(idea_id: @theme.id)
     value_params = params.dig(:value,:public)
     if @value.update(public: value_params)
-      redirect_to score_graph_idea_path(@theme), notice: '全体公開を変更しました'
+      redirect_to result_idea_path(@theme), notice: '全体公開を変更しました'
     else
-      redirect_to score_graph_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 

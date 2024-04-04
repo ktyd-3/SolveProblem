@@ -12,13 +12,13 @@ html
     = javascript_importmap_tags
     = javascript_include_tag 'application','data-turbolinks-track': 'reload'
 
-    - if action_name == "first_solution" || action_name == 'solution' || action_name == "evaluate" || action_name == "score_graph"
+    - if action_name == "first_solution" || action_name == 'solution' || action_name == "evaluate" || action_name == "result"
       - if @theme.user_id != @current_user.id
         .viewMode_header
           | 閲覧モード中: 編集は全て制限されます
           = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-outline-primary'
 
-    - unless controller_name == 'ideas' && action_name == 'solution' || action_name == "evaluate" || action_name == "score_graph"
+    - unless controller_name == 'ideas' && action_name == 'solution' || action_name == "evaluate" || action_name == "result"
       nav.navbar
         ul.navber-li
           li

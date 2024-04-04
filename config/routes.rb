@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get 'search'
       patch 'set_easy_points'
       patch 'set_effect_points'
-      get 'score_graph'
+      get 'result'
       delete 'solution', to: 'ideas#destroy'
       delete "destroy_move"
       get 'small_tree'
