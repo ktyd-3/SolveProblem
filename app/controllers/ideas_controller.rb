@@ -55,13 +55,12 @@ class IdeasController < ApplicationController
 
 
   def copy_idea_generation
-    @idea = Idea.find_by(params[:id])
-    @theme = @idea.root
+    @theme = Idea.find(params[:id])
     @new_theme = Idea.create(name: @theme.name,user_id: @current_user.id)
     copy_create_children(@theme,@new_theme)
-    @new_theme.reload
+
     redirect_to solution_idea_path(@new_theme)
-    flash[:notice] = "テーマのアイデアを全体コピーしました"
+    flash[:notice] = "テーマのアイデアを全体コピーし、自分のアイデアとしました"
   end
 
   def copy_create_children(idea,new_idea)
@@ -174,6 +173,12 @@ class IdeasController < ApplicationController
     @theme = Idea.find_by(id: params[:id])
   end
 
+  def top
+    if @current_user
+      redirect_to theme_ideas_path
+    end
+  end
+
 
   def theme
     @themes = Idea.where(parent_id: nil, user_id: @current_user.id)
@@ -181,7 +186,7 @@ class IdeasController < ApplicationController
     if @public_themes.present?
       @another_user_themes = []
       @public_themes.each do |public_theme|
-        idea = Idea.find_by(id: public_theme.id)
+        idea = Idea.find_by(id: public_theme.idea_id)
         if idea == nil
         else
           if idea.user_id != @current_user.id #他の人のテーマのみを配列に入れる。
