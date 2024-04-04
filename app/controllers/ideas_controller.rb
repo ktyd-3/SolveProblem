@@ -194,6 +194,7 @@ class IdeasController < ApplicationController
           end
         end
       end
+      @another_user_themes = Kaminari.paginate_array(@another_user_themes).page(params[:page]).per(1)
     end
   end
 

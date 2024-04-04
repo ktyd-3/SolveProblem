@@ -111,3 +111,5 @@ gem 'svgeez', '~> 4.1'
 
 gem 'jquery-rails'
 gem 'clipboard-rails'
+
+gem 'kaminari'
