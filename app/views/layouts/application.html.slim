@@ -19,7 +19,7 @@ html
           .viewMode_button
             = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - unless action_name == 'solution' || action_name == "evaluate" || action_name == "result" || action_name == "edit"
+    - unless action_name == 'solution' || action_name == "evaluate" || action_name == "result" || action_name == "edit" || action_name == "public_custom"
       nav.navbar
         ul.navber-li
           li
