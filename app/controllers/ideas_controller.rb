@@ -31,7 +31,7 @@ class IdeasController < ApplicationController
     root = @idea.root || @idea
     @value = Value.find_or_create_by(idea_id: root.id)
     if @idea.user_id != @current_user.id
-      if @value == false
+      if @value.public == false
         redirect_to theme_ideas_path
         flash[:notice] = "権限がありません"
       end
