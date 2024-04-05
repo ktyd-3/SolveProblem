@@ -33,11 +33,12 @@ html
     - else
       nav.navbar
         .header_manu
-          = link_to  "総合評価", "/ideas/#{@theme.id}/evaluate", class: 'btn btn-success'
+          = link_to  "総合評価", evaluate_idea_path(@theme), class: 'btn btn-success'
           - if @root_idea == @theme
             = link_to "テーマ選択へ戻る", theme_ideas_path, class: 'btn btn-outline-primary'
           - else
             = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+          = link_to  "公開設定", public_custom_idea_path(@theme), class: 'btn btn-outline-primary'
           = render partial: 'search_form', q: @q, locals: { theme: @theme }
         ul.navber-li
           li

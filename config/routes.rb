@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       patch "public_setting"
       get "copy_idea_generation"
       get "copy_create_children"
+      get "public_custom"
     end
 
     collection do

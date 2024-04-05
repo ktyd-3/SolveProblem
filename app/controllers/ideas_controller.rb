@@ -73,7 +73,10 @@ class IdeasController < ApplicationController
     end
   end
 
-
+  def public_custom
+    @theme = Idea.find_by(id: params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
+  end
 
 
   def tree
