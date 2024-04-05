@@ -3,6 +3,13 @@
 .viewMode_header {
   background-color: #ffff40c6;
   padding: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  .viewMode_button {
+    margin: 0 0 0 auto;
+  }
 }
 
 .navbar {

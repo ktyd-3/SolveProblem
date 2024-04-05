@@ -1,17 +1,18 @@
-h2 タスクの編集
 
-= form_for @idea do |f|
-  div
-    = f.label :name
-    = f.text_field :name
-    br/
-    = f.submit "変更", class: "btn btn-primary"
-    
-p 
-- if @idea == @theme
-  = button_to "テーマごと削除", destroy_move_idea_path(@idea), method: :delete, data: {turbo_confirm: "テーマともに子アイデア全てが消去されます。本当によろしいですか？"}, class: "btn btn-danger"
-- else
-  = button_to "削除", destroy_move_idea_path(@idea), method: :delete, data: {turbo_confirm: "このアイデアとともに、詳細アイデア全ても削除されます。よろしいですか？"}, class: "btn btn-danger"
-p 
-= link_to "中止する", request.referer
+
+
+.body__container
+  h2 タスクの編集
+  = form_for @idea do |f|
+    div
+      = f.text_field :name
+      = f.submit "変更", class: "btn btn-primary"
+      
+  p 
+  - if @idea == @theme
+    = button_to "テーマごと削除", destroy_move_idea_path(@idea), method: :delete, data: {turbo_confirm: "テーマともに子アイデア全てが消去されます。本当によろしいですか？"}, class: "btn btn-danger"
+  - else
+    = button_to "削除", destroy_move_idea_path(@idea), method: :delete, data: {turbo_confirm: "このアイデアとともに、詳細アイデア全ても削除されます。よろしいですか？"}, class: "btn btn-danger"
+  p 
+  = link_to "中止する", request.referer
 

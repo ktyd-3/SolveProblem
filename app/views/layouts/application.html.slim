@@ -15,10 +15,11 @@ html
     - if action_name == "first_solution" || action_name == 'solution' || action_name == "evaluate" || action_name == "result"
       - if @theme.user_id != @current_user.id
         .viewMode_header
-          | 閲覧モード中: 編集は全て制限されます
-          = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-outline-primary'
+          | 閲覧モード中: 編集は全て制限されます。参考にしたい場合は、コピーを行なってください。
+          .viewMode_button
+            = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - unless controller_name == 'ideas' && action_name == 'solution' || action_name == "evaluate" || action_name == "result"
+    - unless action_name == 'solution' || action_name == "evaluate" || action_name == "result" || action_name == "edit"
       nav.navbar
         ul.navber-li
           li
