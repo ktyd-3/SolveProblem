@@ -156,16 +156,16 @@ class IdeasController < ApplicationController
   end
 
   def create
-    idea_params = params.require(:idea).permit(:parent_id, :names)
+    idea_params = params.require(:idea).permit(:parent_id, :names,:user_id)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = idea_params[:parent_id]
-    parent = Idea.find(this_idea_parent_id)
-    @theme = parent.root
+    @parent = Idea.find(this_idea_parent_id)
+    @theme = @parent.root
     if permit_create(@theme)
       all_children_ideas = @theme.descendants
       @all_children_ideasSize = all_children_ideas.size
       names.each do |name|
-        parent.children.create(name: name, user_id: @current_user.id)
+        @parent.children.create(name: name, user_id: @current_user.id)
       end
     end
 
@@ -210,7 +210,7 @@ class IdeasController < ApplicationController
     all_children_ideas = @theme.descendants
     @all_children_ideasSize = all_children_ideas.size
 
-    @children_ideas = @root_idea.children.select(:id, :name) if @root_idea.present?
+    @children_ideas = @root_idea.children if @root_idea.present?
   end
 
 
@@ -329,9 +329,9 @@ class IdeasController < ApplicationController
     @value = Value.find_or_create_by(idea_id: @theme.id)
     value_params = params.dig(:value,:public)
     if @value.update(public: value_params)
-      redirect_to result_idea_path(@theme), notice: '全体公開を変更しました'
+      redirect_to request.referer, notice: '全体公開を変更しました'
     else
-      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to request.referer, notice: '更新に失敗しました'
     end
   end
 
