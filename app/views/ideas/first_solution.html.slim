@@ -1,15 +1,3 @@
-javascript:
-  document.addEventListener("keydown", function(e) {
-  if (e.shiftKey && e.key === "Enter") {
-    const target = e.target;
-    if (target.closest("form")) {
-      const form = target.closest("form");
-      document.activeElement.blur(); // フォーカスを解除する
-      form.requestSubmit();
-    }
-    }
-  });
-
 .body__container
   - if @theme.present?
     h1 Step2 テーマについての解決策を書き出します。
@@ -38,6 +26,33 @@ javascript:
         = form.submit "作成", class: 'btn btn-primary'
       = form.text_area :names, class: "form-control", rows: 5
       = form.hidden_field "parent_id", value: @theme.id
+
+
+
+javascript:
+  const addEventListeners = () => {
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("turbo:submit-end", handleSubmitEnd);
+  };
+  const handleKeyDown = (e) => {
+    if (e.shiftKey && e.key === "Enter") {
+      const target = e.target;
+      const form = target.closest("form");
+      if (form) {
+        focusedElement = document.activeElement;
+        form.requestSubmit();
+      }
+    }
+  };
+  const handleSubmitEnd = () => {
+    if (focusedElement) {
+      focusedElement.blur();
+      focusedElement = null;
+    }
+  };
+  let focusedElement = null;
+
+  addEventListeners();
 
 
 
