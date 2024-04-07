@@ -1,22 +1,14 @@
 javascript:
-  let focusedElement = null;
   document.addEventListener("keydown", function(e) {
-    if (e.shiftKey && e.key === "Enter") {
-      const target = e.target;
-      if (target.closest("form")) {
-        const form = target.closest("form");
-        focusedElement = document.activeElement;
-        form.requestSubmit();
-      }
+  if (e.shiftKey && e.key === "Enter") {
+    const target = e.target;
+    if (target.closest("form")) {
+      const form = target.closest("form");
+      document.activeElement.blur(); // フォーカスを解除する
+      form.requestSubmit();
+    }
     }
   });
-  document.addEventListener("turbo:submit-end", function(e) {
-    if (focusedElement) {
-      focusedElement.blur(); // フォーカスを解除する
-      focusedElement = null;
-    }
-  });
-
 
 .body__container
   - if @theme.present?

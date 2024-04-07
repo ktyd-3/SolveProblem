@@ -37,7 +37,8 @@ javascript:
     br/
 
     span.weighted_line
-      p オプション：評価項目の重みづけ
+      p 
+        strong オプション：評価項目の重みづけ
       = link_to add_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
         i class="fa-solid fa-plus"
       = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do

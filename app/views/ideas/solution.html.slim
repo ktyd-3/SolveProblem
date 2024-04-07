@@ -2,29 +2,24 @@
 
 
 javascript:
-  let focusedElement = null;
   document.addEventListener("keydown", function(e) {
-    if (e.shiftKey && e.key === "Enter") {
-      const target = e.target;
-      if (target.closest("form")) {
-        const form = target.closest("form");
-        focusedElement = document.activeElement;
-        form.requestSubmit();
-      }
+  if (e.shiftKey && e.key === "Enter") {
+    const target = e.target;
+    if (target.closest("form")) {
+      const form = target.closest("form");
+      document.activeElement.blur(); // フォーカスを解除する
+      form.requestSubmit();
+    }
     }
   });
-  document.addEventListener("turbo:submit-end", function(e) {
-    if (focusedElement) {
-      focusedElement.blur(); // フォーカスを解除する
-      focusedElement = null;
-    }
-  });
+
 
 .body__container
   - if @root_idea == @theme
     h1 Step3 さらに解決策を細かく分解する。
     p 解決したいテーマ「#{@theme.name}」を現実的に対処できるようにするために、アイデアを分解していきます。
     p 抽象的な解決策からより具体的なアイデアへと細かく変えていきましょう。
+    p 作ったアイデアのリンクをクリックすると、さらに細かいアイデアに分割することができます。
     p
       span アイデアが全て出しきったあと、
       strong 左上にある「総合評価」
