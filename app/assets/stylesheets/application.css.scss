@@ -165,6 +165,10 @@ body {
   z-index: 1;
 }
 
+.tree_list_line {
+  margin-bottom: 3px;
+}
+
 div#dot_position #tree_box::before {
   position: absolute;
   content: "";
