@@ -3,8 +3,6 @@
 .body__container
   h2 ユーザー登録
 
-
-
   = form_with model: @user, url: signup_ideas_path, data: { turbo: false } do |form|
     - if form.object.errors.any?
       .alert.alert-danger
@@ -21,5 +19,5 @@
     .form-group
       = form.label :パスワード
       = form.password_field :password, placeholder: "password", class: "form-control mb-3"
-
-    = form.submit '登録', class: 'btn btn-primary'
+    #signup_btn
+      = form.submit '登録', class: 'btn btn-primary'
