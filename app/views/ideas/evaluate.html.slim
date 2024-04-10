@@ -20,7 +20,7 @@
         .evaluate_line
           span.solution-name
             = solution.name
-            = link_to edit_idea_path(solution), class: 'btn btn-link', data: { turbo_frame: "_top" }
+            = link_to edit_idea_path(solution), class: 'btn btn-link', data: { turbo: "false" }
               i.fas.fa-pen-to-square
           span.parent-name
             = "(親アイデア: #{solution.parent.name})"
@@ -29,7 +29,14 @@
           - (1..5).each do |rating|
             label.label
               - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_easy_point][]", value: rating }
-              - input_params[:checked] = "checked" if solution.easy_point.present? && solution.easy_point == rating
+              - if solution.easy_point == nil
+              - else
+                - if solution.easy_point == rating  #既にポイントが存在する場合で、項目に一致する場合
+                  - input_params[:checked] = "checked"
+                - elsif solution.easy_point >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
+                  - default = format('%.1f',solution.easy_point / @value.easy).to_f
+                  - if default == rating
+                    - input_params[:checked] = "checked" 
               = tag :input, input_params
               = t("ideas.difficulties.#{rating}")
       p
@@ -53,7 +60,14 @@
             - (1..5).each do |rating|
               label.label
                 - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_effect_point][]", value: rating }
-                - input_params[:checked] = "checked" if solution.effect_point.present? && solution.effect_point == rating
+                - if solution.easy_point == nil
+                - else
+                  - if solution.effect_point.present? && solution.effect_point == rating # 既にポイントが存在する場合で、項目に一致する場合
+                    - input_params[:checked] = "checked"
+                  - elsif solution.effect_point.present? && solution.effect_point >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
+                    - default = format('%.1f', solution.effect_point / @value.effect).to_f
+                    - if default == rating
+                      - input_params[:checked] = "checked"
                 = tag :input, input_params
                 = t("ideas.effects.#{rating}") 
         p

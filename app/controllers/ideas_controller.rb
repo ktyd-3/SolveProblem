@@ -8,9 +8,9 @@ class IdeasController < ApplicationController
   before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:result,:update_easy_value,:update_effect_value] #テーマ以下の子孫アイデアを全て取得
 
 
+  # 子アイデアを持たないアイデアすべてを取得
   def get_generation
     @theme = Idea.find_by(id: params[:id])
-    # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
   end
 
@@ -168,7 +168,6 @@ class IdeasController < ApplicationController
         @parent.children.create(name: name, user_id: @current_user.id)
       end
     end
-
   end
 
 
@@ -219,15 +218,22 @@ class IdeasController < ApplicationController
     # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
     @last_idea = @leaf_descendants.last
+    @value = Value.find_or_create_by(idea_id: @theme.id)
   end
 
   def set_easy_points
     easy_points_params = params.require(:idea).permit!
+    @theme = Idea.find_by(id: params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
 
     @leaf_descendants.each do |solution|
-      easy_point = params["idea"][:"#{solution.id}_easy_point"].first
+      easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
-      idea.update(easy_point: easy_point)
+      if @value.easy > 1
+        idea.update(easy_point: easy_point * @value.easy)
+      else
+        idea.update(easy_point: easy_point)
+      end
     end
 
     redirect_to evaluate_idea_path(@theme, anchor: 'target'), notice: '①の評価が完了しました'
@@ -237,15 +243,24 @@ class IdeasController < ApplicationController
     effect_points_params = params.require(:idea).permit!
 
     @theme = Idea.find_by(id: params[:id])
+    @value = Value.find_or_create_by(idea_id: @theme.id)
 
     success = true
 
     @leaf_descendants.each do |solution|
-      effect_point = params["idea"][:"#{solution.id}_effect_point"].first
+      effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
-      unless idea.update(effect_point: effect_point)
-        success = false
-        break
+
+      if @value.effect > 1
+        unless idea.update(effect_point: effect_point * @value.effect)
+          success = false
+          break
+        end
+      else
+        unless idea.update(effect_point: effect_point)
+          success = false
+          break
+        end
       end
     end
 

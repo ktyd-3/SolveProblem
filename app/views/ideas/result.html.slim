@@ -28,7 +28,7 @@ javascript:
             th 効果量(×#{@value.effect})
           th 合計点
       tbody
-        - @leaf_descendants.sort_by! { |idea| -idea.sum_points.to_i }.each do |idea|
+        - @sorted_solutions.each do |idea|
           tr
             td.table_name = idea.name
             td.table_num.easyPoints = idea.easy_point
