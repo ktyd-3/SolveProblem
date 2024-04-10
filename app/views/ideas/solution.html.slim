@@ -19,7 +19,8 @@
       h2 「#{@root_idea.name}」の解決アイデアを作成
       .parentIdea_box
         = "【#{@root_idea.name}】"
-        = link_to '変更', edit_idea_path(@root_idea), method: :patch, class: 'btn btn-link'
+        = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
+          i.fas.fa-pen-to-square
         br/
         - @children_ideas.each do |child|
           .span_icons
