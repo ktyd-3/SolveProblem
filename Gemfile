@@ -61,6 +61,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'bullet'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -86,17 +87,16 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'acts_as_tree', '~> 2.9', '>= 2.9.1'
 
-# n+1問題解消gem 'bullet'
 
 gem 'chartkick'
 gem 'groupdate'
 
-gem "ruby-graphviz"
+
 # 検索機能
 gem 'ransack'
 
 # 処理速度測定
-gem 'rack-mini-profiler'
+# gem 'rack-mini-profiler'
 
 
 gem 'railties', '~> 7.1', '>= 7.1.3'
