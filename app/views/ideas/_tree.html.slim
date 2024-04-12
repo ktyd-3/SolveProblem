@@ -19,11 +19,12 @@ div#dot_position.test
           = link_to @theme.name , solution_idea_path(@theme), data: { turbo_frame: "_top" }
           = link_to edit_idea_path(@theme), class: 'btn btn-link' do
             i.fas.fa-pen-to-square
-        = display_descendants(@theme).html_safe
+        - display_descendants = display_descendants(@theme).html_safe
+        = display_descendants.html_safe
     .tree_count
-      - if @all_children_ideasSize < 8
+      - if display_descendants.count("・") < 9
         i class="fa-solid fa-leaf small_leaf"
-      - elsif @all_children_ideasSize < 15
+      - elsif display_descendants.count("・") < 16
         i class="fa-brands fa-pagelines mid_leaf"
       - else
         i class="fa-solid fa-tree big_tree"

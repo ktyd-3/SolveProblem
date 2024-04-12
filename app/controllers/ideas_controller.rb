@@ -1,11 +1,17 @@
 class IdeasController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  # セッション情報とテーマ内検索の初期化
   before_action :set_current_user,:search_initialize
-  before_action :autheniticate_user, except: :top #トップページ以外でログインを求める
-  before_action :autheniticate_ideas, except: [:top,:theme,:first_create,:create] # アイデアへの閲覧制限
-  before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form] #他ユーザーアイデア閲覧中の編集制限
-  before_action :theme_and_value_set, only:[:add_weighted_value, :remove_weighted_value]
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:result,:update_easy_value,:update_effect_value] #テーマ以下の子孫アイデアを全て取得
+  #トップページ以外でログインを求める
+  before_action :autheniticate_user, except: :top
+  # アイデアへの閲覧制限
+  before_action :autheniticate_ideas, except: [:top,:theme,:first_create,:create]
+  #他ユーザーアイデア閲覧中の編集制限
+  before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form]
+  # 評価に関するページで、themeと対応するvalueをセットする
+  before_action :theme_and_value_set, only:[:first_solution,:public_custom, :add_weighted_value, :remove_weighted_value]
+  #テーマ以下の子孫アイデアを全て取得
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:result,:update_easy_value,:update_effect_value]
 
 
   # 子アイデアを持たないアイデアすべてを取得
@@ -26,7 +32,8 @@ class IdeasController < ApplicationController
     end
   end
 
-  def autheniticate_ideas #アイデア閲覧制限
+  #アイデア閲覧制限
+  def autheniticate_ideas
     @idea = Idea.find_by(id: params[:id])
     root = @idea.root || @idea
     @value = Value.find_or_create_by(idea_id: root.id)
@@ -74,8 +81,6 @@ class IdeasController < ApplicationController
   end
 
   def public_custom
-    @theme = Idea.find_by(id: params[:id])
-    @value = Value.find_or_create_by(idea_id: @theme.id)
   end
 
 
@@ -162,8 +167,6 @@ class IdeasController < ApplicationController
     @parent = Idea.find(this_idea_parent_id)
     @theme = @parent.root
     if permit_create(@theme)
-      all_children_ideas = @theme.descendants
-      @all_children_ideasSize = all_children_ideas.size
       names.each do |name|
         @parent.children.create(name: name, user_id: @current_user.id)
       end
@@ -172,7 +175,6 @@ class IdeasController < ApplicationController
 
 
   def first_solution
-    @theme = Idea.find_by(id: params[:id])
   end
 
   def top
@@ -198,9 +200,6 @@ class IdeasController < ApplicationController
   def solution
     @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
-    all_children_ideas = @theme.descendants
-    @all_children_ideasSize = all_children_ideas.size
-
     @children_ideas = @root_idea.children if @root_idea.present?
   end
 
