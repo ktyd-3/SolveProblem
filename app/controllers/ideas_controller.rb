@@ -186,12 +186,12 @@ class IdeasController < ApplicationController
 
   def theme
     @themes = Idea.where(parent_id: nil, user_id: @current_user.id).order(updated_at: :desc).page(params[:theme_page]).per(10)
-    @public_themes = Value.where(public: true).eager_load(:idea)
+    @public_themes = Value.eager_load(:idea).where(public: true)
     if @public_themes.present?
       @another_user_themes = @public_themes.map(&:idea).select { |idea| idea.user_id != @current_user.id }
-    @another_user_themes = @another_user_themes.sort_by(&:updated_at).reverse
-    # ページネーションとしてまとめる
-    @another_user_themes = Kaminari.paginate_array(@another_user_themes).page(params[:another_user_theme_page]).per(15)
+      @another_user_themes = @another_user_themes.sort_by(&:updated_at).reverse
+      # ページネーションとしてまとめる
+      @another_user_themes = Kaminari.paginate_array(@another_user_themes).page(params[:another_user_theme_page]).per(15)
     end
   end
 
