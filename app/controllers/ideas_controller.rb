@@ -11,7 +11,7 @@ class IdeasController < ApplicationController
   # 評価に関するページで、themeと対応するvalueをセットする
   before_action :theme_and_value_set, only:[:first_solution,:public_custom, :add_weighted_value, :remove_weighted_value]
   #テーマ以下の子孫アイデアを全て取得
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:results,:update_easy_value,:update_effect_value]
+  before_action :get_generation, only: [:evaluations, :set_easy_points,:set_effect_points,:results,:update_easy_value,:update_effect_value]
 
 
   # 子アイデアを持たないアイデアすべてを取得
@@ -127,7 +127,7 @@ class IdeasController < ApplicationController
   def first_create
     name = params[:idea][:name]
     @theme = Idea.create(name: name, user_id: @current_user.id)
-    redirect_to first_solutions_idea_path(@theme)
+    redirect_to first_solution_idea_path(@theme)
   end
 
 
@@ -204,7 +204,7 @@ class IdeasController < ApplicationController
   end
 
 
-  def evaluate
+  def evaluations
     @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
     @leaf_descendants = @theme.descendants.select(&:leaf?)
@@ -227,7 +227,7 @@ class IdeasController < ApplicationController
       end
     end
 
-    redirect_to evaluate_idea_path(@theme, anchor: 'target'), notice: '①の評価が完了しました'
+    redirect_to evaluations_idea_path(@theme, anchor: 'target'), notice: '①の評価が完了しました'
   end
 
   def set_effect_points

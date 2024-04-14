@@ -12,14 +12,14 @@ html
     = javascript_importmap_tags
     = javascript_include_tag 'application','data-turbolinks-track': 'reload'
 
-    - if action_name == "first_solution" || action_name == 'solution' || action_name == "evaluate" || action_name == "result"
+    - if action_name == "first_solution" || action_name == 'solutions' || action_name == "evaluations" || action_name == "results"
       - if @theme.user_id != @current_user.id
         .viewMode_header
           | 閲覧モード中: 編集は全て制限されます。参考にしたい場合は、コピーを行なってください。
           .viewMode_button
             = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - unless action_name == 'solution' || action_name == "evaluate" || action_name == "result" || action_name == "edit" || action_name == "public_custom"
+    - unless action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom"
       nav.navbar
         ul.navber-li
           li
@@ -33,7 +33,7 @@ html
     - else
       nav.navbar
         .header_manu
-          = link_to  "総合評価", evaluate_idea_path(@theme), class: 'btn btn-success'
+          = link_to  "総合評価", evaluations_idea_path(@theme), class: 'btn btn-success'
           - if @root_idea == @theme
             = link_to "テーマ選択へ戻る", themes_ideas_path, class: 'btn btn-outline-primary'
           - else

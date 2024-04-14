@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get "ex_form"
       get "first_solution"
       get 'tree'
-      get 'evaluate'
+      get 'evaluations'
       get 'generate_graph'
       get 'search'
       patch 'set_easy_points'

@@ -7,7 +7,7 @@ javascript:
 
 
 .body__container
-  = link_to  "評価へ戻る", evaluate_idea_path(@theme), class: 'btn btn-success'
+  = link_to  "評価へ戻る", evaluations_idea_path(@theme), class: 'btn btn-success'
   p 
   p 
   - if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
