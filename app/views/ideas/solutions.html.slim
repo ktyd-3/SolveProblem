@@ -9,11 +9,11 @@
       strong 左上にある「総合評価」
       | でアイデアの優先順位を判断できます。
 
-    = link_to 'Step2へ戻る', first_solution_idea_path(@root_idea), class: 'btn btn-primary'
+    = link_to 'Step2へ戻る', first_solutions_idea_path(@root_idea), class: 'btn btn-primary'
     p 
 
   - else
-    = link_to "一つ前(#{@root_idea.parent.name})へ", solution_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
+    = link_to "一つ前(#{@root_idea.parent.name})へ", solutions_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
     .parentIdea_container
       h2 「#{@root_idea.name}」の解決アイデアを作成

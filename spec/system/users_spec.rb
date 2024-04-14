@@ -20,7 +20,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # userモデルのレコード数が1つ増える
       expect{click_on '登録'}.to change {User.count}.by(1)
       # themeページに移動する。リダイレクトを想定するので、現在のページを確認する
-      expect(current_path).to eq(theme_ideas_path)
+      expect(current_path).to eq(themes_ideas_path)
     end
   end
 end

@@ -1,13 +1,13 @@
   div.children_idea_box id = "idea_#{child_form.id}"
     h4.child_idea_title
-      = link_to child_form.name, solution_idea_path(child_form.id)
+      = link_to child_form.name, solutions_idea_path(child_form.id)
       = link_to edit_idea_path(child_form), class: 'btn btn-link', data: { turbo_frame: "_top" }
         i.fas.fa-pen-to-square
     - if child_form.children.present?
       - child_form.children.each do |child|
         div.name_and_icons id = "idea_line_#{child.id}"
           .span_icons
-            = link_to child.name, solution_idea_path(child.id), data: { turbo_frame: "_top" }
+            = link_to child.name, solutions_idea_path(child.id), data: { turbo_frame: "_top" }
             - if permit_create(child_form)
               = link_to edit_idea_path(child), class: 'btn btn-link', data: { turbo_frame: "_top" }
                   i.fas.fa-pen-to-square

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :ideas do
     member do
       post 'edit'
-      get 'solution'
+      get 'solutions'
       get "ex_form"
       get "first_solution"
       get 'tree'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get 'search'
       patch 'set_easy_points'
       patch 'set_effect_points'
-      get 'result'
+      get 'results'
       delete 'solution', to: 'ideas#destroy'
       delete "destroy_move"
       get 'small_tree'
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
     collection do
       get "top"
-      get "theme"
+      get "themes"
       post 'first_create'
       get "signup", to: "users#new"
       post "signup", to: "users#create"

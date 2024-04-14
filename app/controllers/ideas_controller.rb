@@ -5,13 +5,13 @@ class IdeasController < ApplicationController
   #トップページ以外でログインを求める
   before_action :autheniticate_user, except: :top
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:top,:theme,:first_create,:create]
+  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create]
   #他ユーザーアイデア閲覧中の編集制限
   before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form]
   # 評価に関するページで、themeと対応するvalueをセットする
   before_action :theme_and_value_set, only:[:first_solution,:public_custom, :add_weighted_value, :remove_weighted_value]
   #テーマ以下の子孫アイデアを全て取得
-  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:result,:update_easy_value,:update_effect_value]
+  before_action :get_generation, only: [:evaluate, :set_easy_points,:set_effect_points,:results,:update_easy_value,:update_effect_value]
 
 
   # 子アイデアを持たないアイデアすべてを取得
@@ -39,7 +39,7 @@ class IdeasController < ApplicationController
     @value = Value.find_or_create_by(idea_id: root.id)
     if @idea.user_id != @current_user.id
       if @value.public == false
-        redirect_to theme_ideas_path
+        redirect_to themes_ideas_path
         flash[:notice] = "権限がありません"
       end
     end
@@ -66,7 +66,7 @@ class IdeasController < ApplicationController
     @new_theme = Idea.create(name: @theme.name,user_id: @current_user.id)
     copy_create_children(@theme,@new_theme)
 
-    redirect_to solution_idea_path(@new_theme)
+    redirect_to solutions_idea_path(@new_theme)
     flash[:notice] = "テーマのアイデアを全体コピーし、自分のアイデアとしました"
   end
 
@@ -111,14 +111,14 @@ class IdeasController < ApplicationController
       matching_ideas = @ideas.select { |idea| @theme.descendants.include?(idea) }
 
       if matching_ideas.present?
-        redirect_to solution_idea_path(matching_ideas.first.id)
+        redirect_to solutions_idea_path(matching_ideas.first.id)
       else
         flash[:notice] = "該当するアイデアは解決したいテーマ内にありません"
-        redirect_back(fallback_location: theme_ideas_path)
+        redirect_back(fallback_location: themes_ideas_path)
       end
     else
       flash[:notice] = "該当するアイデアが見つかりません"
-      redirect_back(fallback_location: theme_ideas_path)
+      redirect_back(fallback_location: themes_ideas_path)
     end
   end
 
@@ -127,7 +127,7 @@ class IdeasController < ApplicationController
   def first_create
     name = params[:idea][:name]
     @theme = Idea.create(name: name, user_id: @current_user.id)
-    redirect_to first_solution_idea_path(@theme)
+    redirect_to first_solutions_idea_path(@theme)
   end
 
 
@@ -153,7 +153,7 @@ class IdeasController < ApplicationController
         parent.children.create(name: name, user_id: @current_user.id)
       end
       if parent.root?
-        redirect_to solution_idea_path(parent)
+        redirect_to solutions_idea_path(parent)
       else
         redirect_to request.referer
       end
@@ -179,12 +179,12 @@ class IdeasController < ApplicationController
 
   def top
     if @current_user
-      redirect_to theme_ideas_path
+      redirect_to themes_ideas_path
     end
   end
 
 
-  def theme
+  def themes
     @themes = Idea.where(parent_id: nil, user_id: @current_user.id).order(updated_at: :desc).page(params[:theme_page]).per(10)
     @public_themes = Value.eager_load(:idea).where(public: true)
     if @public_themes.present?
@@ -197,7 +197,7 @@ class IdeasController < ApplicationController
 
 
 
-  def solution
+  def solutions
     @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
     @children_ideas = @root_idea.children if @root_idea.present?
@@ -257,7 +257,7 @@ class IdeasController < ApplicationController
 
     if success
       @theme.update(evaluate_done: 1)
-      redirect_to result_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
+      redirect_to results_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
     else
 
     end
@@ -265,7 +265,7 @@ class IdeasController < ApplicationController
 
 
 
-  def result
+  def results
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
     @value.easy ||= 1.0
@@ -297,9 +297,9 @@ class IdeasController < ApplicationController
           solution.update(easy_point: new_point)
         end
       end
-      redirect_to result_idea_path(@theme), notice: '簡単さの重みを更新しました'
+      redirect_to results_idea_path(@theme), notice: '簡単さの重みを更新しました'
     else
-      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to results_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 
@@ -323,9 +323,9 @@ class IdeasController < ApplicationController
           solution.update(effect_point: new_point)
         end
       end
-      redirect_to result_idea_path(@theme), notice: '簡単さの重みを更新しました'
+      redirect_to results_idea_path(@theme), notice: '簡単さの重みを更新しました'
     else
-      redirect_to result_idea_path(@theme), notice: '更新に失敗しました'
+      redirect_to results_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 
@@ -350,7 +350,7 @@ class IdeasController < ApplicationController
   def update
     @idea = Idea.find_by(id: params[:id])
     if @idea.update(idea_params)
-      redirect_to solution_idea_path(@idea.id), notice: 'アイデアが更新されました。'
+      redirect_to solutions_idea_path(@idea.id), notice: 'アイデアが更新されました。'
     else
       if @idea.parent.present?
         render :edit
@@ -366,9 +366,9 @@ class IdeasController < ApplicationController
     @idea_family = @idea.self_and_descendants
     @idea_family.each(&:destroy)
     if @idea_parent == nil
-      redirect_to theme_ideas_path, notice: 'テーマが削除されました'
+      redirect_to themes_ideas_path, notice: 'テーマが削除されました'
     else
-      redirect_to solution_idea_path(@idea_parent)
+      redirect_to solutions_idea_path(@idea_parent)
     end
   end
 
@@ -396,7 +396,7 @@ class IdeasController < ApplicationController
 
 
   def record_not_found
-    redirect_to theme_ideas_path
+    redirect_to themes_ideas_path
   end
 
   private

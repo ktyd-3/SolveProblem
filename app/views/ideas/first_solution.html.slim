@@ -18,7 +18,7 @@
     p 「Shift + Enter」で作成のショートカットが使えます。
     - if @theme.children.present?
       - @theme.children.each do |child|
-        = link_to " ・#{child.name}", solution_idea_path(child.id)
+        = link_to " ・#{child.name}", solutions_idea_path(child.id)
         br/
 
     = form_with model: Idea.new, url: parent_create_idea_path,class: "idea_form", local: true do |form|

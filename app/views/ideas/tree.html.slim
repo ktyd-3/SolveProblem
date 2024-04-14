@@ -1,7 +1,7 @@
 
 
 .body__container
-    = link_to "最初の解決策", solution_idea_path(@theme), class: 'btn btn-outline-primary'
+    = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
     = render partial: 'search_form', q: @q, locals: { theme: @theme }
 
     p

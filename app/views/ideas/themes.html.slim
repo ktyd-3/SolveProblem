@@ -19,10 +19,10 @@
             - @themes.each do |theme|
               tr
                 td = theme.name
-                td = link_to "つづける", solution_idea_path(theme), class: 'btn btn-link'
+                td = link_to "つづける", solutions_idea_path(theme), class: 'btn btn-link'
                 td
                   - if theme.evaluate_done == 1
-                    = link_to "総合評価", result_idea_path(theme), class: 'btn btn-link'
+                    = link_to "総合評価", results_idea_path(theme), class: 'btn btn-link'
                 td = button_to destroy_move_idea_path(theme), method: :delete, data: {turbo_confirm: "テーマともに子アイデア全てが消去されます。本当によろしいですか？",turbo_method: :delete}, class: "btn btn-link"
                   i class="fa-solid fa-square-xmark"
         = paginate @themes, :param_name => 'theme_page'
@@ -35,7 +35,7 @@
               - @another_user_themes.each do |another_user_theme|
                 tr
                   td = another_user_theme.name
-                  td = link_to "閲覧する", solution_idea_path(another_user_theme), class: 'btn btn-link'
+                  td = link_to "閲覧する", solutions_idea_path(another_user_theme), class: 'btn btn-link'
           = paginate @another_user_themes, :param_name => 'another_user_theme_page'
           
     - else #はじめてのアイデア出しの場合
