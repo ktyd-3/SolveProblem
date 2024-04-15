@@ -1,7 +1,8 @@
 class Idea < ApplicationRecord
   has_many :children, class_name: "Idea", foreign_key: "parent_id"
   belongs_to :parent, class_name: "Idea", optional: true
-  has_many :value,:point, dependent: :destroy
+  has_many :value,dependent: :destroy
+  has_many :point, dependent: :destroy
   belongs_to :user
 
   acts_as_tree order: "name"

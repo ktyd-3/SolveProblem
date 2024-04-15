@@ -207,7 +207,7 @@ class IdeasController < ApplicationController
   def evaluations
     @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
-    @leaf_descendants = @theme.descendants.select(&:leaf?)
+    @leaf_descendants = @theme.descendants.select(&:leaf?).sort_by(&:id)
     @last_idea = @leaf_descendants.last
     @value = Value.find_or_create_by(idea_id: @theme.id)
   end
