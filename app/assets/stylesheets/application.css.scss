@@ -96,6 +96,7 @@ body {
 
 //アイデアツリー　一覧表示//
 #tree_box {
+  font-size: 8px;
   position: fixed;
   background-color: #f9f9f9;
   bottom: 20px;
@@ -112,9 +113,6 @@ body {
     margin-top: 10px;
     z-index: 5;
   }
-}
-
-#treeIdea_list {
 }
 
 .small_leaf {
@@ -152,9 +150,12 @@ body {
   padding: 10px;
 }
 
+.tree_copy_icon_title {
+}
+
 .tree_titleName {
   margin-top: -8px;
-  margin-bottom: -4px;
+  margin-bottom: 4px;
   display: flex;
   flex-direction: row;
   align-items: baseline;
@@ -165,6 +166,7 @@ body {
   z-index: 1;
 }
 
+// アイデアツリーの1行ライン。 //
 .tree_list_line {
   margin-bottom: 3px;
 }

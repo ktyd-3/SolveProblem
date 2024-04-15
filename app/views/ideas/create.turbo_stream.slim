@@ -5,9 +5,9 @@
 = turbo_stream.replace "idea_line_#{@parent.id}" do 
     div.name_and_icons id = "idea_line_#{@parent.id}"
           .span_icons
-            = link_to @parent.name, solutions_idea_path(@parent.id), data: { turbo_frame: "_top" }
+            = link_to @parent.name, solutions_idea_path(@parent.id)
             - if permit_create(@parent)
-              = link_to edit_idea_path(@parent), class: 'btn btn-link', data: { turbo_frame: "_top" }
+              = link_to edit_idea_path(@parent), class: 'btn btn-link'
                   i.fas.fa-pen-to-square
               = link_to idea_path(@parent), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
                 i class="fa-solid fa-square-xmark"
