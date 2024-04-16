@@ -96,7 +96,6 @@ body {
 
 //アイデアツリー　一覧表示//
 #tree_box {
-  font-size: 16px;
   position: fixed;
   background-color: #f9f9f9;
   bottom: 20px;
@@ -114,6 +113,14 @@ body {
     z-index: 5;
   }
 }
+
+// .tree_count_change_fontsize_under20 {
+//   font-size: 0.8rem;
+// }
+
+// .tree_count_change_fontsize_under35 {
+//   font-size: 0.9rem;
+// }
 
 .small_leaf {
   position: absolute;
@@ -151,11 +158,19 @@ body {
 }
 
 .tree_copy_icon_title {
+  font-size: clamp(10px, calc(30px - 30%), 20px);
+}
+
+.tree_children_list {
+  font-size: clamp(4px, calc(20px - 30%), 16px);
+}
+
+.tree_titleName {
 }
 
 .tree_titleName {
   margin-top: -8px;
-  margin-bottom: 4px;
+  font-size: clamp(8px, calc(30px - 30%), 16px);
   display: flex;
   flex-direction: row;
   align-items: baseline;

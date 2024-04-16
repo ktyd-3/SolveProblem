@@ -4,57 +4,27 @@ javascript:
     var clipboard = new Clipboard(".clipboard-btn");
     console.log(clipboard);
   });
-  
-  const shortText = document.getElementById("tree_box");
-  const longText = document.getElementById("tree_box");
-  const textElem = document.getElementById("tree_box");
-  
-  function selectShort() {
-    textElem.innerText = shortText;
-    resize();
-  }
-
-  function selectLong() {
-    textElem.innerText = longText;
-    resize();
-  }
-
-  function resize() {
-  textElem.removeAttribute('style');
-  console.log(textElem.getBoundingClientRect().height , textElem.scrollHeight);
-  for (let size = 30; textElem.offsetHeight < textElem.scrollHeight && size > 10; size -= 3) {
-    textElem.style.fontSize = size + "px";
-  }
-  }
-
-
-  //ブラウザを開いたとき
-  selectShort();
-
-  //ウインドウサイズを変えたとき
-  window.addEventListener('resize', () => {
-    resize();
-  });
 
 
 
-div#dot_position.test
+
+div#dot_position
   div#tree_box.treeShadow
     .idea_tree
       span
-        h4.tree_copy_icon_title
+        .tree_copy_icon_title
           | Idea Tree
           button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#treeIdea_list" style="border: none; background: none;")
             i.fa-regular.fa-clipboard
       div id = "treeIdea_list"
-        h6.tree_titleName
-          = link_to @theme.name , solutions_idea_path(@theme), data: { turbo_frame: "_top" }
+        .tree_titleName
+          = link_to @theme.name , solutions_idea_path(@theme)
           = link_to edit_idea_path(@theme), class: 'btn btn-link' do
             i.fas.fa-pen-to-square
         - display_descendants = display_descendants(@theme)
         - count = display_descendants.count("・")
-        = display_descendants.html_safe
-
+        .tree_children_list
+          = display_descendants.html_safe
 
     .tree_count
       - if count < 9

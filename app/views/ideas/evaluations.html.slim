@@ -29,12 +29,12 @@
           - (1..5).each do |rating|
             label.label
               - input_params = { type: "radio", required: "required", name: "idea[#{solution.id}_easy_point][]", value: rating }
-              - if solution.point.easy_points == nil
+              - if solution.easy_point == nil
               - else
-                - if solution.point.easy_points == rating  #既にポイントが存在する場合で、項目に一致する場合
+                - if solution.easy_point == rating  #既にポイントが存在する場合で、項目に一致する場合
                   - input_params[:checked] = "checked"
-                - elsif solution.point.easy_points >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
-                  - default = format('%.1f',solution.point.easy_points / @value.easy).to_f
+                - elsif solution.easy_point >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
+                  - default = format('%.1f',solution.easy_point / @value.easy).to_f
                   - if default == rating
                     - input_params[:checked] = "checked" 
               = tag :input, input_params
