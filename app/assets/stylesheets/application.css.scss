@@ -111,16 +111,21 @@ body {
     padding: 20px;
     margin-top: 10px;
     z-index: 5;
+    font-size: 20px;
   }
 }
 
-// .tree_count_change_fontsize_under20 {
-//   font-size: 0.8rem;
-// }
+.tree_titleName {
+  margin-top: -8px;
+  font-size: clamp(8px, calc(28px - 60%), 16px);
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
 
-// .tree_count_change_fontsize_under35 {
-//   font-size: 0.9rem;
-// }
+.tree_children_list {
+  font-size: clamp(2px, calc(20px - 30%), 16px);
+}
 
 .small_leaf {
   position: absolute;
@@ -155,25 +160,6 @@ body {
   color: #65e086;
   opacity: 0.4;
   padding: 10px;
-}
-
-.tree_copy_icon_title {
-  font-size: clamp(10px, calc(30px - 30%), 20px);
-}
-
-.tree_children_list {
-  font-size: clamp(2px, calc(24px - 60%), 16px);
-}
-
-.tree_titleName {
-}
-
-.tree_titleName {
-  margin-top: -8px;
-  font-size: clamp(8px, calc(30px - 30%), 16px);
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
 }
 
 .treeShadow {

@@ -7,22 +7,19 @@ javascript:
 
 
 
+- display_descendants = display_descendants(@theme)
+- count = display_descendants.count("・")
 
 div#dot_position
   div#tree_box.treeShadow
     .idea_tree
-      span
-        .tree_copy_icon_title
-          | Idea Tree
-          button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#treeIdea_list" style="border: none; background: none;")
-            i.fa-regular.fa-clipboard
       div id = "treeIdea_list"
         .tree_titleName
           = link_to @theme.name , solutions_idea_path(@theme)
           = link_to edit_idea_path(@theme), class: 'btn btn-link' do
             i.fas.fa-pen-to-square
-        - display_descendants = display_descendants(@theme)
-        - count = display_descendants.count("・")
+          button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#tree_box" style="border: none; background: none;")
+            i.fa-regular.fa-clipboard
         .tree_children_list
           = display_descendants.html_safe
 
