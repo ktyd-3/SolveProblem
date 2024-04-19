@@ -64,6 +64,19 @@ body {
   font-family: "Noto Sans JP", Meiryo, sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: solid 1px #ececec;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
 .body__container {
   /* 方眼紙模様 */
   background-image: linear-gradient(

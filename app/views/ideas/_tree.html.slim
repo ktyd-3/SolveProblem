@@ -25,9 +25,9 @@ div#dot_position
           = display_descendants.html_safe
 
     .tree_count
-      - if count < 9
-        i class="fa-solid fa-leaf small_leaf"
-      - elsif count < 16
+      - if count >= 10
         i class="fa-brands fa-pagelines mid_leaf"
-      - else
+      - elsif count >= 15
         i class="fa-solid fa-tree big_tree"
+      - else
+        i class="fa-solid fa-leaf small_leaf"
