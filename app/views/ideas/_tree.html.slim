@@ -7,20 +7,21 @@ javascript:
 
 
 
-- display_descendants = display_descendants(@theme)
-- count = display_descendants.count("・")
+
 
 div#dot_position
   div#tree_box.treeShadow
     .idea_tree
-      div id = "treeIdea_list"
-        .tree_titleName
+      div#treeIdea_list
+        div.tree_titleName
           = link_to @theme.name , solutions_idea_path(@theme)
           = link_to edit_idea_path(@theme), class: 'btn btn-link' do
             i.fas.fa-pen-to-square
           button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#tree_box" style="border: none; background: none;")
             i.fa-regular.fa-clipboard
-        .tree_children_list
+        div.tree_children_list
+          - display_descendants = display_descendants(@theme)
+          - count = display_descendants.count("-")
           = display_descendants.html_safe
 
     .tree_count
