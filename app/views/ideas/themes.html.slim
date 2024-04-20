@@ -1,17 +1,22 @@
 .body__container
   - if @current_user #ログインしているか
+    h1 Step1 問題解決したいテーマを選びます。
+    p このアプリは、解決したい問題に対し、アイデアを出し、優先順位の決定を支援するものです。
+    p 以下の流れを取ることで、具体的な行動アイデアと、優先順位を決めることができます。
+    h6 Step1 テーマ設定
+    h6 Step2 アイデアを抽象的に考える
+    h6 Step3 アイデアを具体的な行動へ変える
+    h6 Step4 実行のしやすさ・効果の大きさで優先順位を決める
+    br/
+    p さっそく、テーマ選定からはじめてみましょう。
+    br/
+    h1 テーマを決める
+    p
+    = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
+      = form.text_field "name", value: @problem&.name
+      = form.submit "新規作成", class: 'btn btn-primary'
+    br/
     - if @themes.present? #１回以上アイデア出しをしたことがあるか
-      h1 Step1 問題解決したいテーマを選びます。
-      p 
-      = @current_user.user_name
-      | さん、続きをはじめましょう。
-      p
-      h1 テーマを決める
-      p
-      = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
-        = form.text_field "name", value: @problem&.name
-        = form.submit "新規作成", class: 'btn btn-primary'
-      br/
       h2 今まで作ったテーマ
       .theme_table-wrapper
         table.theme
@@ -27,31 +32,15 @@
                   i class="fa-solid fa-square-xmark"
         = paginate @themes, :param_name => 'theme_page'
         br/
-      - if @another_user_themes.present?
-        h2 他の人の公開テーマ
-        .theme_table-wrapper
-          table.theme.otherUser
-            tbody
-              - @another_user_themes.each do |another_user_theme|
-                tr
-                  td = another_user_theme.name
-                  td = link_to "閲覧する", solutions_idea_path(another_user_theme), class: 'btn btn-link'
-          = paginate @another_user_themes, :param_name => 'another_user_theme_page'
-          
-    - else #はじめてのアイデア出しの場合
-      h1 Step1 問題解決したいテーマを選びます。
-      p このアプリは、解決したい問題点に対し、アイデアを出し、優先順位の決定を支援するものです。
-      p 以下の流れを取ることで、幅広い解決アイデアと、現実的な行動を見つけることができます。
-      h6 Step1 テーマ設定
-      h6 Step2 解決アイデアを大きな視点で考える
-      h6 Step3 アイデアを具体化する
-      h6 Step4 アイデアの実行可能性・効果の評価
-      br/
-      p さっそく、テーマ選定からはじめてみましょう。
-      br/
-      h1 テーマを決める
-      p
-      = form_with model: Idea.new, url: first_create_ideas_path, local: true do |form|
-        = form.text_field "name", value: @problem&.name
-        = form.submit "新規作成", class: 'btn btn-primary'
-      br/
+    - if @another_user_themes.present?
+      h2 他の人の公開テーマ
+      p 他の人の解決アイデアを閲覧し、アイデアをコピーすることできます。
+      .theme_table-wrapper
+        table.theme.otherUser
+          tbody
+            - @another_user_themes.each do |another_user_theme|
+              tr
+                td = another_user_theme.name
+                td = link_to "閲覧する", solutions_idea_path(another_user_theme), class: 'btn btn-link'
+        = paginate @another_user_themes, :param_name => 'another_user_theme_page'
+      

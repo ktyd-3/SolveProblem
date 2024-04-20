@@ -1,21 +1,39 @@
+
+nav.navbar
+  .header_manu
+    = link_to "テーマ選択へ戻る", themes_ideas_path, class: 'btn btn-outline-primary'
+    - if @theme.children.present? 
+      = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
+  ul.navber-li
+    li
+      - if @current_user.present?
+        | ログイン中: #{@current_user.user_name}
+        li
+          = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
+      - else
+        li
+          = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+
 .body__container
   - if @theme.present?
-    h1 Step2 テーマについての解決策を書き出します。
-    p 大きな枠組みから小さく分解して考えるのがコツです。
-    p モレのない発想がしやすくなり、効果的な問題解決に繋がります。
-    p ここでは、「#{@theme.name}」を解決するために、もっとも抽象的なアイデアを出します。
+    h1 Step2 アイデアを抽象的に考える
+    p 沢山のアイデアを思いつくには、まずは、抽象的に考えるのがコツです。
+    p 抽象的なアイデアから、具体的にしていくと、普段以上のアイデアが生まれます。
+    p ここでは、「#{@theme.name}」を解決するために、抽象的なアイデアを出してみましょう。
     br/
-    p 何かを増減させたり、やり方を変えることはできませんか？
-    p 例：体重を減らしたい
-    p 食べる量を減らす。
-    p 消費カロリーを増やす。
-    p 食べるものを変える。
-    br/
+    p Tips:抽象的アイデアを出すコツ
+    p 例えば、運動不足になっていることが問題なら、以下のように抽象的なアイデアを作ります。
+    p ・プラス要素を増やす
+    p  → 運動したくなる要因を増やす
+    p ・マイナス要素を減らす 
+    p  → 運動の邪魔になる要素を見つける
+    p 
 
-  h2 #{@theme.name}を解決する。
+  h2 #{@theme.name}を解決する抽象アイデアを作成
   
   div.children_idea_box
-    p 「Shift + Enter」で作成のショートカットが使えます。
+    p 「Shift + Enter」で作成のショートカットができます。
+    p
     - if @theme.children.present?
       - @theme.children.each do |child|
         = link_to " ・#{child.name}", solutions_idea_path(child.id)

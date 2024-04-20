@@ -6,13 +6,14 @@
 
   p
 
-  h1 Step4 アイデアを評価します。
+  h1 Step4 アイデアの優先順位評価
   p 今まで出したアイデアを評価し、優先すべきタスクを選定します。
   p ①実行のしやすさ
   p ②効果の大きさ
-  p 2つの観点から評価を行うことで、現実的かつ効果的な解決策を選ぶことができます。
+  p 2つの観点から評価を行うことで、効果的な解決策を選ぶことができます。
 
   h2 ①実行のしやすさ評価
+  p 以下のアイデアは、どのくらい行いやすいですか？
 
   = form_tag set_easy_points_idea_path(@theme), method: :patch, data: { turbo: "false" } do
     - @leaf_descendants.each do |solution|
@@ -47,6 +48,7 @@
   #target
   - if @last_idea.easy_point.present?
     h2 ②効果の大きさ評価
+    p 以下のアイデアは、効果が出やすいと思いますか？
 
     = form_tag set_effect_points_idea_path(@theme), method: :patch do
       - @leaf_descendants.sort_by(&:id).each do |solution|

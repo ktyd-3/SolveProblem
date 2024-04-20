@@ -19,18 +19,7 @@ html
           .viewMode_button
             = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - unless action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom"
-      nav.navbar
-        ul.navber-li
-          li
-            - if @current_user.present?
-              | ログイン中: #{@current_user.user_name}
-              li
-                = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
-            - else
-              li
-                = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
-    - else
+    - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom"
       nav.navbar
         .header_manu
           = link_to  "総合評価", evaluations_idea_path(@theme), class: 'btn btn-success'
@@ -49,6 +38,19 @@ html
             - else
               li
                 = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+    - elsif action_name == 'first_solution'
+    - else
+      nav.navbar
+        ul.navber-li
+          li
+            - if @current_user.present?
+              | ログイン中: #{@current_user.user_name}
+              li
+                = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
+            - else
+              li
+                = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
+      
   body
     - if flash.notice.present?
       .alert.alert-success= flash.notice
