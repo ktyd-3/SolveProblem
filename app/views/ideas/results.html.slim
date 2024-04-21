@@ -7,7 +7,8 @@ javascript:
 
 
 .body__container
-  = link_to  "評価へ戻る", evaluations_idea_path(@theme), class: 'btn btn-success'
+  - if permit_user?(@theme)
+    = link_to  "評価へ戻る", evaluations_idea_path(@theme), class: 'btn btn-success'
   p 
   p 
   - if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
@@ -37,6 +38,7 @@ javascript:
             td.table_num.sumPoints = idea.sum_points
     br/
 
+  - if permit_user?(@theme)
     span.weighted_line
       p 
         strong オプション：評価項目の重みづけ
@@ -45,10 +47,6 @@ javascript:
       = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
         i class="fa-solid fa-minus"
     div id = "add_weighted_#{@theme.id}"
-
-
-
-
 
   div id= "lastSolution_list"
     h2 【#{@theme.name}の解決アイデア】
@@ -62,17 +60,18 @@ javascript:
     | Copy
   p 
 
-  h2 全体公開設定
-  p 作ったアイデアを全体に公開することができます。
-  - if @value.public == true
-    p 現在は「公開設定」です。
-    p あなたのおかげで、同じ問題に困っている人の助けになります。ありがとうございます！
-  - else 
-    p 現在は「非公開設定」で、他のユーザーにアイデアが見られることはありません。
-    p 同じような問題に困っている人の助けになりますので、ぜひご協力お願いします。
-  = form_with model: @value, url: public_setting_idea_path(@theme), data: { turbo: "false" } do |form|
-    = form.select :public, options_for_select([["非公開", false],["全体公開", true]]), prompt: "選択してください"
-    = form.submit '更新', class: 'btn btn-link'
+  - if permit_user?(@theme)
+    h2 全体公開設定
+    p 作ったアイデアを全体に公開することができます。
+    - if @value.public == true
+      p 現在は「公開設定」です。
+      p あなたのおかげで、同じ問題に困っている人の助けになります。ありがとうございます！
+    - else 
+      p 現在は「非公開設定」で、他のユーザーにアイデアが見られることはありません。
+      p 同じような問題に困っている人の助けになりますので、ぜひご協力お願いします。
+    = form_with model: @value, url: public_setting_idea_path(@theme), data: { turbo: "false" } do |form|
+      = form.select :public, options_for_select([["非公開", false],["全体公開", true]]), prompt: "選択してください"
+      = form.submit '更新', class: 'btn btn-link'
 
 
 

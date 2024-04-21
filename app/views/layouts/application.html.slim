@@ -22,7 +22,10 @@ html
     - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom"
       nav.navbar
         .header_manu
-          = link_to  "総合評価", evaluations_idea_path(@theme), class: 'btn btn-success'
+          - if permit_user?(@theme)
+            = link_to  "総合評価", evaluations_idea_path(@theme), class: 'btn btn-success'
+          - else
+            = link_to  "評価の結果", results_idea_path(@theme), class: 'btn btn-success'
           - if @root_idea == @theme
             = link_to "テーマ選択へ戻る", themes_ideas_path, class: 'btn btn-outline-primary'
           - else

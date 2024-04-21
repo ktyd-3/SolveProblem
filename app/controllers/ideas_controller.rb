@@ -131,7 +131,7 @@ class IdeasController < ApplicationController
   end
 
 
-  def permit_create(idea)
+  def permit_user?(idea)
     if idea.user_id == @current_user.id
       return true
     else
@@ -148,7 +148,7 @@ class IdeasController < ApplicationController
     this_idea_parent_id = params.dig(:idea, :parent_id)
     parent = Idea.find(this_idea_parent_id)
     @theme = parent.root
-    if permit_create(@theme)
+    if permit_user?(@theme)
       names.each do |name|
         parent.children.create(name: name, user_id: @current_user.id)
       end
@@ -166,7 +166,7 @@ class IdeasController < ApplicationController
     this_idea_parent_id = idea_params[:parent_id]
     @parent = Idea.find(this_idea_parent_id)
     @theme = @parent.root
-    if permit_create(@theme)
+    if permit_user?(@theme)
       names.each do |name|
         @parent.children.create(name: name, user_id: @current_user.id)
       end

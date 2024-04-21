@@ -269,6 +269,7 @@ h1:before {
 
 .parentIdea_box {
   background-color: #cfffbe;
+  max-width: 800px;
   width: fit-content;
   height: fit-content;
   padding: 16px;
@@ -286,6 +287,7 @@ h1:before {
 //個別の子アイデアの大枠
 .children_idea_box {
   background-color: #feffcc;
+  max-width: 800px;
 
   width: fit-content;
   height: fit-content;

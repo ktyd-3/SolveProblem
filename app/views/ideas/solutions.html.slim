@@ -1,11 +1,13 @@
 .body__container
   - if @root_idea == @theme
     h1 Step3 アイデアを具体的な行動へ変える
-    p 「#{@theme.name}」を解決するために、アイデアを具体化してみましょう。
-    p これから、より詳細な行動へと細かくしていく作業を行っていきます。
-    p 最終的には、誰から見ても「同じ行動ができるレベルの具体的なアイデア」まで、考えるのがベストです。
+    p 「#{@theme.name}」を解決するために、より具体的な行動へと細かくしていく作業を行っていきます。
+    p 以下のように段階的に具体化していきます。
+    p 例：運動したくなる要因を増やす→ゲームで運動をする→おすすめの運動ゲームを検索し、1つ買ってみる
+    p 最終的には、「誰から見ても同じ行動ができるレベルの具体的なアイデア」まで、考えるのがベストです。
+    br/
     p
-      span アイデアが全て出しきったあと、
+      span アイデアを全て出しきったあと、
       strong 左上にある「総合評価」
       | でアイデアの優先順位を決められます。
 
@@ -29,7 +31,7 @@
               i.fas.fa-pen-to-square
             = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
               i class="fa-solid fa-square-xmark"
-        - if permit_create(@root_idea)
+        - if permit_user?(@root_idea)
           = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
             div.parent_create_button
               = form.submit "作成", class: 'btn btn-primary'

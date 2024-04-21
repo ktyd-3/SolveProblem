@@ -13,8 +13,7 @@ module ApplicationHelper
     list
   end
 
-  # 入力フォームを表示させるかどうか
-  def permit_create(idea)
+  def permit_user?(idea)
     if idea.user_id == @current_user.id
       return true
     else
