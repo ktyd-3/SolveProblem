@@ -5,18 +5,19 @@ javascript:
     console.log(clipboard);
   });
 
-
 .body__container
   - if permit_user?(@theme)
     = link_to  "評価へ戻る", evaluations_idea_path(@theme), class: 'btn btn-success'
-  p 
-  p 
+  p
   - if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
     h1 総合評価
     p ①実行のしやすさと、②効果の大きさの合計得点で、解決策を並び替えました。
-    p 合計得点が最も大きいものからはじめると、解決がスムーズに進みます。
-    p 早速、アイデアを実行してみましょう！
-    p 
+    p 合計得点の順に行なうと、解決がスムーズに進みます。まずは、上位3つのアイデアからはじめてみましょう！
+    - (1..3).each do |i|
+      h4.yellow_dot_line 第#{i}位
+      p
+        = @sorted_solutions[i].name
+    p 3つを実行しても解決できない場合、他のアイデアにも挑戦してみましょう！
     h2 アイデアの合計得点
     table.table_design09
       thead
@@ -40,13 +41,14 @@ javascript:
 
   - if permit_user?(@theme)
     span.weighted_line
-      p 
+      p
         strong オプション：評価項目の重みづけ
       = link_to add_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
         i class="fa-solid fa-plus"
       = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
         i class="fa-solid fa-minus"
     div id = "add_weighted_#{@theme.id}"
+  p
 
   div id= "lastSolution_list"
     h2 【#{@theme.name}の解決アイデア】

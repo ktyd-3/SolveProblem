@@ -17,7 +17,7 @@
   - else
     = link_to "一つ前(#{@root_idea.parent.name})へ", solutions_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
-    
+
   .parentIdea_container
     h2 「#{@root_idea.name}」の解決アイデアを作成
     .parentIdea_box
@@ -41,7 +41,7 @@
 
 
 
-  h2.childBorder アイデアをもっと具体的にする
+  h2.yellow_dot_line アイデアをもっと具体的にする
   = render partial: "child_form", collection: @children_ideas
 
 
