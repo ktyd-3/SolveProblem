@@ -33,7 +33,7 @@
         = paginate @themes, :param_name => 'theme_page'
         br/
     - if @another_user_themes.present?
-      h2 他の人の公開テーマ
+      h2.yellow_dot_line 他の人の公開テーマ
       p 公開中の解決アイデアを閲覧し、アイデアをコピーすることできます。
       .theme_table-wrapper
         table.theme.otherUser
