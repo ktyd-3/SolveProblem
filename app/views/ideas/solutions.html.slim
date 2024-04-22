@@ -17,26 +17,27 @@
   - else
     = link_to "一つ前(#{@root_idea.parent.name})へ", solutions_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
-    .parentIdea_container
-      h2 「#{@root_idea.name}」の解決アイデアを作成
-      .parentIdea_box
-        = "【#{@root_idea.name}】"
-        = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
-          i.fas.fa-pen-to-square
-        br/
-        - @children_ideas.each do |child|
-          .span_icons
-            = child.name
-            = link_to edit_idea_path(child), class: 'btn btn-link' do
-              i.fas.fa-pen-to-square
-            = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
-              i class="fa-solid fa-square-xmark"
-        - if permit_user?(@root_idea)
-          = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
-            div.parent_create_button
-              = form.submit "作成", class: 'btn btn-primary'
-            = form.text_area :names, class: "form-control", rows: 5
-            = form.hidden_field "parent_id", value: @root_idea.id
+    
+  .parentIdea_container
+    h2 「#{@root_idea.name}」の解決アイデアを作成
+    .parentIdea_box
+      = "【#{@root_idea.name}】"
+      = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
+        i.fas.fa-pen-to-square
+      br/
+      - @children_ideas.each do |child|
+        .span_icons
+          = child.name
+          = link_to edit_idea_path(child), class: 'btn btn-link' do
+            i.fas.fa-pen-to-square
+          = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
+            i class="fa-solid fa-square-xmark"
+      - if permit_user?(@root_idea)
+        = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
+          div.parent_create_button
+            = form.submit "作成", class: 'btn btn-primary'
+          = form.text_area :names, class: "form-control", rows: 5
+          = form.hidden_field "parent_id", value: @root_idea.id
 
 
 

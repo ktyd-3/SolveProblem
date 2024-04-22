@@ -1,8 +1,11 @@
-
+javascript:
+  document.addEventListener("turbo:load", function () {
+    var clipboard = new Clipboard(".clipboard-btn");
+    console.log(clipboard);
+  });
 
 .body__container
-    = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
-    = render partial: 'search_form', q: @q, locals: { theme: @theme }
+    = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-primary'
 
     p
     div
@@ -12,7 +15,7 @@
     p 
     div id = "treeIdea_list_tw"
         .ideaTree_text
-            h6= @theme.name
+            h3= @theme.name
             = display_descendants(@theme).html_safe
 
 
