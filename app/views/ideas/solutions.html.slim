@@ -26,12 +26,17 @@
         i.fas.fa-pen-to-square
       br/
       - @children_ideas.each do |child|
-        .span_icons
-          = child.name
-          = link_to edit_idea_path(child), class: 'btn btn-link' do
-            i.fas.fa-pen-to-square
-          = button_to destroy_move_idea_path(child), method: :delete, class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
-            i class="fa-solid fa-square-xmark"
+        div.name_and_icons id = "idea_line_#{child.id}"
+          .span_icons
+            = child.name
+            - if permit_user?(@root_idea)
+              = link_to edit_idea_path(child), class: 'btn btn-link'
+                  i.fas.fa-pen-to-square
+              = link_to idea_path(child), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
+                i class="fa-solid fa-square-xmark"
+              div id = "ex_form_#{child.id}"
+                = link_to  ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
+                  i class="fa-solid fa-file-circle-plus"
       - if permit_user?(@root_idea)
         = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
           div.parent_create_button
