@@ -87,7 +87,7 @@ class IdeasController < ApplicationController
   def tree
     @theme = Idea.find_by(id: params[:id])
     all_children_ideas = @theme.descendants
-    @all_children_ideasSize = all_children_ideas.size
+    @leaf_descendants = @theme.descendants.select(&:leaf?).sort_by(&:id)
   end
 
 

@@ -14,8 +14,8 @@ javascript:
     p ①実行のしやすさと、②効果の大きさの合計得点で、解決策を並び替えました。
     p 合計得点の順に行なうと、解決がスムーズに進みます。まずは、上位3つのアイデアからはじめてみましょう！
     - if @sorted_solutions.count >= 3
-      - (1..3).each do |i|
-        h4.yellow_dot_line 第#{i}位
+      - (0..2).each do |i|
+        h4.yellow_dot_line 第#{i + 1}位
         p
           = @sorted_solutions[i].name
     p 3つを実行しても解決できない場合、他のアイデアにも挑戦してみましょう！
