@@ -135,10 +135,10 @@ body {
   background: #fff;
   border: none;
   border-radius: 6px;
-  box-shadow: inset 0 0 2px #65e086;
+  box-shadow: inset 0 0 2px #65e086dc;
 }
 #tree_box::-webkit-scrollbar-thumb {
-  background: #69afffa2;
+  background: #65e086dc;
   border-radius: 6px;
   box-shadow: none;
 }
@@ -236,6 +236,12 @@ textarea {
 h2 {
   display: inline-block;
   border-bottom: dashed 2px #65e086;
+}
+
+.green_dot_line {
+  display: inline-block;
+  border-bottom: dashed 2px #65e086;
+  width: fit-content;
 }
 
 .yellow_dot_line {
