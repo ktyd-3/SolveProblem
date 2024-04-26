@@ -1,4 +1,4 @@
-  div.children_idea_box id = "idea_#{child_form.id}"
+  div.children_idea_box id = "child_box_#{child_form.id}"
     h4.child_idea_title
       = link_to child_form.name, solutions_idea_path(child_form.id)
       = link_to edit_idea_path(child_form), class: 'btn btn-link'
