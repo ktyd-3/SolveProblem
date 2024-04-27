@@ -19,7 +19,7 @@ html
           .viewMode_button
             = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom" || action_name == "tree" 
+    - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom" || action_name == "tree" || action_name == "change_to_themes"
       nav.navbar
         .header_manu
           - if permit_user?(@theme)
@@ -31,6 +31,7 @@ html
           - else
             = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
           = link_to "全体像",  tree_idea_path(@theme), class: 'btn btn-outline-primary'
+          = link_to "アイデアのテーマ化", change_to_themes_idea_path(@theme), class: 'btn btn-outline-primary'
           = link_to  "公開設定", public_custom_idea_path(@theme), class: 'btn btn-outline-primary'
           = render partial: 'search_form', q: @q, locals: { theme: @theme }
         ul.navber-li

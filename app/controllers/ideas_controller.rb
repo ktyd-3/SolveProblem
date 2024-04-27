@@ -80,6 +80,23 @@ class IdeasController < ApplicationController
     end
   end
 
+  def children_to_themes(idea)
+    list = ""
+    if idea.children.any?
+      idea.children.each do |child|
+        list += "<div class='tree_list_line' id=\"list_#{child.id}\">"
+        list += "&nbsp;" * (child.tree_level.to_i * 2) + "- " + link_to(child.name, solutions_idea_path(child), data: { turbo_frame: "_top" }) + "<br>"
+        list += "</div>"
+        list += display_descendants(child)
+      end
+    end
+    list
+  end
+
+  def change_to_themes
+    @theme = Idea.find_by(id: params[:id])
+  end
+
   def public_custom
   end
 
