@@ -135,10 +135,10 @@ body {
   background: #fff;
   border: none;
   border-radius: 6px;
-  box-shadow: inset 0 0 2px #65e086;
+  box-shadow: inset 0 0 2px #65e086dc;
 }
 #tree_box::-webkit-scrollbar-thumb {
-  background: #69afffa2;
+  background: #65e086dc;
   border-radius: 6px;
   box-shadow: none;
 }
@@ -238,6 +238,12 @@ h2 {
   border-bottom: dashed 2px #65e086;
 }
 
+.green_dot_line {
+  display: inline-block;
+  border-bottom: dashed 2px #65e086;
+  width: fit-content;
+}
+
 .yellow_dot_line {
   border-bottom: dashed 2px #fff200;
   width: fit-content;
@@ -325,6 +331,9 @@ h1:before {
   width: 480px;
 }
 
+.ex_form_text_area {
+}
+
 .text_area_wrapper {
 }
 
@@ -336,6 +345,7 @@ h1:before {
 
 #ex_form_area {
   margin-bottom: 10px;
+  width: 350px;
 }
 
 //評価ページ//

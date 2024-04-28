@@ -21,7 +21,7 @@
     p 
 
   .parentIdea_container
-    h2 「#{@root_idea.name}」の解決アイデアを作成
+    h3.green_dot_line 「#{@root_idea.name}」の解決アイデアを作成
     .parentIdea_box
       = "【#{@root_idea.name}】"
       = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
@@ -39,7 +39,7 @@
 
 
 
-  h2.yellow_dot_line アイデアをもっと具体的にする
+  h3.yellow_dot_line アイデアをもっと具体的にする
   = render partial: "child_form", collection: @children_ideas
 
 

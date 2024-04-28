@@ -45,3 +45,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/solve_problem_development

@@ -22,7 +22,7 @@ javascript:
     i.fa-regular.fa-clipboard
   div#no_have_child_idea
     - @leaf_descendants.each do |idea|
-      = idea.name
+      p= link_to idea.name, solutions_idea_path(idea)
     end
 
 
