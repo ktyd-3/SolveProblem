@@ -95,6 +95,7 @@ class IdeasController < ApplicationController
 
   def change_to_themes
     @theme = Idea.find_by(id: params[:id])
+    @all_generations = @theme.descendants
   end
 
   def public_custom
