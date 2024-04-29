@@ -100,14 +100,14 @@ class IdeasController < ApplicationController
 
   def to_theme
     params_ids = params[:idea][:id]
-    debugger
+    @new_theme = nil
     params_ids.each do |params_id|
-      parent_theme = Idea.find_by(id: params_id)
-      debugger
-      @new_theme = Idea.new(name: parent_theme.name,parent_id: nil)
-      debugger
+      parent_theme = Idea.find_by(id: params_id.to_i)
+      # debugger
+      Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
+      # debugger
     end
-    redirect_to first_solution_idea_path(@new_theme)
+    redirect_to themes_ideas_path
   end
 
   def public_custom
