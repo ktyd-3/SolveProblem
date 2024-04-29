@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
   #トップページ以外でログインを求める
   before_action :autheniticate_user, except: :top
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create]
+  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create,:to_theme]
   #他ユーザーアイデア閲覧中の編集制限
   before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form]
   # 評価に関するページで、themeと対応するvalueをセットする
@@ -99,10 +99,15 @@ class IdeasController < ApplicationController
   end
 
   def to_theme
-    params_id = params[:id]
-    parent_theme = Idea.find_by(id: params_id)
-    new_theme = Idea.create(name: parent_theme.name,parent_id: nil)
-    redirect_to first_solution_idea_path(new_theme)
+    params_ids = params[:idea][:id]
+    debugger
+    params_ids.each do |params_id|
+      parent_theme = Idea.find_by(id: params_id)
+      debugger
+      @new_theme = Idea.new(name: parent_theme.name,parent_id: nil)
+      debugger
+    end
+    redirect_to first_solution_idea_path(@new_theme)
   end
 
   def public_custom

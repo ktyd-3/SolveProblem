@@ -1,6 +1,6 @@
 .body__container
     = form_with(model: Idea.new, url: to_theme_idea_path, local: true) do |form|
-        = form.collection_check_boxes :id, @all_generations, :id, :name do |idea|
+        = form.collection_check_boxes :id, @all_generations, :id, :name, {include_hidden: false}, html_options: {} do |idea|
             = idea.label { idea.check_box + idea.text }
             br/
         = form.submit "テーマ化", class: 'btn btn-primary'
