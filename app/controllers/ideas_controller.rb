@@ -98,6 +98,13 @@ class IdeasController < ApplicationController
     @all_generations = @theme.descendants
   end
 
+  def to_theme
+    params_id = params[:id]
+    parent_theme = Idea.find_by(id: params_id)
+    new_theme = Idea.create(name: parent_theme.name,parent_id: nil)
+    redirect_to first_solution_idea_path(new_theme)
+  end
+
   def public_custom
   end
 
