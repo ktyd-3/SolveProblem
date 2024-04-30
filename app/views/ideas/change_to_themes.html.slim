@@ -3,4 +3,10 @@
         = form.collection_check_boxes :id, @all_generations, :id, :name, {include_hidden: false}, html_options: {} do |idea|
             = idea.label { idea.check_box + idea.text }
             br/
-        = form.submit "テーマ化", class: 'btn btn-primary'
+        = form.submit "テーマ化", name:"name_to_theme", class: 'btn btn-primary'
+        p
+        = form.submit "子アイデアを引き継いでテーマ化", name:"with_children_to_theme", class: 'btn btn-secondary'
+
+
+h4 
+
