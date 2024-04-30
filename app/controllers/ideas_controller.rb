@@ -103,9 +103,7 @@ class IdeasController < ApplicationController
       params_ids = params[:idea][:id]
       params_ids.each do |params_id|
         parent_theme = Idea.find_by(id: params_id.to_i)
-        # debugger
         Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
-        # debugger
       end
       redirect_to themes_ideas_path
       flash[:notice] = "アイデアを新しいテーマにしました"
@@ -115,11 +113,9 @@ class IdeasController < ApplicationController
         parent_theme = Idea.find_by(id: params_id.to_i)
         @new_theme = Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
         copy_create_children(parent_theme,@new_theme)
-        # debugger
-
-        # debugger
       end
       redirect_to themes_ideas_path
+    else
     end
   end
 

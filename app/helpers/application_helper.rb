@@ -13,6 +13,13 @@ module ApplicationHelper
     list
   end
 
+  def indent_tree_lebel(idea)
+    @idea = Idea.find_by(id: idea)
+    list = ""
+    list += "&nbsp;" * (@idea.tree_level.to_i * 2)
+    list
+  end
+
   def permit_user?(idea)
     if idea.user_id == @current_user.id
       return true
