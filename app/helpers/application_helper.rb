@@ -16,7 +16,7 @@ module ApplicationHelper
   def indent_tree_lebel(idea)
     @idea = Idea.find_by(id: idea)
     list = ""
-    list += "&nbsp;" * (@idea.tree_level.to_i * 2)
+    list += "&nbsp;" * (@idea.tree_level.to_i * 4)
     list
   end
 

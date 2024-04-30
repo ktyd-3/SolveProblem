@@ -99,22 +99,23 @@ class IdeasController < ApplicationController
   end
 
   def to_theme
-    if params[:name_to_theme]
-      params_ids = params[:idea][:id]
-      params_ids.each do |params_id|
-        parent_theme = Idea.find_by(id: params_id.to_i)
-        Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
+    if params[:idea] && params_ids = params[:idea][:id]
+      if params[:name_to_theme]
+        params_ids.each do |params_id|
+          parent_theme = Idea.find_by(id: params_id.to_i)
+          Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
+        end
+      elsif params[:with_children_to_theme]
+        params_ids.each do |params_id|
+          parent_theme = Idea.find_by(id: params_id.to_i)
+          @new_theme = Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
+          copy_create_children(parent_theme,@new_theme)
+        end
+      else
+        redirect_to request.referer
       end
       redirect_to themes_ideas_path
-      flash[:notice] = "アイデアを新しいテーマにしました"
-    elsif params[:with_children_to_theme]
-      params_ids = params[:idea][:id]
-      params_ids.each do |params_id|
-        parent_theme = Idea.find_by(id: params_id.to_i)
-        @new_theme = Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
-        copy_create_children(parent_theme,@new_theme)
-      end
-      redirect_to themes_ideas_path
+        flash[:notice] = "アイデアを新しいテーマにしました"
     else
     end
   end
