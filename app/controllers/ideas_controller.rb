@@ -88,30 +88,34 @@ class IdeasController < ApplicationController
   def to_theme
     if params[:idea] && params_ids = params[:idea][:id]
       params_ids.each do |params_id|
-        parent_idea = Idea.find_by(id: params_id.to_i)
-        if parent_idea.root?
-          parent_theme = Theme.find_or_create_by(idea_id: parent_idea.id)
+        to_be_theme_idea = Idea.find_by(id: params_id.to_i)
+        @parent_idea = to_be_theme_idea.parent
+        debugger
+        if @parent_idea.parent_id == nil
+          parent_theme = Theme.find_or_create_by(idea_id: @parent_idea.id)
         else
-          parent_theme = Theme.find_by(idea_id: parent_idea.id)
+          parent_theme = Theme.find_by(idea_id: @parent_idea.id)
         end
-        new_idea_theme = Idea.create(name: parent_idea.name,parent_id: nil,user_id: @current_user.id)
+        new_idea = Idea.create(name: to_be_theme_idea.name,parent_id: nil,user_id: @current_user.id)
 
+        debugger
         if params[:name_to_theme]
           if parent_theme.present?
-            new_theme = Theme.create(idea_id: new_idea_theme.id,parent_id: parent_theme.id)
+            new_theme = Theme.create(idea_id: new_idea.id,parent_id: parent_theme.id)
             parent_theme.update(child_id: new_theme.id)
           else
             new_theme = Theme.create(idea_id: new_idea.id)
           end
         elsif params[:with_children_to_theme]
           if parent_theme.present?
-            new_theme = Theme.create(idea_id: new_idea_theme.id,parent_id: parent_theme.id)
-            copy_create_children(parent_idea,new_idea_theme)
+            new_theme = Theme.create(idea_id: new_idea.id,parent_id: parent_theme.id)
+            copy_create_children(parent_idea,new_idea)
             parent_theme.update(child_id: new_theme.id)
           else
             new_theme = Theme.create(idea_id: new_idea.id)
-            copy_create_children(parent_idea,new_idea_theme)
+            copy_create_children(parent_idea,new_idea)
           end
+        end
       end
       redirect_to themes_ideas_path
       flash[:notice] = "アイデアを新しいテーマにしました"
@@ -184,6 +188,7 @@ class IdeasController < ApplicationController
   def first_create
     name = params[:idea][:name]
     @theme = Idea.create(name: name, user_id: @current_user.id)
+    Value.create(idea_id: @theme.id)
     Theme.create(idea_id: @theme.id)
     redirect_to first_solution_idea_path(@theme)
   end

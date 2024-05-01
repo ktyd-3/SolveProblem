@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def display_descendants(idea)
     list = ""
-    if idea.children.any?
+    if idea.children.present?
       idea.children.each do |child|
         list += "<div class='tree_list_line' id=\"list_#{child.id}\">"
         list += "&nbsp;" * (child.tree_level.to_i * 2) + "- " + link_to(child.name, solutions_idea_path(child), data: { turbo_frame: "_top" }) + "<br>"
