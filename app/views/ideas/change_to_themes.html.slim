@@ -1,10 +1,10 @@
 .body__container
     h4 テーマ化について
-    p アイデア数が大量になったとき、新しくテーマとして引き継ぐことができます。
+    p アイデア数が大量になったとき、新しくテーマ化して、作業を引き継ぐことができます。
     p 「①テーマ化」では、選択したアイデアの名前が、新しいテーマの名前になります。
     p ただし、紐づいた子アイデアはコピーされません。
-    p 「②子アイデアを引き継いでテーマ化」では、①のように新しいテーマを作ります。
-    p さらに、元アイデアにあった子テーマを引き継ぐことができます。
+    p 「②子アイデアを引き継いでテーマ化」では、①と同じく新しいテーマを作ります。
+    p さらに、アイデアに紐づいた子アイデアを引き継ぐことができます。
     h4 =@theme.name
     = form_with(model: Idea.new, url: to_theme_idea_path, local: true) do |form|
         = form.collection_check_boxes :id, @all_generations, :id, :name, {include_hidden: false}, html_options: {} do |idea|
