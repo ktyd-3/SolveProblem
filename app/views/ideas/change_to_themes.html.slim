@@ -7,11 +7,8 @@
     p さらに、アイデアに紐づいた子アイデアを引き継ぐことができます。
     h4 =@theme.name
     = form_with(model: Idea.new, url: to_theme_idea_path, local: true) do |form|
-        = form.collection_check_boxes :id, @all_generations, :id, :name, {include_hidden: false}, html_options: {} do |idea|
-            = indent_tree_lebel(idea.object.id).html_safe
-            = idea.label { idea.check_box + idea.text }
-            br/
-        p 
+        = display_checkbox_ideas_family(@theme,form).html_safe
+        
         = form.submit "①テーマ化", name:"name_to_theme", class: 'btn btn-secondary'
         p
         = form.submit "②子アイデアを引き継いでテーマ化", name:"with_children_to_theme", class: 'btn btn-primary'
