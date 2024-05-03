@@ -91,7 +91,6 @@ class IdeasController < ApplicationController
         params_ids.each do |params_id|
           to_be_theme_idea = Idea.find_by(id: params_id.to_i)
           @parent_idea = to_be_theme_idea.parent
-          # debugger
           if @parent_idea.parent_id == nil
             parent_theme = Theme.find_or_create_by(idea_id: @parent_idea.id)
           else
@@ -99,7 +98,6 @@ class IdeasController < ApplicationController
           end
           new_idea = Idea.create(name: to_be_theme_idea.name,parent_id: nil,user_id: @current_user.id)
 
-          # debugger
           if params[:name_to_theme]
             if parent_theme.present?
               new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
@@ -110,11 +108,11 @@ class IdeasController < ApplicationController
           elsif params[:with_children_to_theme]
             if parent_theme.present?
               new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
-              copy_create_children(@parent_idea,new_idea)
+              copy_create_children(to_be_theme_idea,new_idea)
               parent_theme.update(child_theme_id: new_theme.id)
             else
               new_theme = Theme.create(idea_id: new_idea.id)
-              copy_create_children(@parent_idea,new_idea)
+              copy_create_children(to_be_theme_idea,new_idea)
             end
           end
         end
@@ -132,9 +130,6 @@ class IdeasController < ApplicationController
       parent_theme = Idea.find_by(id: params_id.to_i)
       @new_theme = Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
       copy_create_children(parent_theme,@new_theme)
-      # debugger
-
-      # debugger
     end
     redirect_to themes_ideas_path
 
