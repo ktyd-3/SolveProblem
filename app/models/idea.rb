@@ -3,7 +3,9 @@ class Idea < ApplicationRecord
   belongs_to :parent, class_name: "Idea", optional: true
   has_one :value,dependent: :destroy
   has_one :point, dependent: :destroy
+  has_one :theme, dependent: :destroy
   belongs_to :user
+
 
   acts_as_tree order: "name"
 

@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
   #トップページ以外でログインを求める
   before_action :autheniticate_user, except: :top
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create]
+  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create,:to_theme]
   #他ユーザーアイデア閲覧中の編集制限
   before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form]
   # 評価に関するページで、themeと対応するvalueをセットする
@@ -80,6 +80,64 @@ class IdeasController < ApplicationController
     end
   end
 
+  def change_to_themes
+    @theme = Idea.find_by(id: params[:id])
+    @all_generations = @theme.descendants
+  end
+
+  def to_theme
+    if params[:idea] && params_ids = params[:idea][:id]
+      ActiveRecord::Base.transaction do
+        params_ids.each do |params_id|
+          to_be_theme_idea = Idea.find_by(id: params_id.to_i)
+          @parent_idea = to_be_theme_idea.parent
+          if @parent_idea.parent_id == nil
+            parent_theme = Theme.find_or_create_by(idea_id: @parent_idea.id)
+          else
+            parent_theme = Theme.find_by(idea_id: @parent_idea.id)
+          end
+          new_idea = Idea.create(name: to_be_theme_idea.name,parent_id: nil,user_id: @current_user.id)
+
+          if params[:name_to_theme]
+            if parent_theme.present?
+              new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
+              parent_theme.update(child_theme_id: new_theme.id)
+            else
+              new_theme = Theme.create(idea_id: new_idea.id)
+            end
+          elsif params[:with_children_to_theme]
+            if parent_theme.present?
+              new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
+              copy_create_children(to_be_theme_idea,new_idea)
+              parent_theme.update(child_theme_id: new_theme.id)
+            else
+              new_theme = Theme.create(idea_id: new_idea.id)
+              copy_create_children(to_be_theme_idea,new_idea)
+            end
+          end
+        end
+      end
+        redirect_to themes_ideas_path
+        flash[:notice] = "アイデアを新しいテーマにしました"
+    else
+      redirect_to request.referer
+    end
+  end
+
+  def to_themes_with_children
+    params_ids = params[:idea][:id]
+    params_ids.each do |params_id|
+      parent_theme = Idea.find_by(id: params_id.to_i)
+      @new_theme = Idea.create(name: parent_theme.name,parent_id: nil,user_id: @current_user.id)
+      copy_create_children(parent_theme,@new_theme)
+    end
+    redirect_to themes_ideas_path
+
+  end
+
+
+
+
   def public_custom
   end
 
@@ -127,6 +185,8 @@ class IdeasController < ApplicationController
   def first_create
     name = params[:idea][:name]
     @theme = Idea.create(name: name, user_id: @current_user.id)
+    Value.create(idea_id: @theme.id)
+    Theme.create(idea_id: @theme.id)
     redirect_to first_solution_idea_path(@theme)
   end
 
