@@ -260,7 +260,7 @@ class IdeasController < ApplicationController
   def solutions
     @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
-    if @root_idea == @theme
+    if @root_idea == @theme && @theme.user_id == @current_user.id
       @theme.update(updated_at: Time.now)
     end
     @children_ideas = @root_idea.children if @root_idea.present?
