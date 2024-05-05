@@ -27,7 +27,7 @@ html
           - else
             = link_to  "評価の結果", results_idea_path(@theme), class: 'btn btn-success'
           - if @root_idea == @theme
-            = link_to "テーマ選択へ戻る", themes_ideas_path, class: 'btn btn-outline-primary'
+            = link_to "テーマ選択へ", themes_ideas_path, class: 'btn btn-outline-primary'
           - else
             = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
           = link_to "全体像",  tree_idea_path(@theme), class: 'btn btn-outline-primary'
