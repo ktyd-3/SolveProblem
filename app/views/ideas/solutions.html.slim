@@ -27,7 +27,7 @@
       = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
         i.fas.fa-pen-to-square
       br/
-      - @children_ideas.each do |child|
+      - @children_ideas.sort_by {|child| child.id }.each do |child|
         = render partial: "child_idea_lines", locals: { child: child }
         
       - if permit_user?(@root_idea)
