@@ -261,7 +261,7 @@ class IdeasController < ApplicationController
     @root_idea = Idea.find_by(id: params[:id])
     @theme = @root_idea.root
     if @root_idea == @theme && @theme.user_id == @current_user.id
-      @theme.update(updated_at: Time.now)
+      @theme.update_column(:updated_at, Time.now)
     end
     @children_ideas = @root_idea.children if @root_idea.present?
   end
