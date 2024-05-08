@@ -13,7 +13,7 @@ javascript:
   p 
   div#treeIdea_list_tw
     .ideaTree_text
-      h3= @theme.name
+      h4= @theme.name
       = display_descendants(@theme).html_safe
   p 
 
@@ -22,8 +22,8 @@ javascript:
     i.fa-regular.fa-clipboard
   div#no_have_child_idea
     - @leaf_descendants.each do |idea|
-      p= link_to idea.name, solutions_idea_path(idea)
-    end
+      = link_to idea.name, solutions_idea_path(idea),class: "most_child_ideas_line"
+      br/
 
 
 
