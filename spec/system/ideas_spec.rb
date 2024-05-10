@@ -16,7 +16,7 @@ RSpec.describe "Ideas", type: :system do
       it 'ログインした後、テーマ、子アイデア、孫アイデアを順に作り、アイデア一覧表示ページに行くと、孫アイデアが2つ表示される' do
         # ログイン
         # テーマアイデアを入力
-        fill_in 'idea[name]', with: @theme_idea.name
+        fill_in 'idea_names', with: @theme_idea.name
         # 作成ボタンを押すと、アイデアモデルのカウントが1上がることを確認
         expect{click_on '新規作成'}.to change {Idea.count}.by(1)
         # first_solutionページに移動
