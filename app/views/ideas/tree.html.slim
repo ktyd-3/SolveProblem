@@ -5,17 +5,15 @@ javascript:
   });
 
 .body__container
-  = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-primary'
-  p
   h2 解決アイデアの全体像
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#treeIdea_list_tw" style="border: none; background: none;")
     i.fa-regular.fa-clipboard
-  p 
+  br/
   div#treeIdea_list_tw
     .ideaTree_text
       h4= @theme.name
       = display_descendants(@theme).html_safe
-  p 
+      br/
 
   h2.yellow_dot_line 具体化されたアイデア一覧
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#no_have_child_idea" style="border: none; background: none;")

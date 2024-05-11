@@ -10,8 +10,12 @@
     br/
     p
       span アイデアを全て出しきったあと、
-      strong 左上にある「総合評価」
-      | でアイデアの優先順位を決められます。
+        左上にある
+      i class="fa-solid fa-user-pen",class:"solutions_line"
+      strong.solutions_line
+        |総合評価
+      span でアイデアの優先順位を決められます。
+
 
     = link_to 'Step2へ戻る', first_solution_idea_path(@root_idea), class: 'btn btn-primary'
     p 
