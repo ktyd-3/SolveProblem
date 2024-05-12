@@ -1,18 +1,14 @@
 .body__container
-    h4 テーマ化について
+    h4.green_dot_line テーマ化について
     p アイデア数が大量になったとき、新しくテーマ化して、作業を引き継ぐことができます。
     p 「①テーマ化」では、選択したアイデアの名前が、新しいテーマの名前になります。
     p ただし、紐づいた子アイデアはコピーされません。
     p 「②子アイデアを引き継いでテーマ化」では、①と同じく新しいテーマを作ります。
     p さらに、アイデアに紐づいた子アイデアを引き継ぐことができます。
-    h4 =@theme.name
+    h4.yellow_dot_line =@theme.name
     = form_with(model: Idea.new, url: to_theme_idea_path, local: true) do |form|
         = display_checkbox_ideas_family(@theme,form).html_safe
         br/
         = form.submit "①テーマ化", name:"name_to_theme", class: 'btn btn-secondary'
         p
         = form.submit "②子アイデアを引き継いでテーマ化", name:"with_children_to_theme", class: 'btn btn-primary'
-
-
-
-
