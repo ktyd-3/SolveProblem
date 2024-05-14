@@ -10,7 +10,8 @@
 }
 
 .most_child_ideas_line {
-  line-height: 1.7;
+line-height: 1.7; /* 例：行間を1.5倍に設定 */
+margin-left: 15px;
 }
 .input.btn.btn-info {
   color: #434343;
