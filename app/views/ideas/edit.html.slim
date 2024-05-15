@@ -1,11 +1,11 @@
-
-
-
 .body__container
   h2 タスクの編集
+  p
+    | before:
+    = @idea.name
   = form_for @idea do |f|
     div
-      = f.text_field :name
+      = f.text_field :name,class: "edit_form"
       = f.submit "変更", class: "btn btn-primary"
       
   p 
