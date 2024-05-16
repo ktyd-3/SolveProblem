@@ -3,6 +3,9 @@
 .body__container
   = link_to  "評価の結果", results_idea_path(@theme), class: 'btn btn-success'
 
+  
+  - if @parent_theme.present?
+    p 関連した親のテーマが存在します。同時に評価しますか？
   p
 
   h1 Step4 アイデアの優先順位評価
