@@ -210,7 +210,8 @@ class IdeasController < ApplicationController
     @theme = parent.root
     if permit_user?(@theme)
       names.each do |name|
-        parent.children.create(name: name, user_id: @current_user.id)
+        @child_idea = parent.children.create(name: name, user_id: @current_user.id)
+        Point.create(idea_id: @child_idea.id)
       end
       if parent.root?
         redirect_to solutions_idea_path(parent)
@@ -228,7 +229,8 @@ class IdeasController < ApplicationController
     @theme = @parent.root
     if permit_user?(@theme)
       names.each do |name|
-        @parent.children.create(name: name, user_id: @current_user.id)
+        @child_idea = @parent.children.create(name: name, user_id: @current_user.id)
+        Point.create(idea_id: @child_idea.id)
       end
     end
   end
@@ -277,41 +279,41 @@ class IdeasController < ApplicationController
 
   def set_easy_points
     easy_points_params = params.require(:idea).permit!
-    @theme = Idea.find_by(id: params[:id])
-    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @idea = Idea.find_by(id: params[:id])
+    @value = Value.find_or_create_by(idea_id: @idea.id)
 
     @leaf_descendants.each do |solution|
       easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
-      idea = Idea.find_by(id: solution.id)
+      @point = Point.find_or_create_by(idea_id: solution.id)
       if @value.easy > 1
-        idea.update(easy_point: easy_point * @value.easy)
+        @point.update(easy_points: easy_point * @value.easy)
       else
-        idea.update(easy_point: easy_point)
+        @point.update(easy_points: easy_point)
       end
     end
 
-    redirect_to evaluations_idea_path(@theme, anchor: 'target'), notice: '①の評価が完了しました'
+    redirect_to evaluations_idea_path(@idea, anchor: 'target'), notice: '①の評価が完了しました'
   end
 
   def set_effect_points
     effect_points_params = params.require(:idea).permit!
 
-    @theme = Idea.find_by(id: params[:id])
-    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @idea = Idea.find_by(id: params[:id])
+    @value = Value.find_or_create_by(idea_id: @idea.id)
 
     success = true
 
     @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
-      idea = Idea.find_by(id: solution.id)
+      @point = Point.find_or_create_by(idea_id: solution.id)
 
       if @value.effect > 1
-        unless idea.update(effect_point: effect_point * @value.effect)
+        unless @point.update(effect_points: effect_point * @value.effect)
           success = false
           break
         end
       else
-        unless idea.update(effect_point: effect_point)
+        unless @point.update(effect_points: effect_point)
           success = false
           break
         end
@@ -319,8 +321,8 @@ class IdeasController < ApplicationController
     end
 
     if success
-      @theme.update(evaluate_done: 1)
-      redirect_to results_idea_path(@theme), data: { turbo: "false" }, notice: '②が完了しました'
+      @idea.update(evaluate_done: 1)
+      redirect_to results_idea_path(@idea), data: { turbo: "false" }, notice: '②が完了しました'
     else
 
     end
@@ -394,8 +396,8 @@ class IdeasController < ApplicationController
 
 
   def public_setting
-    @theme = Idea.find(params[:id])
-    @value = Value.find_or_create_by(idea_id: @theme.id)
+    @idea = Idea.find(params[:id])
+    @value = Value.find_or_create_by(idea_id: @idea.id)
     value_params = params.dig(:value,:public)
     if @value.update(public: value_params)
       redirect_to request.referer, notice: '全体公開を変更しました'
