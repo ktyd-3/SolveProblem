@@ -284,11 +284,11 @@ class IdeasController < ApplicationController
 
     @leaf_descendants.each do |solution|
       easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
-      @point = Point.find_or_create_by(idea_id: solution.id)
+      idea = Idea.find_by(id: solution.id)
       if @value.easy > 1
-        @point.update(easy_points: easy_point * @value.easy)
+        idea.update(easy_point: easy_point * @value.easy)
       else
-        @point.update(easy_points: easy_point)
+        idea.update(easy_point: easy_point)
       end
     end
 
@@ -305,15 +305,15 @@ class IdeasController < ApplicationController
 
     @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
-      @point = Point.find_or_create_by(idea_id: solution.id)
+      idea = Idea.find_by(id: solution.id)
 
       if @value.effect > 1
-        unless @point.update(effect_points: effect_point * @value.effect)
+        unless idea.update(effect_point: effect_point * @value.effect)
           success = false
           break
         end
       else
-        unless @point.update(effect_points: effect_point)
+        unless idea.update(effect_point: effect_point)
           success = false
           break
         end
