@@ -299,6 +299,7 @@ class IdeasController < ApplicationController
     effect_points_params = params.require(:idea).permit!
 
     @idea = Idea.find_by(id: params[:id])
+    @theme = Theme.find_or_create_by(idea_id: @idea.id)
     @value = Value.find_or_create_by(idea_id: @idea.id)
 
     success = true
@@ -321,7 +322,7 @@ class IdeasController < ApplicationController
     end
 
     if success
-      @idea.update(evaluate_done: 1)
+      @theme.update(evaluation_done: 1)
       redirect_to results_idea_path(@idea), data: { turbo: "false" }, notice: '②が完了しました'
     else
 
