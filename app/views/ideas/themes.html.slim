@@ -21,14 +21,14 @@
       .theme_table-wrapper
         table.theme
           tbody
-            - @themes.each do |theme|
+            - @themes.each do |idea|
               tr
-                td = theme.name
-                td = link_to "つづける", solutions_idea_path(theme), class: 'btn btn-link'
+                td = idea.name
+                td = link_to "つづける", solutions_idea_path(idea), class: 'btn btn-link'
                 td
-                  - if theme.evaluate_done == 1
-                    = link_to "総合評価", results_idea_path(theme), class: 'btn btn-link'
-                td = button_to destroy_move_idea_path(theme), method: :delete, data: {turbo_confirm: "テーマともに子アイデア全てが消去されます。本当によろしいですか？",turbo_method: :delete}, class: "btn btn-link"
+                  - if idea.evaluate_done == 1
+                    = link_to "総合評価", results_idea_path(idea), class: 'btn btn-link'
+                td = button_to destroy_move_idea_path(idea), method: :delete, data: {turbo_confirm: "テーマともに子アイデア全てが消去されます。本当によろしいですか？",turbo_method: :delete}, class: "btn btn-link"
                   i class="fa-solid fa-square-xmark"
         = paginate @themes, :param_name => 'theme_page'
         br/

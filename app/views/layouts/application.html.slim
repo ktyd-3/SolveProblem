@@ -49,7 +49,7 @@ html
         ul.navber-li
           li
             - if @current_user.present?
-              | ログイン中: #{@current_user.user_name}
+              | ログイン: #{@current_user.user_name}
               li
                 = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
             - else
