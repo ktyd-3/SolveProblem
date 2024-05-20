@@ -11,10 +11,11 @@
     br/
     p さっそく、テーマ選定からはじめてみましょう。
     br/
-    h1 解決したい問題をテーマとして決める
+    h1 解決したいテーマを決める
     = form_with model: Idea.new, url: first_create_ideas_path,class: "create_theme_form", local: true do |form|
       = form.text_field "name", value: @problem&.name,class: "create_theme_text_form"
       = form.submit "新規作成", class: 'btn btn-primary'
+    br/
     br/
     - if @themes.present? #１回以上アイデア出しをしたことがあるか
       h2 今まで作ったテーマ
