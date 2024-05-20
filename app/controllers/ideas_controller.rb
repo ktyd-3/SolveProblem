@@ -276,7 +276,7 @@ class IdeasController < ApplicationController
     @last_idea = @leaf_descendants.last
     @value = Value.find_or_create_by(idea_id: @theme.id)
     @this_theme = Theme.find_by(idea_id: params[:id])
-    @parent_theme = Theme.find_by(child_theme_id: @this_theme.id)
+    @parent_themes = Theme.eager_load(:idea).where(child_theme_id: @this_theme.id)
   end
 
   def set_easy_points
