@@ -24,12 +24,12 @@ javascript:
       thead
         tr
           th 名前
-          - if @value.easy == 1.0 && @value.effect == 1.0
+          - if @value.easy_rate == 1.0 && @value.effect_rate == 1.0
             th 簡単さ
             th 効果量
           - else
-            th 簡単さ(×#{@value.easy})
-            th 効果量(×#{@value.effect})
+            th 簡単さ(×#{@value.easy_rate})
+            th 効果量(×#{@value.effect_rate})
           th 合計点
       tbody
         - @sorted_solutions.each do |idea|
