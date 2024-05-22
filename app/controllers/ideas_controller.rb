@@ -275,6 +275,8 @@ class IdeasController < ApplicationController
     @leaf_descendants = @theme.descendants.select(&:leaf?).sort_by(&:id)
     @last_idea = @leaf_descendants.last
     @value = Value.find_or_create_by(idea_id: @theme.id)
+    @this_theme = Theme.find_by(idea_id: params[:id])
+    @parent_themes = Theme.eager_load(:idea).where(child_theme_id: @this_theme.id)
   end
 
   def set_easy_points
@@ -289,8 +291,8 @@ class IdeasController < ApplicationController
       idea = Idea.find_by(id: solution.id)
       point = Point.find_or_create_by(idea_id: idea.id)
 
-      if @value.easy > 1
-        idea.update(easy_point: easy_point * @value.easy)
+      if @value.easy_rate > 1
+        idea.update(easy_point: easy_point * @value.easy_rate)
         point.update(easy_points: easy_point * @value.easy)
       else
         idea.update(easy_point: easy_point)
@@ -315,8 +317,8 @@ class IdeasController < ApplicationController
       idea = Idea.find_by(id: solution.id)
       point = Point.find_or_create_by(idea_id: idea.id)
 
-      if @value.effect > 1
-        unless idea.update(effect_point: effect_point * @value.effect) && point.update(effect_points: effect_point * @value.effect)
+      if @value.effect_rate > 1
+        unless idea.update(effect_point: effect_point * @value.effect_rate) && point.update(effect_points: effect_point * @value.effect)
           success = false
           break
         end
@@ -341,8 +343,8 @@ class IdeasController < ApplicationController
   def results
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
-    @value.easy ||= 1.0
-    @value.effect ||= 1.0
+    @value.easy_rate ||= 1.0
+    @value.effect_rate ||= 1.0
     @sorted_solutions = @leaf_descendants.sort_by { |solution| -solution.sum_points }
     @data = @sorted_solutions.map do |solution|
       score = solution.sum_points
@@ -353,20 +355,20 @@ class IdeasController < ApplicationController
   def update_easy_value
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
-    @value.easy ||= 1
-    @value.effect ||= 1
-    before_value = @value.easy
+    @value.easy_rate ||= 1
+    @value.effect_rate ||= 1
+    before_value = @value.easy_rate
     value_params = params.dig(:value, :easy).to_f
-    if @value.update(easy: value_params)
+    if @value.update(easy_rate: value_params)
       if before_value != 1.0
         @leaf_descendants.each do |solution|
           default = format('%.1f',solution.easy_point / before_value).to_f
-          new_point = (default * @value.easy* 10**3).ceil / 10.0**3
+          new_point = (default * @value.easy_rate* 10**3).ceil / 10.0**3
           solution.update(easy_point: new_point)
         end
       else
         @leaf_descendants.each do |solution|
-          new_point = (solution.easy_point * @value.easy* 10**3).ceil / 10.0**3
+          new_point = (solution.easy_point * @value.easy_rate* 10**3).ceil / 10.0**3
           solution.update(easy_point: new_point)
         end
       end
@@ -379,20 +381,20 @@ class IdeasController < ApplicationController
   def update_effect_value
     @theme = Idea.find(params[:id])
     @value = Value.find_or_create_by(idea_id: @theme.id)
-    @value.easy ||= 1
-    @value.effect ||= 1
-    before_value = @value.effect
+    @value.easy_rate ||= 1
+    @value.effect_rate ||= 1
+    before_value = @value.effect_rate
     value_params = params.dig(:value, :effect).to_f
-    if @value.update(effect: value_params)
+    if @value.update(effect_rate: value_params)
       if before_value != 1.0 #すでに重み付けをしてあった場合
         @leaf_descendants.each do |solution|
           default = format('%.1f',solution.effect_point / before_value).to_f
-          new_point = (default * @value.effect* 10**3).ceil / 10.0**3
+          new_point = (default * @value.effect_rate* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
       else #初めての重み付けの場合
         @leaf_descendants.each do |solution|
-          new_point = (solution.effect_point * @value.effect* 10**3).ceil / 10.0**3
+          new_point = (solution.effect_point * @value.effect_rate* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
       end

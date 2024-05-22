@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_28_013406) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_22_022440) do
   create_table "ideas", force: :cascade do |t|
     t.string "name"
     t.integer "parent_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_013406) do
   end
 
   create_table "values", force: :cascade do |t|
-    t.float "easy", default: 1.0, null: false
-    t.float "effect", default: 1.0, null: false
+    t.decimal "easy_rate"
+    t.decimal "effect_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "idea_id", null: false
