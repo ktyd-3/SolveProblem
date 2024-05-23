@@ -282,15 +282,21 @@ class IdeasController < ApplicationController
   def set_easy_points
     easy_points_params = params.require(:idea).permit!
     @idea = Idea.find_by(id: params[:id])
+    @leaf_descendants = @idea.descendants.select(&:leaf?)
+
     @value = Value.find_or_create_by(idea_id: @idea.id)
 
     @leaf_descendants.each do |solution|
       easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
+      point = Point.find_or_create_by(idea_id: idea.id)
+
       if @value.easy_rate > 1
         idea.update(easy_point: easy_point * @value.easy_rate)
+        point.update(easy_points: easy_point * @value.easy_rate)
       else
         idea.update(easy_point: easy_point)
+        point.update(easy_points: easy_point)
       end
     end
 
@@ -309,14 +315,15 @@ class IdeasController < ApplicationController
     @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
+      point = Point.find_or_create_by(idea_id: idea.id)
 
       if @value.effect_rate > 1
-        unless idea.update(effect_point: effect_point * @value.effect_rate)
+        unless idea.update(effect_point: effect_point * @value.effect_rate) && point.update(effect_points: effect_point * @value.effect_rate)
           success = false
           break
         end
       else
-        unless idea.update(effect_point: effect_point)
+        unless idea.update(effect_point: effect_point) && point.update(effect_points: effect_point)
           success = false
           break
         end
