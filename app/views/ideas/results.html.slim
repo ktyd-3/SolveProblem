@@ -13,22 +13,23 @@ javascript:
     h1 総合評価
     p ①実行のしやすさと、②効果の大きさの合計得点で、解決策を並び替えました。
     p 合計得点の順に行なうと、解決がスムーズに進みます。まずは、上位3つのアイデアからはじめてみましょう！
-    - (1..3).each do |i|
-      h4.yellow_dot_line 第#{i}位
-      p
-        = @sorted_solutions[i].name
+    - if @sorted_solutions.count >= 3
+      - (0..2).each do |i|
+        h4.yellow_dot_line 第#{i + 1}位
+        p
+          = @sorted_solutions[i].name
     p 3つを実行しても解決できない場合、他のアイデアにも挑戦してみましょう！
     h2 アイデアの合計得点
     table.table_design09
       thead
         tr
           th 名前
-          - if @value.easy == 1.0 && @value.effect == 1.0
+          - if @value.easy_rate == 1.0 && @value.effect_rate == 1.0
             th 簡単さ
             th 効果量
           - else
-            th 簡単さ(×#{@value.easy})
-            th 効果量(×#{@value.effect})
+            th 簡単さ(×#{@value.easy_rate})
+            th 効果量(×#{@value.effect_rate})
           th 合計点
       tbody
         - @sorted_solutions.each do |idea|
@@ -39,15 +40,15 @@ javascript:
             td.table_num.sumPoints = idea.sum_points
     br/
 
-  - if permit_user?(@theme)
-    span.weighted_line
-      p
-        strong オプション：評価項目の重みづけ
-      = link_to add_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
-        i class="fa-solid fa-plus"
-      = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
-        i class="fa-solid fa-minus"
-    div id = "add_weighted_#{@theme.id}"
+    - if permit_user?(@theme)
+      span.weighted_line
+        p
+          strong オプション：評価項目の重みづけ
+        = link_to add_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
+          i class="fa-solid fa-plus"
+        = link_to remove_weighted_value_idea_path(@theme), data: { turbo_stream: true }, class: 'btn btn-link' do
+          i class="fa-solid fa-minus"
+      div id = "add_weighted_#{@theme.id}"
   p
 
   div id= "lastSolution_list"
@@ -56,7 +57,8 @@ javascript:
     - @sorted_solutions.each do |sorted_solution|
       .solution
         = sorted_solution.name
-        | (#{sorted_solution.sum_points})
+        - if sorted_solution.sum_points != 0.0
+          | (#{sorted_solution.sum_points})
         p
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#lastSolution_list" class="btn btn-primary")
     | Copy

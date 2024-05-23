@@ -1,23 +1,11 @@
-  div.children_idea_box id = "idea_#{child_form.id}"
+  div.children_idea_box id = "child_box_#{child_form.id}"
     h4.child_idea_title
       = link_to child_form.name, solutions_idea_path(child_form.id)
       = link_to edit_idea_path(child_form), class: 'btn btn-link'
         i.fas.fa-pen-to-square
     - if child_form.children.present?
-      - child_form.children.each do |child|
-        div.name_and_icons id = "idea_line_#{child.id}"
-          .span_icons
-            = link_to child.name, solutions_idea_path(child.id)
-            - if permit_user?(child_form)
-              = link_to edit_idea_path(child), class: 'btn btn-link'
-                  i.fas.fa-pen-to-square
-              = link_to idea_path(child), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
-                i class="fa-solid fa-square-xmark"
-              div id = "ex_form_#{child.id}"
-                = link_to  ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
-                  i class="fa-solid fa-file-circle-plus"
-            br/
-          
+      - child_form.children.sort_by {|child| child.id }.each do |child|
+        = render partial: "child_idea_lines", locals: { child: child }
     - if permit_user?(child_form)
       = form_with model: Idea.new, class: "idea_form", id: "idea_form_#{child_form.id}" do |form|
         div.create_buttons
@@ -25,7 +13,6 @@
         div.text_area_wrapper
           = form.text_area :names, class: "form-control", rows: 5
           = form.hidden_field :parent_id, value: child_form.id
-          
 
 
 

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get "copy_idea_generation"
       get "copy_create_children"
       get "public_custom"
+      get "change_to_themes"
+      post "to_theme"
     end
 
     collection do

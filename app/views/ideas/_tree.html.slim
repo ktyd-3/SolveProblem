@@ -17,14 +17,14 @@ div#dot_position
           button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#tree_box" style="border: none; background: none;")
             i.fa-regular.fa-clipboard
         .tree_children_list
-          - display_descendants = display_descendants(@theme)
-          - count = display_descendants.count("-")
-          = display_descendants.html_safe
+          - tree_lists = display_descendants(@theme)
+          - count = tree_lists.scan(/<div class='tree_list_line'/).size
+          = tree_lists.html_safe
 
     .tree_count
-      - if count >= 10
-        i class="fa-brands fa-pagelines mid_leaf"
-      - elsif count >= 18
-        i class="fa-solid fa-tree big_tree"
-      - else
+      - if count < 10
         i class="fa-solid fa-leaf small_leaf"
+      - elsif count < 18
+        i class="fa-brands fa-pagelines mid_leaf"
+      - else
+        i class="fa-solid fa-tree big_tree"

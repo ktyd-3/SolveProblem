@@ -19,24 +19,37 @@ html
           .viewMode_button
             = link_to "アイデア全体をコピー", copy_idea_generation_idea_path(@theme), class: 'btn btn-primary'
 
-    - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom" || action_name == "tree" 
+    - if action_name == 'solutions' || action_name == "evaluations" || action_name == "results" || action_name == "edit" || action_name == "public_custom" || action_name == "tree" || action_name == "change_to_themes"
       nav.navbar
         .header_manu
           - if permit_user?(@theme)
-            = link_to  "総合評価", evaluations_idea_path(@theme), class: 'btn btn-success'
+            = link_to evaluations_idea_path(@theme), class: 'btn btn-success'
+              i class="fa-solid fa-user-pen"
+              |総合評価
           - else
             = link_to  "評価の結果", results_idea_path(@theme), class: 'btn btn-success'
           - if @root_idea == @theme
-            = link_to "テーマ選択へ戻る", themes_ideas_path, class: 'btn btn-outline-primary'
+            = link_to themes_ideas_path, class: 'btn btn-outline-primary' do
+              i.fa-solid.fa-reply
+              | テーマ選択へ
           - else
-            = link_to "最初の解決策", solutions_idea_path(@theme), class: 'btn btn-outline-primary'
-          = link_to "全体像",  tree_idea_path(@theme), class: 'btn btn-outline-primary'
-          = link_to  "公開設定", public_custom_idea_path(@theme), class: 'btn btn-outline-primary'
+            = link_to solutions_idea_path(@theme), class: 'btn btn-outline-primary'
+              i.fa-solid.fa-reply
+              | 最初の解決策
+          = link_to tree_idea_path(@theme), class: 'btn btn-outline-primary'
+            i class="fa-solid fa-list"
+            |全体像
+          = link_to change_to_themes_idea_path(@theme), class: 'btn btn-outline-primary'
+            i class="fa-solid fa-arrow-up-from-bracket"
+            | 新テーマ化
+          = link_to public_custom_idea_path(@theme), class: 'btn btn-outline-primary'
+            i class="fa-regular fa-font-awesome"
+            | 公開設定
           = render partial: 'search_form', q: @q, locals: { theme: @theme }
         ul.navber-li
           li
             - if @current_user.present?
-              | ログイン中: #{@current_user.user_name}
+              | ログイン: #{@current_user.user_name}
               li
                 = link_to "ログアウト", logout_ideas_path, data: { turbo_method: :delete }
             - else
