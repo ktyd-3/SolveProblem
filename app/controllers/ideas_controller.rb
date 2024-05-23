@@ -235,6 +235,20 @@ class IdeasController < ApplicationController
     end
   end
 
+  def create_in_parent_box
+    idea_params = params.require(:idea).permit(:parent_id, :names,:user_id)
+    names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
+    this_idea_parent_id = idea_params[:parent_id]
+    @parent = Idea.find(this_idea_parent_id)
+    @theme = @parent.root
+    if permit_user?(@theme)
+      names.each do |name|
+        @child_idea = @parent.children.create(name: name, user_id: @current_user.id)
+        Point.create(idea_id: @child_idea.id)
+      end
+    end
+  end
+
 
   def first_solution
   end
