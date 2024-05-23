@@ -13,11 +13,18 @@ javascript:
     h1 総合評価
     p ①実行のしやすさと、②効果の大きさの合計得点で、解決策を並び替えました。
     p 合計得点の順に行なうと、解決がスムーズに進みます。まずは、上位3つのアイデアからはじめてみましょう！
+    
+
     - if @sorted_solutions.count >= 3
-      - (0..2).each do |i|
-        h4.yellow_dot_line 第#{i + 1}位
-        p
-          = @sorted_solutions[i].name
+      #top_three_solutions
+        h4.green_dot_line # #{@theme.name}の上位解決アイデア
+        - (0..2).each do |i|
+          h4.yellow_dot_line Top.#{i + 1}
+          p
+            = @sorted_solutions[i].name
+      button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#top_three_solutions" class="btn btn-primary")
+        | コピー
+    p 
     p 3つを実行しても解決できない場合、他のアイデアにも挑戦してみましょう！
     h2 アイデアの合計得点
     table.table_design09
@@ -52,7 +59,7 @@ javascript:
   p
 
   div id= "lastSolution_list"
-    h2 【#{@theme.name}の解決アイデア】
+    h2 # #{@theme.name}の解決アイデア
     p
     - @sorted_solutions.each do |sorted_solution|
       .solution
@@ -61,7 +68,7 @@ javascript:
           | (#{sorted_solution.sum_points})
         p
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#lastSolution_list" class="btn btn-primary")
-    | Copy
+    | コピー
   p 
 
   - if permit_user?(@theme)
@@ -81,9 +88,3 @@ javascript:
 
 
   p
-
-  / h1 総合評価のグラフ
-  / .graph_container
-  /   / = scatter_chart @result, xtitle: '効果の大きさ', ytitle: '簡単さ', library: { scales: { x: { type: 'linear', ticks: { stepSize: 1, precision: 0 }, min: 1, max: 5.5 }, y: { type: 'linear', ticks: { stepSize: 1, precision: 0}, min: 1, max: 5.5 } } , point: { radius: 100 } }
-  /   = bar_chart @data, prefix: "", suffix: "", max: 10, min: 0, x_axis: { ticks: (0..10).step(2).to_a }, library: {yAxisTitle: { text: "Name", style: { fontSize: "32px", maxWidth: "100px", whiteSpace: "normal" } },xAxisTitle: { text: "Total Score" },title: { text: "Score Graph", display: true }}
-
