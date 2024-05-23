@@ -293,7 +293,7 @@ class IdeasController < ApplicationController
 
       if @value.easy_rate > 1
         idea.update(easy_point: easy_point * @value.easy_rate)
-        point.update(easy_points: easy_point * @value.easy)
+        point.update(easy_points: easy_point * @value.easy_rate)
       else
         idea.update(easy_point: easy_point)
         point.update(easy_points: easy_point)
@@ -318,7 +318,7 @@ class IdeasController < ApplicationController
       point = Point.find_or_create_by(idea_id: idea.id)
 
       if @value.effect_rate > 1
-        unless idea.update(effect_point: effect_point * @value.effect_rate) && point.update(effect_points: effect_point * @value.effect)
+        unless idea.update(effect_point: effect_point * @value.effect_rate) && point.update(effect_points: effect_point * @value.effect_rate)
           success = false
           break
         end
