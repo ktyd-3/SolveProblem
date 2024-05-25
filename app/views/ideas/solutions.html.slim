@@ -23,9 +23,9 @@
     = link_to "一つ前(#{@root_idea.parent.name})へ", solutions_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
 
-  .parentIdea_container
+  .parentIdea_container id = "parentIdea_box_position"
     h3.green_dot_line 「#{@root_idea.name}」の解決アイデアを作成
-    .parentIdea_box
+    .parentIdea_box 
       = "【#{@root_idea.name}】"
       = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
         i.fas.fa-pen-to-square
