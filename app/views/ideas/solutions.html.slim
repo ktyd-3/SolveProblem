@@ -23,9 +23,9 @@
     = link_to "一つ前(#{@root_idea.parent.name})へ", solutions_idea_path(@root_idea.parent_id), class: 'btn btn-primary'
     p 
 
-  .parentIdea_container
+  .parentIdea_container id = "parentIdea_box_position"
     h3.green_dot_line 「#{@root_idea.name}」の解決アイデアを作成
-    .parentIdea_box
+    .parentIdea_box 
       = "【#{@root_idea.name}】"
       = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
         i.fas.fa-pen-to-square
@@ -34,7 +34,7 @@
         = render partial: "child_idea_lines", locals: { child: child }
         
       - if permit_user?(@root_idea)
-        = form_with model: Idea.new, url: parent_create_idea_path, class: "idea_form", data: { turbo: "false" } do |form|
+        = form_with model: Idea.new, url: create_in_parent_box_idea_path, class: "idea_form" do |form|
           div.parent_create_button
             = form.submit "作成", class: 'btn btn-primary'
           = form.text_area :names, class: "form-control", rows: 5
@@ -43,7 +43,8 @@
 
 
   h3.yellow_dot_line アイデアをもっと具体的にする
-  = render partial: "child_form", collection: @children_ideas
+  #add_child_box_position
+    = render partial: "child_form", collection: @children_ideas
 
 
 = render partial: 'tree'

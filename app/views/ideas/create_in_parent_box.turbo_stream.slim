@@ -1,0 +1,22 @@
+
+= turbo_stream.update "dot_position", partial: "tree"
+
+= turbo_stream.update "add_child_box_position", partial: "child_form", collection: @children_ideas
+
+= turbo_stream.replace "parentIdea_box_position" do 
+    .parentIdea_container id = "parentIdea_box_position"
+        h3.green_dot_line 「#{@parent.name}」の解決アイデアを作成
+        .parentIdea_box 
+            = "【#{@parent.name}】"
+            = link_to edit_idea_path(@parent), class: 'btn btn-link', data: { turbo_frame: "_top" }
+                i.fas.fa-pen-to-square
+            br/
+            - @children_ideas.sort_by {|child| child.id }.each do |child|
+                = render partial: "child_idea_lines", locals: { child: child }
+                
+            - if permit_user?(@parent)
+                = form_with model: Idea.new, url: create_in_parent_box_idea_path, class: "idea_form" do |form|
+                    div.parent_create_button
+                        = form.submit "作成", class: 'btn btn-primary'
+                    = form.text_area :names, class: "form-control", rows: 5
+                    = form.hidden_field "parent_id", value: @parent.id

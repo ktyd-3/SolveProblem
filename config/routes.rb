@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get "public_custom"
       get "change_to_themes"
       post "to_theme"
+      post "create_in_parent_box"
     end
 
     collection do

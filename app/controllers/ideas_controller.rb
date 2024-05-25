@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
   #トップページ以外でログインを求める
   before_action :autheniticate_user, except: :top
   # アイデアへの閲覧制限
-  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create,:to_theme]
+  before_action :autheniticate_ideas, except: [:top,:themes,:first_create,:create,:to_theme,:create_in_parent_box]
   #他ユーザーアイデア閲覧中の編集制限
   before_action :not_permit_edit, only: [:set_easy_points,:set_effect_points,:update_easy_value,:update_effect_value,:public_setting,:edit,:update,:destroy_move,:destroy,:ex_form]
   # 評価に関するページで、themeと対応するvalueをセットする
@@ -226,6 +226,21 @@ class IdeasController < ApplicationController
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = idea_params[:parent_id]
     @parent = Idea.find(this_idea_parent_id)
+    @theme = @parent.root
+    if permit_user?(@theme)
+      names.each do |name|
+        @child_idea = @parent.children.create(name: name, user_id: @current_user.id)
+        Point.create(idea_id: @child_idea.id)
+      end
+    end
+  end
+
+  def create_in_parent_box
+    idea_params = params.require(:idea).permit(:parent_id, :names)
+    names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
+    this_idea_parent_id = params.dig(:idea, :parent_id)
+    @parent = Idea.find(this_idea_parent_id)
+    @children_ideas = @parent.children
     @theme = @parent.root
     if permit_user?(@theme)
       names.each do |name|

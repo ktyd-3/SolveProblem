@@ -1,6 +1,5 @@
 = turbo_stream.replace "child_box_#{@parent.id}", partial: "child_form", locals: { child_form: @parent }
 = turbo_stream.update "dot_position", partial: "tree"
-/ = turbo_stream.update "ex_form_area"
 
 = turbo_stream.replace "idea_line_#{@parent.id}" do 
     div.name_and_icons id = "idea_line_#{@parent.id}"
