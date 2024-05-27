@@ -69,7 +69,16 @@ html
                 = link_to "ログイン", login_ideas_path, class: 'btn btn-primary'
       
   body
-    - if flash.notice.present?
-      .alert.alert-success= flash.notice
+    - flash.each do |type, message|
+      - case type.downcase
+        - when 'notice'
+          .alert.alert-success
+            = message
+        - when 'error'
+          .alert.alert-danger
+            = message
+        - else
+          .alert.alert-info
+            = message
     = raw Rails.application.assets_manifest.find_sources('icons.svg').first
     = yield

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
           flash[:notice] = "ログインしました"
           redirect_to themes_ideas_path
       else
-          flash[:notice] = "ログインに失敗しました。もう一度試してください"
+          flash[:error] = "ログインに失敗しました。もう一度試してください"
           redirect_to login_ideas_path
       end
   end

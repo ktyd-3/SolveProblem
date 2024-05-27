@@ -8,17 +8,18 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
         session[:user_id] = @user.id
-        flash[:success] = "アカウントを作成成功"
+        flash[:notice] = "アカウントの作成に成功"
         redirect_to themes_ideas_path
     else
-      flash.now[:alert] = @user.errors.full_messages.join(", ")
+      flash.now[:error]
       render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "ログアウトしました。"
+    flash[:notice] = "ログアウトしました"
+    redirect_to root_path
   end
 
   private

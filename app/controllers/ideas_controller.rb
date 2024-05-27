@@ -28,7 +28,7 @@ class IdeasController < ApplicationController
   def redirect_if_not_logged_in
     if @current_user == nil
       redirect_to root_path
-      flash[:notice] = "ログインしてください"
+      flash[:error] = "ログインしてください"
     end
   end
 
@@ -40,7 +40,7 @@ class IdeasController < ApplicationController
     if @idea.user_id != @current_user.id
       if @value.public == false
         redirect_to themes_ideas_path
-        flash[:notice] = "権限がありません"
+        flash[:error] = "権限がありません"
       end
     end
   end
@@ -49,7 +49,7 @@ class IdeasController < ApplicationController
     @idea = Idea.find_by(id: params[:id])
     if @idea.user_id != @current_user.id
       redirect_to request.referer
-      flash[:notice] = "閲覧のみ可能です。編集権限がありません"
+      flash[:error] = "閲覧のみ可能です。編集権限がありません"
     end
   end
 
@@ -171,11 +171,11 @@ class IdeasController < ApplicationController
       if matching_ideas.present?
         redirect_to solutions_idea_path(matching_ideas.first.id)
       else
-        flash[:notice] = "該当するアイデアは解決したいテーマ内にありません"
+        flash[:error] = "該当するアイデアは解決したいテーマ内にありません"
         redirect_back(fallback_location: themes_ideas_path)
       end
     else
-      flash[:notice] = "該当するアイデアが見つかりません"
+      flash[:error] = "該当するアイデアが見つかりません"
       redirect_back(fallback_location: themes_ideas_path)
     end
   end
@@ -196,7 +196,7 @@ class IdeasController < ApplicationController
       return true
     else
       redirect_to request.referer
-      flash[:notice] = "閲覧のみ可能です。編集権限がありません"
+      flash[:error] = "閲覧のみ可能です。編集権限がありません"
       return false
     end
   end
