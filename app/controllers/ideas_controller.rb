@@ -163,7 +163,6 @@ class IdeasController < ApplicationController
     @q = Idea.ransack(params[:q])
     @theme = Idea.find_by(id: params[:id])
     @ideas = @q.result(distinct: true)
-
     if @ideas.present?
       # @ideasから@themeの子孫アイデアのみを取得
       matching_ideas = @ideas.select { |idea| @theme.descendants.include?(idea) }
@@ -180,8 +179,17 @@ class IdeasController < ApplicationController
     end
   end
 
+  def permit_user?(idea)
+    if idea.user_id == @current_user.id
+      return true
+    else
+      redirect_to request.referer
+      flash[:error] = "閲覧のみ可能です。編集権限がありません"
+      return false
+    end
+  end
 
-
+  # テーマを決める
   def first_create
     name = params[:idea][:name]
     if name.present?
@@ -197,34 +205,27 @@ class IdeasController < ApplicationController
     end
   end
 
-
-  def permit_user?(idea)
-    if idea.user_id == @current_user.id
-      return true
-    else
-      redirect_to request.referer
-      flash[:error] = "閲覧のみ可能です。編集権限がありません"
-      return false
-    end
-  end
-
-
+  # テーマ作成後、大きな枠組みでcreate
   def parent_create
     idea_params = params.require(:idea).permit(:parent_id, :names)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
     this_idea_parent_id = params.dig(:idea, :parent_id)
     parent = Idea.find(this_idea_parent_id)
     @theme = parent.root
-    if permit_user?(@theme)
-      names.each do |name|
-        @child_idea = parent.children.create(name: name, user_id: @current_user.id)
-        Point.create(idea_id: @child_idea.id)
+    if names.present?
+      if permit_user?(@theme)
+        names.each do |name|
+          @child_idea = parent.children.create(name: name, user_id: @current_user.id)
+        end
+        if parent.root?
+          redirect_to solutions_idea_path(parent)
+        else
+          redirect_to request.referer
+        end
       end
-      if parent.root?
-        redirect_to solutions_idea_path(parent)
-      else
-        redirect_to request.referer
-      end
+    else
+      flash[:error] = "アイデア名を入力してください"
+      redirect_to request.referer
     end
   end
 
@@ -237,7 +238,6 @@ class IdeasController < ApplicationController
     if permit_user?(@theme)
       names.each do |name|
         @child_idea = @parent.children.create(name: name, user_id: @current_user.id)
-        Point.create(idea_id: @child_idea.id)
       end
     end
   end
@@ -252,7 +252,6 @@ class IdeasController < ApplicationController
     if permit_user?(@theme)
       names.each do |name|
         @child_idea = @parent.children.create(name: name, user_id: @current_user.id)
-        Point.create(idea_id: @child_idea.id)
       end
     end
   end
@@ -307,22 +306,23 @@ class IdeasController < ApplicationController
     @leaf_descendants = @idea.descendants.select(&:leaf?)
 
     @value = Value.find_or_create_by(idea_id: @idea.id)
+    ActiveRecord::Base.transaction do
+      @leaf_descendants.each do |solution|
+        easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
+        idea = Idea.find_by(id: solution.id)
 
-    @leaf_descendants.each do |solution|
-      easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
-      idea = Idea.find_by(id: solution.id)
-      point = Point.find_or_create_by(idea_id: idea.id)
-
-      if @value.easy_rate > 1
-        idea.update(easy_point: easy_point * @value.easy_rate)
-        point.update(easy_points: easy_point * @value.easy_rate)
-      else
-        idea.update(easy_point: easy_point)
-        point.update(easy_points: easy_point)
+        if @value.easy_rate > 1
+          idea.update(easy_point: easy_point * @value.easy_rate)
+        else
+          idea.update(easy_point: easy_point)
+        end
       end
-    end
 
+    end
     redirect_to evaluations_idea_path(@idea, anchor: 'target'), notice: '①の評価が完了しました'
+    rescue => e
+      flash[:error] = '作成に失敗しました'
+      redirect_to request.referer
   end
 
   def set_effect_points
@@ -337,15 +337,14 @@ class IdeasController < ApplicationController
     @leaf_descendants.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
-      point = Point.find_or_create_by(idea_id: idea.id)
 
       if @value.effect_rate > 1
-        unless idea.update(effect_point: effect_point * @value.effect_rate) && point.update(effect_points: effect_point * @value.effect_rate)
+        unless idea.update(effect_point: effect_point * @value.effect_rate)
           success = false
           break
         end
       else
-        unless idea.update(effect_point: effect_point) && point.update(effect_points: effect_point)
+        unless idea.update(effect_point: effect_point)
           success = false
           break
         end

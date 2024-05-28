@@ -52,3 +52,6 @@ solve_problem_development-shm
 .cosine/logs/analytics.log
 .cosine/logs/telemetry.log
 /babel.config.js
+.histroy/
+.history
+solve_problem_development
