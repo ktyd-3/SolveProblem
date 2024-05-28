@@ -184,10 +184,17 @@ class IdeasController < ApplicationController
 
   def first_create
     name = params[:idea][:name]
-    @theme = Idea.create(name: name, user_id: @current_user.id)
-    Value.create(idea_id: @theme.id)
-    Theme.create(idea_id: @theme.id)
-    redirect_to first_solution_idea_path(@theme)
+    if name.present?
+      ActiveRecord::Base.transaction do
+        @theme = Idea.create(name: name, user_id: @current_user.id)
+        Value.create(idea_id: @theme.id)
+        Theme.create(idea_id: @theme.id)
+      end
+      redirect_to first_solution_idea_path(@theme)
+    else
+      flash[:error] = "テーマ名を入力してください"
+      redirect_to request.referer
+    end
   end
 
 
