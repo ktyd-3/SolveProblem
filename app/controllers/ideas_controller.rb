@@ -317,9 +317,9 @@ class IdeasController < ApplicationController
           idea.update(easy_point: easy_point)
         end
       end
-
     end
     redirect_to evaluations_idea_path(@idea, anchor: 'target'), notice: '①の評価が完了しました'
+
     rescue => e
       flash[:error] = '作成に失敗しました'
       redirect_to request.referer
