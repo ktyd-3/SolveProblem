@@ -379,23 +379,27 @@ class IdeasController < ApplicationController
     @value.easy_rate ||= 1
     @value.effect_rate ||= 1
     before_value = @value.easy_rate
-    value_params = params.dig(:value, :easy).to_f
-    if @value.update(easy_rate: value_params)
-      if before_value != 1.0
-        @leaf_descendants.each do |solution|
-          default = format('%.1f',solution.easy_point / before_value).to_f
-          new_point = (default * @value.easy_rate* 10**3).ceil / 10.0**3
-          solution.update(easy_point: new_point)
+    value_params = params.dig(:value, :easy_value).to_f
+    if value_params != nil
+      if @value.update(easy_rate: value_params)
+        if before_value != 1.0
+          @leaf_descendants.each do |solution|
+            default = format('%.1f',solution.easy_point / before_value).to_f
+            new_point = (default * @value.easy_rate* 10**3).ceil / 10.0**3
+            solution.update(easy_point: new_point)
+          end
+        else
+          @leaf_descendants.each do |solution|
+            new_point = (solution.easy_point * @value.easy_rate* 10**3).ceil / 10.0**3
+            solution.update(easy_point: new_point)
+          end
         end
+        redirect_to results_idea_path(@theme), notice: '簡単さの重みを更新しました'
       else
-        @leaf_descendants.each do |solution|
-          new_point = (solution.easy_point * @value.easy_rate* 10**3).ceil / 10.0**3
-          solution.update(easy_point: new_point)
-        end
+        redirect_to results_idea_path(@theme), notice: '更新に失敗しました'
       end
-      redirect_to results_idea_path(@theme), notice: '簡単さの重みを更新しました'
     else
-      redirect_to results_idea_path(@theme), notice: '更新に失敗しました'
+    redirect_to results_idea_path(@theme), notice: '更新に失敗しました'
     end
   end
 
