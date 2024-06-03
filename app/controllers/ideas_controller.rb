@@ -314,7 +314,7 @@ class IdeasController < ApplicationController
     @leaf_descendants = @idea.descendants.select(&:leaf?)
     @value = Value.find_or_create_by(idea_id: @idea.id)
     if @value.easy_rate == nil || @value.easy_rate == 0.0
-       @value.update(easy_rate: 1.0)
+      @value.update(easy_rate: 1.0)
     end
 
     ActiveRecord::Base.transaction do
@@ -347,7 +347,7 @@ class IdeasController < ApplicationController
     @value = Value.find_or_create_by(idea_id: @idea.id)
     if @value.effect_rate == nil || @value.effect_rate == 0.0
       @value.update(effect_rate: 1.0)
-   end
+    end
 
     success = true
 
@@ -396,7 +396,7 @@ class IdeasController < ApplicationController
     @value.easy_rate ||= 1
     @value.effect_rate ||= 1
     before_value = @value.easy_rate
-    value_params = params.dig(:value, :easy_value).to_f
+    value_params = params.dig(:value, :easy_rate).to_f
     if value_params != nil
       if @value.update(easy_rate: value_params)
         if before_value != 1.0
@@ -426,7 +426,7 @@ class IdeasController < ApplicationController
     @value.easy_rate ||= 1
     @value.effect_rate ||= 1
     before_value = @value.effect_rate
-    value_params = params.dig(:value, :effect).to_f
+    value_params = params.dig(:value, :effect_rate).to_f
     if @value.update(effect_rate: value_params)
       if before_value != 1.0 #すでに重み付けをしてあった場合
         @leaf_descendants.each do |solution|

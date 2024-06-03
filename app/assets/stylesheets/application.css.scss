@@ -499,6 +499,11 @@ label.label {
     z-index: 0;
   }
 }
+.weighted_line {
+  text-decoration: underline;
+  text-decoration-color: rgb(62, 117, 255);
+  text-underline-offset: 4px;
+}
 
 .table_design09 {
   border-collapse: collapse;
