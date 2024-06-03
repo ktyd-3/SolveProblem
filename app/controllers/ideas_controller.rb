@@ -302,28 +302,42 @@ class IdeasController < ApplicationController
 
   def set_easy_points
     easy_points_params = params.require(:idea).permit!
-    @idea = Idea.find_by(id: params[:id])
-    @leaf_descendants = @idea.descendants.select(&:leaf?)
+    Rails.logger.debug("easy_points_params: #{easy_points_params.inspect}")
 
+    @idea = Idea.find_by(id: params[:id])
+
+    if @idea.nil?
+      flash[:error] = 'アイデアが見つかりません'
+      redirect_to request.referer and return
+    end
+
+    @leaf_descendants = @idea.descendants.select(&:leaf?)
     @value = Value.find_or_create_by(idea_id: @idea.id)
+    if @value.easy_rate == nil || @value.easy_rate == 0.0
+       @value.update(easy_rate: 1.0)
+    end
+
     ActiveRecord::Base.transaction do
       @leaf_descendants.each do |solution|
-        easy_point = params["idea"][:"#{solution.id}_easy_point"].first.to_i
+        easy_point = easy_points_params[:"#{solution.id}_easy_point"].first.to_i
+        Rails.logger.debug("easy_point for solution #{solution.id}: #{easy_point}")
+
         idea = Idea.find_by(id: solution.id)
 
         if @value.easy_rate > 1
-          idea.update(easy_point: easy_point * @value.easy_rate)
+          idea.update!(easy_point: easy_point * @value.easy_rate)
         else
-          idea.update(easy_point: easy_point)
+          idea.update!(easy_point: easy_point)
         end
       end
     end
     redirect_to evaluations_idea_path(@idea, anchor: 'target'), notice: '①の評価が完了しました'
 
-    rescue => e
-      flash[:error] = '作成に失敗しました'
-      redirect_to request.referer
+  rescue => e
+    flash[:error] = "作成に失敗しました: #{e.message}"
+    redirect_to request.referer
   end
+
 
   def set_effect_points
     effect_points_params = params.require(:idea).permit!
@@ -331,6 +345,9 @@ class IdeasController < ApplicationController
     @idea = Idea.find_by(id: params[:id])
     @theme = Theme.find_or_create_by(idea_id: @idea.id)
     @value = Value.find_or_create_by(idea_id: @idea.id)
+    if @value.effect_rate == nil || @value.effect_rate == 0.0
+      @value.update(effect_rate: 1.0)
+   end
 
     success = true
 
