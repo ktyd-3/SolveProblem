@@ -62,16 +62,16 @@ class IdeasController < ApplicationController
 
 
   def copy_idea_generation
-    @theme = Idea.find(params[:id])
-    @new_theme = Idea.create(name: @theme.name,user_id: @current_user.id)
-    copy_create_children(@theme,@new_theme)
+    @other_your_theme = Idea.find(params[:id])
+    @new_theme = Idea.create(name: @other_your_theme.name,user_id: @current_user.id)
+    copy_create_children(@other_your_theme,@new_theme)
 
     redirect_to solutions_idea_path(@new_theme)
     flash[:notice] = "テーマのアイデアを全体コピーし、自分のアイデアとしました"
   end
 
   def copy_create_children(idea,new_idea)
-    if idea.children.any?
+    if idea.children.present?
       idea.children.each do |child|
         copy_name = child.name
         new_child = Idea.create(name: copy_name,parent_id: new_idea.id,user_id: @current_user.id)
@@ -97,7 +97,7 @@ class IdeasController < ApplicationController
             parent_theme = Theme.find_by(idea_id: @parent_idea.id)
           end
           new_idea = Idea.create(name: to_be_theme_idea.name,parent_id: nil,user_id: @current_user.id)
-
+          #名前だけコピーして新テーマにする場合
           if params[:name_to_theme]
             if parent_theme.present?
               new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
@@ -105,6 +105,7 @@ class IdeasController < ApplicationController
             else
               new_theme = Theme.create(idea_id: new_idea.id)
             end
+          #名前をコピーして、紐づいた子アイデアも引き継いで新テーマにする場合
           elsif params[:with_children_to_theme]
             if parent_theme.present?
               new_theme = Theme.create(idea_id: new_idea.id,parent_theme_id: parent_theme.id)
