@@ -302,7 +302,6 @@ class IdeasController < ApplicationController
 
   def set_easy_points
     easy_points_params = params.require(:idea).permit!
-    Rails.logger.debug("easy_points_params: #{easy_points_params.inspect}")
 
     @idea = Idea.find_by(id: params[:id])
 
@@ -334,7 +333,7 @@ class IdeasController < ApplicationController
     redirect_to evaluations_idea_path(@idea, anchor: 'target'), notice: '①の評価が完了しました'
 
   rescue => e
-    flash[:error] = "作成に失敗しました: #{e.message}"
+    flash[:error] = "作成に失敗しました"
     redirect_to request.referer
   end
 
