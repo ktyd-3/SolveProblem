@@ -7,6 +7,9 @@
     p さらに、アイデアに紐づいた子アイデアを引き継ぐことができます。
     h4.yellow_dot_line =@theme.name
     = form_with(model: Idea.new, url: to_theme_idea_path, local: true) do |form|
+        = form.check_box(:id, {multiple: true}, @theme.id, false)
+        = @theme.name
+        br/
         = display_checkbox_ideas_family(@theme,form).html_safe
         br/
         = form.submit "①テーマ化", name:"name_to_theme", class: 'btn btn-secondary'

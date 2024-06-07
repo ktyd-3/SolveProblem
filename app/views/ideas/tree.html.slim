@@ -19,7 +19,7 @@ javascript:
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#no_have_child_idea" style="border: none; background: none;")
     i.fa-regular.fa-clipboard
   div#no_have_child_idea
-    - @leaf_descendants.each do |idea|
+    - @ideas_have_no_children.each do |idea|
       = link_to idea.name, solutions_idea_path(idea),class: "most_child_ideas_line"
       br/
 

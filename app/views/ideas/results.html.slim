@@ -9,7 +9,7 @@ javascript:
   - if permit_user?(@theme)
     = link_to  "評価へ戻る", evaluations_idea_path(@theme), class: 'btn btn-success'
   p
-  - if @leaf_descendants.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
+  - if @ideas_have_no_children.any? { |solution| solution.effect_point.present? && solution.easy_point.present? }
     h1 総合評価
     p ①実行のしやすさと、②効果の大きさの合計得点で、解決策を並び替えました。
     p 合計得点の順に行なうと、解決がスムーズに進みます。まずは、上位3つのアイデアからはじめてみましょう！

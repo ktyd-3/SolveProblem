@@ -17,7 +17,7 @@ class IdeasController < ApplicationController
   # 子アイデアを持たないアイデアすべてを取得
   def get_generation
     @theme = Idea.find_by(id: params[:id])
-    @leaf_descendants = @theme.descendants.select(&:leaf?)
+    @ideas_have_no_children = @theme.descendants.select(&:leaf?)
   end
 
   def set_current_user
@@ -91,6 +91,7 @@ class IdeasController < ApplicationController
         params_ids.each do |params_id|
           to_be_theme_idea = Idea.find_by(id: params_id.to_i)
           @parent_idea = to_be_theme_idea.parent
+          @parent_idea = to_be_theme_idea if @parent_idea == nil
           if @parent_idea.parent_id == nil
             parent_theme = Theme.find_or_create_by(idea_id: @parent_idea.id)
           else
@@ -146,7 +147,7 @@ class IdeasController < ApplicationController
   def tree
     @theme = Idea.find_by(id: params[:id])
     all_children_ideas = @theme.descendants
-    @leaf_descendants = @theme.descendants.select(&:leaf?).sort_by(&:id)
+    @ideas_have_no_children = @theme.descendants.select(&:leaf?).sort_by(&:id)
   end
 
 
@@ -294,8 +295,8 @@ class IdeasController < ApplicationController
   def evaluations
     @theme = Idea.find_by(id: params[:id])
     # 子アイデアを持たないアイデアすべてを取得
-    @leaf_descendants = @theme.descendants.select(&:leaf?).sort_by(&:id)
-    @last_idea = @leaf_descendants.last
+    @ideas_have_no_children = @theme.descendants.select(&:leaf?).sort_by(&:id)
+    @last_idea = @ideas_have_no_children.last
     @value = Value.find_or_create_by(idea_id: @theme.id)
     @this_theme = Theme.find_or_create_by(idea_id: params[:id])
     @parent_themes = Theme.eager_load(:idea).where(child_theme_id: @this_theme.id)
@@ -311,14 +312,14 @@ class IdeasController < ApplicationController
       redirect_to request.referer and return
     end
 
-    @leaf_descendants = @idea.descendants.select(&:leaf?)
+    @ideas_have_no_children = @idea.descendants.select(&:leaf?)
     @value = Value.find_or_create_by(idea_id: @idea.id)
     if @value.easy_rate == nil || @value.easy_rate == 0.0
       @value.update(easy_rate: 1.0)
     end
 
     ActiveRecord::Base.transaction do
-      @leaf_descendants.each do |solution|
+      @ideas_have_no_children.each do |solution|
         easy_point = easy_points_params[:"#{solution.id}_easy_point"].first.to_i
         Rails.logger.debug("easy_point for solution #{solution.id}: #{easy_point}")
 
@@ -351,7 +352,7 @@ class IdeasController < ApplicationController
 
     success = true
 
-    @leaf_descendants.each do |solution|
+    @ideas_have_no_children.each do |solution|
       effect_point = params["idea"][:"#{solution.id}_effect_point"].first.to_i
       idea = Idea.find_by(id: solution.id)
 
@@ -383,7 +384,7 @@ class IdeasController < ApplicationController
     @value = Value.find_or_create_by(idea_id: @theme.id)
     @value.easy_rate ||= 1.0
     @value.effect_rate ||= 1.0
-    @sorted_solutions = @leaf_descendants.sort_by { |solution| -solution.sum_points }
+    @sorted_solutions = @ideas_have_no_children.sort_by { |solution| -solution.sum_points }
     @data = @sorted_solutions.map do |solution|
       score = solution.sum_points
       [solution.name, score]
@@ -400,13 +401,13 @@ class IdeasController < ApplicationController
     if value_params != nil
       if @value.update(easy_rate: value_params)
         if before_value != 1.0
-          @leaf_descendants.each do |solution|
+          @ideas_have_no_children.each do |solution|
             default = format('%.1f',solution.easy_point / before_value).to_f
             new_point = (default * @value.easy_rate* 10**3).ceil / 10.0**3
             solution.update(easy_point: new_point)
           end
         else
-          @leaf_descendants.each do |solution|
+          @ideas_have_no_children.each do |solution|
             new_point = (solution.easy_point * @value.easy_rate* 10**3).ceil / 10.0**3
             solution.update(easy_point: new_point)
           end
@@ -429,13 +430,13 @@ class IdeasController < ApplicationController
     value_params = params.dig(:value, :effect_rate).to_f
     if @value.update(effect_rate: value_params)
       if before_value != 1.0 #すでに重み付けをしてあった場合
-        @leaf_descendants.each do |solution|
+        @ideas_have_no_children.each do |solution|
           default = format('%.1f',solution.effect_point / before_value).to_f
           new_point = (default * @value.effect_rate* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end
       else #初めての重み付けの場合
-        @leaf_descendants.each do |solution|
+        @ideas_have_no_children.each do |solution|
           new_point = (solution.effect_point * @value.effect_rate* 10**3).ceil / 10.0**3
           solution.update(effect_point: new_point)
         end

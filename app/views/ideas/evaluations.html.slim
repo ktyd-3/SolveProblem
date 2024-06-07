@@ -20,12 +20,12 @@
   p ②効果の大きさ
   p 2つの観点から評価を行うことで、効果的な解決策を選ぶことができます。
 
-  - if @leaf_descendants.present?
+  - if @ideas_have_no_children.present?
     h2 ①実行のしやすさ評価
     p 以下のアイデアは、どのくらい行いやすいですか？
 
     = form_tag set_easy_points_idea_path(@theme), method: :patch, data: { turbo: "false" } do
-      - @leaf_descendants.each do |solution|
+      - @ideas_have_no_children.each do |solution|
         .solution-easy-points
           .evaluate_line
             span.solution-name
@@ -60,7 +60,7 @@
       p 以下のアイデアは、効果が出やすいと思いますか？
 
       = form_tag set_effect_points_idea_path(@theme), method: :patch do
-        - @leaf_descendants.sort_by(&:id).each do |solution|
+        - @ideas_have_no_children.sort_by(&:id).each do |solution|
           .solution-effect-points
             span.solution-name
               = solution.name
