@@ -400,15 +400,15 @@ class IdeasController < ApplicationController
     value_params = params.dig(:value, :easy_rate).to_f
     if value_params != nil
       if @value.update(easy_rate: value_params)
-        if before_value != 1.0
+        if before_value != 1.0 #すでに重み付けをしてあった場合
           @ideas_have_no_children.each do |solution|
-            default = format('%.1f',solution.easy_point / before_value).to_f
-            new_point = (default * @value.easy_rate* 10**3).ceil / 10.0**3
+            before_points = solution.easy_point / before_value
+            new_point = before_points * @value.easy_rate
             solution.update(easy_point: new_point)
           end
         else
           @ideas_have_no_children.each do |solution|
-            new_point = (solution.easy_point * @value.easy_rate* 10**3).ceil / 10.0**3
+            new_point = solution.easy_point * @value.easy_rate
             solution.update(easy_point: new_point)
           end
         end
@@ -431,13 +431,13 @@ class IdeasController < ApplicationController
     if @value.update(effect_rate: value_params)
       if before_value != 1.0 #すでに重み付けをしてあった場合
         @ideas_have_no_children.each do |solution|
-          default = format('%.1f',solution.effect_point / before_value).to_f
-          new_point = (default * @value.effect_rate* 10**3).ceil / 10.0**3
+          before_points = solution.effect_point / before_value
+          new_point = before_points * @value.effect_rate
           solution.update(effect_point: new_point)
         end
       else #初めての重み付けの場合
         @ideas_have_no_children.each do |solution|
-          new_point = (solution.effect_point * @value.effect_rate* 10**3).ceil / 10.0**3
+          new_point = solution.effect_point * @value.effect_rate
           solution.update(effect_point: new_point)
         end
       end
