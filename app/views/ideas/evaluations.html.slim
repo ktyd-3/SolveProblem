@@ -43,8 +43,8 @@
                 - else
                   - if solution.easy_point == rating  #既にポイントが存在する場合で、項目に一致する場合
                     - input_params[:checked] = "checked"
-                  - elsif solution.easy_point >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
-                    - default = format('%.1f',solution.easy_point / @value.easy_rate).to_f
+                  - elsif solution.easy_point >= 1 # 既にポイントは存在する場合かつ、valueによって重みづけされている場合
+                    - default = solution.easy_point / @value.easy_rate
                     - if default == rating
                       - input_params[:checked] = "checked" 
                 = tag :input, input_params
@@ -75,8 +75,8 @@
                   - else
                     - if solution.effect_point.present? && solution.effect_point == rating # 既にポイントが存在する場合で、項目に一致する場合
                       - input_params[:checked] = "checked"
-                    - elsif solution.effect_point.present? && solution.effect_point >= 1 # 既にポイントは存在するが、valueによって重みづけされている場合
-                      - default = format('%.1f', solution.effect_point / @value.effect_rate).to_f
+                    - elsif solution.effect_point.present? && solution.effect_point >= 1 # 既にポイントは存在する場合かつ、valueによって重みづけされている場合
+                      - default = solution.effect_point / @value.effect_rate
                       - if default == rating
                         - input_params[:checked] = "checked"
                   = tag :input, input_params
