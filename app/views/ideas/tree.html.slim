@@ -13,15 +13,20 @@ javascript:
     .ideaTree_text
       h4= @theme.name
       = display_descendants(@theme).html_safe
-      br/
+  br/
 
   h2.yellow_dot_line 具体化されたアイデア一覧
   button.clipboard-btn(type="button" data-clipboard-action="copy" data-clipboard-target="#no_have_child_idea" style="border: none; background: none;")
     i.fa-regular.fa-clipboard
+  br/
+  | 　(※子アイデアを持たないアイデアのみをまとめたリスト)
+  br/
   div#no_have_child_idea
     - @ideas_have_no_children.each do |idea|
       = link_to idea.name, solutions_idea_path(idea),class: "most_child_ideas_line"
       br/
+
+  br/
 
 
 
