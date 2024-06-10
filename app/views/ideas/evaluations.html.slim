@@ -1,5 +1,3 @@
-
-
 .body__container
   = link_to  "評価の結果", results_idea_path(@theme), class: 'btn btn-success'
   p
@@ -11,7 +9,6 @@
       |テーマ名:
       = link_to parent_theme.idea.name, evaluations_idea_path(parent_theme.idea)
       br/
-
   p
 
   h1 Step4 アイデアの優先順位評価
@@ -22,11 +19,11 @@
 
   - if @ideas_have_no_children.present?
     h2 ①実行のしやすさ評価
-    p 以下のアイデアは、どのくらい行いやすいですか？
+    p それぞれのアイデアは、どのくらい行いやすいと考えますか？
 
     = form_tag set_easy_points_idea_path(@theme), method: :patch, data: { turbo: "false" } do
       - @ideas_have_no_children.each do |solution|
-        .solution-easy-points
+        .solution_easy_points
           .evaluate_line
             span.solution-name
               = solution.name
@@ -57,11 +54,11 @@
     #target
     - if @last_idea.present? && @last_idea.easy_point.present? 
       h2 ②効果の大きさ評価
-      p 以下のアイデアは、効果が出やすいと思いますか？
+      p それぞれのアイデアは、どのくらい効果が出やすいと考えますか？
 
       = form_tag set_effect_points_idea_path(@theme), method: :patch do
-        - @ideas_have_no_children.sort_by(&:id).each do |solution|
-          .solution-effect-points
+        - @ideas_have_no_children.each do |solution|
+          .solution_effect_points
             span.solution-name
               = solution.name
             span.parent-name

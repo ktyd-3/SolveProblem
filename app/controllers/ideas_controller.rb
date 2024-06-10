@@ -309,7 +309,7 @@ class IdeasController < ApplicationController
 
     if @idea.nil?
       flash[:error] = 'アイデアが見つかりません'
-      redirect_to request.referer and return
+      redirect_to request.referer
     end
 
     @ideas_have_no_children = @idea.descendants.select(&:leaf?)
@@ -321,8 +321,6 @@ class IdeasController < ApplicationController
     ActiveRecord::Base.transaction do
       @ideas_have_no_children.each do |solution|
         easy_point = easy_points_params[:"#{solution.id}_easy_point"].first.to_i
-        Rails.logger.debug("easy_point for solution #{solution.id}: #{easy_point}")
-
         idea = Idea.find_by(id: solution.id)
 
         if @value.easy_rate > 1

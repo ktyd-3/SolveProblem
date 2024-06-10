@@ -398,12 +398,12 @@ h1:before {
 
 //評価ページ//
 
-.solution-easy-points span {
+.solution_easy_points span {
   display: inline-block;
   vertical-align: bottom;
 }
 
-.solution-easy-points {
+.solution_easy_points {
   text-decoration: none;
   padding: 0.2rem 0.5rem 1rem 0.5rem;
   background: #e7f8ff;
@@ -411,7 +411,7 @@ h1:before {
   box-shadow: 0px 0px 15px -12px #777777;
 }
 
-.solution-effect-points {
+.solution_effect_points {
   text-decoration: none;
   padding: 0.2rem 0.5rem 1rem 0.5rem;
   background: #e7fff3;
