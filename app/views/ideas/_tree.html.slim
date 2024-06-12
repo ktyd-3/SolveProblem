@@ -28,3 +28,17 @@ div#dot_position
         i class="fa-brands fa-pagelines mid_leaf"
       - else
         i class="fa-solid fa-tree big_tree"
+        script
+          | //<![CDATA[
+          | (function() {
+          |   var themeId = "#{@theme.id}";
+          |   var key = 'bigTreeMessageShown_' + themeId;
+          |   console.log('themeId:', themeId); // デバッグ用ログ
+          |   console.log('key:', key); // デバッグ用ログ
+          |   if (!localStorage.getItem(key)) {
+          |     console.log('Showing alert'); // デバッグ用ログ
+          |     alert('これはフラッシュメッセージです！');
+          |     localStorage.setItem(key, 'true');
+          |   }
+          | })();
+          | //]]>
