@@ -51,27 +51,27 @@
 
 
 
-/ javascript:
-/   const addEventListeners = () => {
-/   document.addEventListener("keydown", handleKeyDown);
-/   document.addEventListener("turbo:submit-end", handleSubmitEnd);
-/   };
-/   const handleKeyDown = (e) => {
-/     if (e.shiftKey && e.key === "Enter") {
-/       const target = e.target;
-/       const form = target.closest("form");
-/       if (form) {
-/         focusedElement = document.activeElement;
-/         form.requestSubmit();
-/       }
-/     }
-/   };
-/   const handleSubmitEnd = () => {
-/     if (focusedElement) {
-/       focusedElement.blur();
-/       focusedElement = null;
-/     }
-/   };
-/   let focusedElement = null;
+javascript:
+  const addEventListeners = () => {
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("turbo:submit-end", handleSubmitEnd);
+  };
+  const handleKeyDown = (e) => {
+    if (e.shiftKey && e.key === "Enter") {
+      const target = e.target;
+      const form = target.closest("form");
+      if (form) {
+        focusedElement = document.activeElement;
+        form.requestSubmit();
+      }
+    }
+  };
+  const handleSubmitEnd = () => {
+    if (focusedElement) {
+      focusedElement.blur();
+      focusedElement = null;
+    }
+  };
+  let focusedElement = null;
 
-/   addEventListeners();
+  addEventListeners();

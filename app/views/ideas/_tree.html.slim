@@ -1,6 +1,10 @@
+javascript:
+  document.addEventListener("turbo:load", function () {
+    var clipboard = new Clipboard(".clipboard-btn");
+    console.log(clipboard);
+  });
+
 div#dot_position
-  #message-container.alert.alert-success
-    | 重要なメッセージ：あなたはたくさんのアイデアを追加しました！
   #tree_box.treeShadow
     .idea_tree
       #treeIdea_list
@@ -23,41 +27,15 @@ div#dot_position
       - else
         i class="fa-solid fa-tree big_tree"
 
-javascript:
-  document.addEventListener("turbo:load", function () {
-    var clipboard = new Clipboard(".clipboard-btn");
-    console.log(clipboard);
-
-    // 条件を無視してメッセージを常に表示
-    const messageContainer = document.getElementById('message-container');
-    messageContainer.style.display = 'block';
-  });
-
-  if (typeof addEventListeners === 'undefined') {
-    const addEventListeners = () => {
-      document.addEventListener("keydown", handleKeyDown);
-      document.addEventListener("turbo:submit-end", handleSubmitEnd);
-    };
-
-    const handleKeyDown = (e) => {
-      if (e.shiftKey && e.key === "Enter") {
-        const target = e.target;
-        const form = target.closest("form");
-        if (form) {
-          focusedElement = document.activeElement;
-          form.requestSubmit();
+#alert_evaluations
+  - if count >= 18
+    javascript:
+      const themeId = "#{@theme.id}";
+      const alertShownKey = `alert_shown_${themeId}`;
+      const evaluationUrl = "#{evaluations_idea_path(@theme)}";
+      if (!localStorage.getItem(alertShownKey)) {
+        if (confirm('あなたはたくさんのアイデアを追加しました！評価ページに移動しますか？')) {
+          window.location.href = evaluationUrl;
         }
+        localStorage.setItem(alertShownKey, 'true');
       }
-    };
-
-    const handleSubmitEnd = () => {
-      if (focusedElement) {
-        focusedElement.blur();
-        focusedElement = null;
-      }
-    };
-
-    let focusedElement = null;
-
-    addEventListeners();
-  }
