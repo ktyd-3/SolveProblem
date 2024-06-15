@@ -207,7 +207,7 @@ class IdeasController < ApplicationController
     end
   end
 
-  # テーマ作成後、大きな枠組みでcreate
+  # テーマ作成後、もっとも大きな枠組みでアイデア作成
   def parent_create
     idea_params = params.require(:idea).permit(:parent_id, :names)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
@@ -231,6 +231,7 @@ class IdeasController < ApplicationController
     end
   end
 
+  #子ボックスでアイデア作成
   def create
     idea_params = params.require(:idea).permit(:parent_id, :names,:user_id)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
@@ -244,6 +245,7 @@ class IdeasController < ApplicationController
     end
   end
 
+  #親ボックスでアイデア作成
   def create_in_parent_box
     idea_params = params.require(:idea).permit(:parent_id, :names)
     names = idea_params[:names].split("\n").map(&:strip).reject(&:blank?)
