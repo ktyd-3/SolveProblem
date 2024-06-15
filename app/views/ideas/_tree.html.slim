@@ -34,7 +34,7 @@ div#dot_position
       const alertShownKey = `alert_shown_${themeId}`;
       const evaluationUrl = "#{evaluations_idea_path(@theme)}";
       if (!localStorage.getItem(alertShownKey)) {
-        if (confirm('あなたはたくさんのアイデアを追加しました！評価ページに移動しますか？')) {
+        if (confirm('あなたはたくさんのアイデアを作成しました！評価ページに移動しますか？')) {
           window.location.href = evaluationUrl;
         }
         localStorage.setItem(alertShownKey, 'true');

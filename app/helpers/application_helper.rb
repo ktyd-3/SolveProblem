@@ -40,8 +40,4 @@ module ApplicationHelper
     end
   end
 
-  def announce_evaluation_ideas_when_over_17_ideas
-    flash[:notice] = 'これはフラッシュメッセージです！'
-  end
-
 end
