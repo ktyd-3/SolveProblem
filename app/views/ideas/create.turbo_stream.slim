@@ -1,16 +1,3 @@
 = turbo_stream.replace "child_box_#{@parent.id}", partial: "child_form", locals: { child_form: @parent }
 = turbo_stream.update "dot_position", partial: "tree"
-
-= turbo_stream.replace "idea_line_#{@parent.id}" do 
-  div.name_and_icons id = "idea_line_#{@parent.id}"
-    .span_icons
-      = link_to @parent.name, solutions_idea_path(@parent.id), class: "child_line_link"
-      - if permit_user?(@parent)
-        = link_to edit_idea_path(@parent), class: 'btn btn-link'
-            i.fas.fa-pen-to-square
-        = link_to idea_path(@parent), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
-          i class="fa-solid fa-square-xmark"
-        div id = "ex_form_#{@parent.id}"
-          = link_to  ex_form_idea_path(@parent), data: { turbo_stream: true }, class: 'btn btn-link' 
-            i class="fa-solid fa-file-circle-plus"
-      br/
+= turbo_stream.replace "idea_line_#{@parent.id}", partial: "child_idea_lines", locals: { child_idea_lines: @parent }

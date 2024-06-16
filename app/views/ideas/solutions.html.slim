@@ -25,21 +25,7 @@
 
   .parentIdea_container id = "parentIdea_box_position"
     h3.green_dot_line 「#{@root_idea.name}」の解決アイデアを作成
-    .parentIdea_box 
-      = "【#{@root_idea.name}】"
-      = link_to edit_idea_path(@root_idea), class: 'btn btn-link', data: { turbo_frame: "_top" }
-        i.fas.fa-pen-to-square
-      br/
-      - @children_ideas.sort_by {|child| child.id }.each do |child|
-        = render partial: "child_idea_lines", locals: { child: child }
-        
-      - if permit_user?(@root_idea)
-        = form_with model: Idea.new, url: create_in_parent_box_idea_path, class: "idea_form" do |form|
-          div.parent_create_button
-            = form.submit "作成", class: 'btn btn-primary'
-          = form.text_area :names, class: "form-control", rows: 5
-          = form.hidden_field "parent_id", value: @root_idea.id
-
+    = render partial: 'parent_box', locals: { parent_box: @root_idea }
 
 
   h3.yellow_dot_line アイデアをもっと具体的にする

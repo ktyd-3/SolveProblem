@@ -357,6 +357,11 @@ h1:before {
   border-left: solid 4.5px #65e086; /*左線*/
 }
 
+.parent_idea_title {
+  padding: 0.5em 0.5em; /*上下 左右の余白 OK */
+  border-left: solid 4.5px #f2e200; /*左線*/
+}
+
 .name_and_icons {
   // 親アイデアタイトルの左バーと少し離す OK
   margin-left: 8px;

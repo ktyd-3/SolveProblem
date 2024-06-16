@@ -1,11 +1,11 @@
-div.name_and_icons id = "idea_line_#{child.id}"
+div.name_and_icons id = "idea_line_#{child_idea_lines.id}"
   .span_icons
-    = link_to child.name, solutions_idea_path(child), class: "child_line_link"
-    - if permit_user?(child)
-      = link_to edit_idea_path(child), class: 'btn btn-link'
+    = link_to child_idea_lines.name, solutions_idea_path(child_idea_lines), class: "child_line_link"
+    - if permit_user?(child_idea_lines)
+      = link_to edit_idea_path(child_idea_lines), class: 'btn btn-link'
           i.fas.fa-pen-to-square
-      = link_to idea_path(child), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
+      = link_to idea_path(child_idea_lines), class: 'btn btn-link', data: { turbo_confirm: '紐づいた子アイデアも削除されます。いいですか？',turbo_method: :delete }
         i class="fa-solid fa-square-xmark"
-      div id = "ex_form_#{child.id}"
-        = link_to  ex_form_idea_path(child), data: { turbo_stream: true }, class: 'btn btn-link' 
+      div id = "ex_form_#{child_idea_lines.id}"
+        = link_to  ex_form_idea_path(child_idea_lines), data: { turbo_stream: true }, class: 'btn btn-link' 
           i class="fa-solid fa-file-circle-plus"
