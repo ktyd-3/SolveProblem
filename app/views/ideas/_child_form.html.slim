@@ -5,7 +5,7 @@
         i.fas.fa-pen-to-square
     - if child_form.children.present?
       - child_form.children.sort_by {|child| child.id }.each do |child|
-        = render partial: "child_idea_lines", locals: { child: child }
+        = render partial: "child_idea_lines", locals: { child_idea_lines: child }
     - if permit_user?(child_form)
       = form_with model: Idea.new, class: "idea_form", id: "idea_form_#{child_form.id}" do |form|
         div.create_buttons

@@ -1,0 +1,16 @@
+
+  .parentIdea_box 
+    h4.parent_idea_title
+      = link_to parent_box.name, solutions_idea_path(parent_box)
+      = link_to edit_idea_path(parent_box), class: 'btn btn-link'
+        i.fas.fa-pen-to-square
+    - @children_ideas.sort_by {|child| child.id }.each do |child|
+      = render partial: "child_idea_lines", locals: { child_idea_lines: child }
+    - if permit_user?(parent_box)
+      = form_with model: Idea.new, url: create_in_parent_box_idea_path, class: "idea_form" do |form|
+        div.parent_create_button
+          = form.submit "作成", class: 'btn btn-primary'
+        = form.text_area :names, class: "form-control", rows: 5
+        = form.hidden_field "parent_id", value: parent_box.id
+
+
