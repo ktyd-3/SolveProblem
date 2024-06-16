@@ -143,11 +143,14 @@ class IdeasController < ApplicationController
   def public_custom
   end
 
-
-  def tree
+  def ideas_overview
     @theme = Idea.find_by(id: params[:id])
     all_children_ideas = @theme.descendants
     @ideas_have_no_children = @theme.descendants.select(&:leaf?).sort_by(&:id)
+  end
+
+  def tree
+    @theme = Idea.find_by(id: params[:id])
   end
 
 
