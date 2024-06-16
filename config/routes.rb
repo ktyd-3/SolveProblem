@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'solutions'
       get "ex_form"
       get "first_solution"
-      get 'tree'
+      get 'ideas_overview'
       get 'evaluations'
       get 'generate_graph'
       get 'search'

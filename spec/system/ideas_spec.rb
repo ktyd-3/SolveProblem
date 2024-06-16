@@ -32,7 +32,7 @@ RSpec.describe "Ideas", type: :system do
         # 作成ボタンを押すと、アイデアモデルのカウントが1上がることを確認
         expect{click_on '作成'}.to change {Idea.count}.by(1)
         # treeページへ移動
-        visit tree_idea_path(@theme_idea)
+        visit ideas_overview_idea_path(@theme_idea)
         # 孫アイデア2つ表示されていることを確認
         expect(page).to have_content('#{@sub_child_idea.name}', count: 2)
       end
