@@ -1,6 +1,6 @@
 div.name_and_icons id = "idea_line_#{child_idea_lines.id}"
   .span_icons
-    = link_to child_idea_lines.name, solutions_idea_path(child_idea_lines), class: "child_idea_lines_line_link"
+    = link_to child_idea_lines.name, solutions_idea_path(child_idea_lines), class: "child_line_link"
     - if permit_user?(child_idea_lines)
       = link_to edit_idea_path(child_idea_lines), class: 'btn btn-link'
           i.fas.fa-pen-to-square
