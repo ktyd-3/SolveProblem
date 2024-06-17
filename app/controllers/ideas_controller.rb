@@ -149,7 +149,7 @@ class IdeasController < ApplicationController
     @ideas_have_no_children = @theme.descendants.select(&:leaf?).sort_by(&:id)
   end
 
-  def tree
+  def all_ideas_list
     @theme = Idea.find_by(id: params[:id])
   end
 
